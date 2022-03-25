@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("./reset.css");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url("https://use.fontawesome.com/releases/v6.0.0/css/all.css");
+
+:root {
+    --color-font-main: #014550;
+    --color-blue-main: #5ABCC4;
+    --color-background-main: #f0f4f5;
+    --color-background-footer: #dfeaec;
+   
+    --padding-section: 70px 140px;
+  }
+  
+  html {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    color: var(--color-font-main);
+  }
+ 
+  body {
+    max-width: 1300px;
+    position: relative;
+}  
+
+  
