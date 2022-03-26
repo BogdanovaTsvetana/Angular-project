@@ -32,6 +32,10 @@
   .header__nav__item:hover {
     border-bottom: 2.5px solid var(--color-blue-main);
   }
+
+  .active {
+    border-bottom: 2.5px solid var(--color-blue-main);
+  }
   
   .header__nav__item a {
     text-decoration: none;

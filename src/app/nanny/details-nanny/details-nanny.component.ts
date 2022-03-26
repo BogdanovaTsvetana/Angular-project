@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { INanny } from 'src/app/share/interfaces/nanny';
+import { NanniesService } from '../nannies.service';
 
 @Component({
   selector: 'app-details-nanny',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailsNannyComponent implements OnInit {
 
-  constructor() { }
+  nanny: INanny | undefined;
+
+  constructor(private nanniesService: NanniesService) { }
 
   ngOnInit(): void {
+    
   }
 
 }
