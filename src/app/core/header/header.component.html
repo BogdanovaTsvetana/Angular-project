@@ -7,16 +7,16 @@
     <nav class="header__nav">
       <ul class="header__nav__items">
         <li routerLinkActive="active" class="header__nav__item">
-          <a routerLink="home">HOME</a>
+          <a routerLink="/home">HOME</a>
+        </li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="header__nav__item">
+          <a routerLink="/nannies">LIST</a>
         </li>
         <li routerLinkActive="active" class="header__nav__item">
-          <a routerLink="nannies">LIST</a>
+          <a routerLink="/user/register">REGISTER</a>
         </li>
         <li routerLinkActive="active" class="header__nav__item">
-          <a routerLink="user/register">REGISTER</a>
-        </li>
-        <li routerLinkActive="active" class="header__nav__item">
-          <a routerLink="user/login">LOGIN</a>
+          <a routerLink="/user/login">LOGIN</a>
         </li>
         <li routerLinkActive="active" class="header__nav__item">
           <a href="#">MY PROFILE</a>

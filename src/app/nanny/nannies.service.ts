@@ -11,4 +11,10 @@ export class NanniesService {
   ]
 
   constructor() { }
+
+  getNannyDetails(id: number) {
+    return this.nannies.find(x => x.id == id);
+  }
+
+  
 }
