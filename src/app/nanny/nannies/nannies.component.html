@@ -2,6 +2,24 @@
 <section class="nannies">
     <h2 class="nannies__title">LIST CHILDMINDERS</h2>
 
+    <div>
+        <h3 class="">Filters</h3>
+    
+        <label for="driving-licence">Driving Licence:</label>
+        <select (change)="selectDrivingLicenceChangeHandler($event)" name="driving-licence" id="driving-licence"> 
+        <option value="no">no</option>
+        <option value="yes">yes</option>
+        </select>
+    
+        <label for="gender">Gender:</label>
+        <select (change)="selectGenderHandler($event)" name="gender" id="gender">
+        <option value="female">female</option>
+        <option value="male">male</option>
+        </select>
+    
+        <button (click)="searchHandler()" class="button">Search</button>
+    </div>
+
     <ul  *ngIf="nannies" class="nannies__items">
         <li *ngFor="let nanny of nannies" class="nannies__item">
             <div class="nannies__img-wrapper">

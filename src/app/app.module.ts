@@ -11,6 +11,8 @@ import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { UserModule } from './user/user.module';
 import { NannyModule } from './nanny/nannies.module';
+import { AuthService } from './auth.service';
+import { GuardService } from './guard.service';
 
 
 @NgModule({
@@ -29,7 +31,7 @@ import { NannyModule } from './nanny/nannies.module';
     UserModule,
     NannyModule
   ],
-  providers: [],
+  providers: [AuthService, GuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
