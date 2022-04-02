@@ -27,6 +27,22 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
     this.canLike = !this.nanny?.likes.includes('11');
   }
 
+  likeHandler() {
+    console.log('click')
+    if ( this.nanny?.likes.includes('11') ) {
+      this.nanny.likes = this.nanny?.likes.filter(u => u != '11');
+      console.log(1)
+      console.log(this.nanny)
+      // TODO to POST the updated nanny
+      this.canLike = true;   // to del
+    } else if ( !this.nanny?.likes.includes('11') ){
+      this.nanny?.likes.push('11');
+      console.log(2)
+      console.log(this.nanny)
+      // TODO to POST the updated nanny
+      this.canLike = false;   // to del
+    }
+  }
 
   ngOnDestroy() {
     this.routeParamObs.unsubscribe();

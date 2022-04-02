@@ -1,24 +1,42 @@
 <section class="nanny">
     <h2 class="nanny__title">CHILDMINDER</h2>
 
-        <div class="nanny__item">
+        <div *ngIf="nanny" class="nanny__item">
             <div class="nanny__img-wrapper">
                 <img src="https://images.unsplash.com/photo-1525786210598-d527194d3e9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="">
             </div>
             <div class="content">
-                <h3 class="nanny__item__title">{{nanny?.name}}</h3>
-                <p class="nanny__item__desc">{{nanny?.description}}</p>
-                <p class="nanny__item__likes">Likes: {{nanny?.likes?.length}}</p>
-                <button type="button" class="button">{{canLike ? 'Like' : 'Unlike'}}</button>
-                <p>Id {{nanny?.id}}</p>
+                <h3 class="nanny__item__title">{{nanny.name}}</h3>
+                <p class="nanny__item__desc">{{nanny.description}}</p>
+                <p class="nanny__item__likes">Likes: {{nanny.likes.length}}</p>
+                <button (click)="likeHandler()" type="button" class="button">{{ canLike ? 'Like' : 'Unlike' }}</button>
+                <p>Id {{nanny.id}}</p>
             </div>
 
             <div>
                 <p>Reviews
                     To add a comment, Sign Up or Log In with your account.</p>
-            </div>
-        </div>  
 
-        
+                    <div class="comment" *ngFor="let comment of nanny.comments">
+                        <span>{{comment.author}}</span>
+                        <span>{{comment.createdAt}}</span>
+                        <p>{{comment.content}}</p>
+                    </div>
+                
+                    <form >
+                        <span>Comment: </span><br>
+                        <textarea name="content"></textarea>
+                        <input class="button" type="submit" value="Post comment">
+                    </form>
+   
+            </div>
+        </div>
+
+        <div *ngIf="!nanny" >
+            Loading...
+        </div>
+
         <button type="button" routerLink="/nannies" class="button">Back to Childminders List</button>
 </section>
+
+

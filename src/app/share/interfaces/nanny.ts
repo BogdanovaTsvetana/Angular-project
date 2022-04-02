@@ -5,6 +5,6 @@ export interface INanny {
     drivingLicence: string;
     gender: string;
     likes: string[];
-
+    comments: any[];
 }
 

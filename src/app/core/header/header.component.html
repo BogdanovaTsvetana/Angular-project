@@ -12,18 +12,25 @@
         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="header__nav__item">
           <a routerLink="/nannies">LIST</a>
         </li>
-        <li routerLinkActive="active" class="header__nav__item">
-          <a routerLink="/user/register">REGISTER</a>
-        </li>
-        <li routerLinkActive="active" class="header__nav__item">
-          <a routerLink="/user/login">LOGIN</a>
-        </li>
-        <li routerLinkActive="active" class="header__nav__item">
-          <a href="#">MY PROFILE</a>
-        </li>
-        <li class="header__nav__item">
-          <a href="#">LOGOUT</a>
-        </li>
+        <ng-container *ngIf="!isLoggedIn">
+          <li routerLinkActive="active" class="header__nav__item">
+            <a routerLink="/user/register">REGISTER</a>
+          </li>
+          <li routerLinkActive="active" class="header__nav__item">
+            <a routerLink="/user/login">LOGIN</a>
+          </li>
+        </ng-container>
+
+        <ng-container *ngIf="isLoggedIn">
+          <li routerLinkActive="active" class="header__nav__item">
+            <a href="#">MY PROFILE</a>
+          </li>
+          <li class="header__nav__item">
+            <a href="#">LOGOUT</a>
+          </li>
+        </ng-container>
+        
+        
       </ul>
     </nav>
   </header>
