@@ -12,10 +12,12 @@ import { AuthService } from './auth.service';
 import { GuardService } from './guard.service';
 import { CanDeactivateGuardService } from './can-deactivate-guard.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+
   ],
   imports: [
     BrowserModule,

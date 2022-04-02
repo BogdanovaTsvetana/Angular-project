@@ -26,5 +26,9 @@ export class NanniesService {
     return this.nannies;
   }
 
+  editNanny(nannyId: string, updatedNanny: object) {
+    
+  }
+
   
 }

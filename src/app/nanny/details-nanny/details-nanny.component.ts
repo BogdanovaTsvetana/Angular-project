@@ -34,11 +34,13 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
       console.log(1)
       console.log(this.nanny)
       // TODO to POST the updated nanny
+      this.nanniesService.editNanny(this.nannyId, this.nanny);
       this.canLike = true;   // to del
     } else if ( !this.nanny?.likes.includes('11') ){
       this.nanny?.likes.push('11');
       console.log(2)
       console.log(this.nanny)
+      this.nanniesService.editNanny(this.nannyId, this.nanny!);
       // TODO to POST the updated nanny
       this.canLike = false;   // to del
     }
