@@ -11,19 +11,22 @@ import { NanniesService } from '../nannies.service';
 })
 export class DetailsNannyComponent implements OnInit, OnDestroy {
 
-  nannyId: number | undefined;
+  nannyId: any | undefined;
   nanny: INanny | undefined;
+  canLike: boolean = false;
   routeParamObs: any;
 
   constructor(private activatedRoute: ActivatedRoute, private nanniesService: NanniesService) { }
 
   ngOnInit(): void {
     this.routeParamObs = this.activatedRoute.paramMap.subscribe(param => {
-      this.nannyId = Number(param.get('nannyId')); 
+      this.nannyId = param.get('nannyId'); 
     });
     
-    this.nanny = this.nanniesService.getNannyDetails(this.nannyId!)
+    this.nanny = this.nanniesService.getNannyById(this.nannyId!);
+    this.canLike = !this.nanny?.likes.includes('11');
   }
+
 
   ngOnDestroy() {
     this.routeParamObs.unsubscribe();

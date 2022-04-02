@@ -1,8 +1,10 @@
 export interface INanny {
-    id: number,
+    id: string,
     name: string;
     description: string;
     drivingLicence: string;
     gender: string;
+    likes: string[];
 
 }
+

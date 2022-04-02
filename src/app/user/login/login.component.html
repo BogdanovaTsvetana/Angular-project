@@ -1,13 +1,17 @@
 <p>login works!</p>
-<section>
+<section class="register">
     <h2>Login</h2>
     <form class="form"  >
         <label for="username">Username:</label>
-        <input type="text" name="username" placeholder="Username"  />
+        <input [(ngModel)]="username" type="text" name="username" placeholder="Username"  />
         <label for="password">Password:</label>
-        <input type="password" name="password" placeholder="Password" />
+        <input [(ngModel)]="password" type="password" name="password" placeholder="Password" />
         <input type="submit" value="Login" class="button"/>
         
     </form>
     <button (click)="submitHandler()" class="button">LOGIN</button>
 </section>
+
+
+        
+       

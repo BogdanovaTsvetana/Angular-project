@@ -1,5 +1,5 @@
 export class AuthService {
-    loggedIn: boolean = false;
+    loggedIn: boolean = true;
 
     login(username: string, password: string){
         

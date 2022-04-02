@@ -18,7 +18,7 @@ export class NanniesComponent implements OnInit {
   constructor(private nanniesService: NanniesService, private router: Router) { }
 
   ngOnInit(): void {
-    this.nannies = this.nanniesService.nannies;
+    this.nannies = this.nanniesService.getNanniesAll();
   }
 
   selectDrivingLicenceChangeHandler(event: any){

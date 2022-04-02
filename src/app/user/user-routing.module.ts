@@ -1,4 +1,6 @@
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CanDeactivateGuardService } from '../can-deactivate-guard.service';
 
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -17,7 +19,10 @@ const routes: Routes = [
             }
     ]
     }
-    
 ]
 
-export const UserRouterModule = RouterModule.forChild(routes);
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class UserRouterModule { }

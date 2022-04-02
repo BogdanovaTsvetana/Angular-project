@@ -8,8 +8,17 @@
             <div class="content">
                 <h3 class="nanny__item__title">{{nanny?.name}}</h3>
                 <p class="nanny__item__desc">{{nanny?.description}}</p>
-                <button class="button">Like</button>
+                <p class="nanny__item__likes">Likes: {{nanny?.likes?.length}}</p>
+                <button type="button" class="button">{{canLike ? 'Like' : 'Unlike'}}</button>
                 <p>Id {{nanny?.id}}</p>
             </div>
-        </div>   
+
+            <div>
+                <p>Reviews
+                    To add a comment, Sign Up or Log In with your account.</p>
+            </div>
+        </div>  
+
+        
+        <button type="button" routerLink="/nannies" class="button">Back to Childminders List</button>
 </section>
