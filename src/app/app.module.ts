@@ -11,12 +11,14 @@ import { NannyModule } from './nanny/nannies.module';
 import { AuthService } from './auth.service';
 import { GuardService } from './guard.service';
 import { CanDeactivateGuardService } from './can-deactivate-guard.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    PageNotFoundComponent,
 
   ],
   imports: [

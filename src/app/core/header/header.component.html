@@ -22,8 +22,8 @@
         </ng-container>
 
         <ng-container *ngIf="isLoggedIn">
-          <li routerLinkActive="active" class="header__nav__item">
-            <a href="#">MY PROFILE</a>
+          <li *ngIf="isNanny" routerLinkActive="active" class="header__nav__item">
+            <a routerLink="/nannies/:nannyId">MY PROFILE</a>
           </li>
           <li class="header__nav__item">
             <a href="#">LOGOUT</a>

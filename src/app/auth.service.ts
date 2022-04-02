@@ -1,5 +1,7 @@
 export class AuthService {
     loggedIn: boolean = true;
+    isAclient: boolean = false;
+    isAnanny: boolean = true;
 
     login(username: string, password: string){
         
@@ -12,5 +14,13 @@ export class AuthService {
 
     isAuthenticated(){
         return this.loggedIn;
+    }
+
+    isClient(){
+        return this.isAclient;
+    }
+
+    isNanny(){
+        return this.isAnanny;
     }
 }

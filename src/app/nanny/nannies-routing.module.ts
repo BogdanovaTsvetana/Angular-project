@@ -19,6 +19,10 @@ const routes: Routes = [
                 path: 'create',
                 component: CreateNannyComponent,   // TODO guard
             },
+            // {
+            //     path: 'profile/:nannyId',
+            //     component: DetailsNannyComponent,
+            // },
             {
                 path: ':nannyId',
                 component: DetailsNannyComponent,

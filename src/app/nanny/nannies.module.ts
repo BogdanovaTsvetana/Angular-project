@@ -6,11 +6,13 @@ import { NanniesComponent } from './nannies/nannies.component';
 import { CreateNannyComponent } from './create-nanny/create-nanny.component';
 
 
+
 @NgModule({
   declarations: [
     NanniesComponent,
     DetailsNannyComponent,
     CreateNannyComponent,
+
   ],
   imports: [
     CommonModule,
