@@ -1,2 +1,44 @@
-<p>register works!</p>
+<section class="register">
+    <h2>Register</h2>
+    <form class="form" [formGroup]="registerFormGroup" (ngSubmit)="submitHandler()">
+
+        <label for="username">Username:</label>
+        <input formControlName="username" [class.input-error]="registerFormGroup.controls['username'].touched && registerFormGroup.controls['username'].errors" type="text" name="username" id="username" placeholder="Username" >
+
+        <ng-container *ngIf="registerFormGroup.controls['username'].touched && registerFormGroup.controls['username'].errors">
+            <p *ngIf="registerFormGroup.controls['username'].errors['required']" class="error-message">Username is required!</p>
+        </ng-container>
+
+        <label for="email">Email:</label>
+        <input formControlName="email" [class.input-error]="registerFormGroup.controls['email'].touched && registerFormGroup.controls['email'].errors" type="email" name="email" id="email" placeholder="email" >
+
+        <ng-container *ngIf="registerFormGroup.controls['email'].touched && registerFormGroup.controls['email'].errors">
+            <p *ngIf="registerFormGroup.controls['email'].errors['required']" class="error-message">Email is required!</p>
+            <p *ngIf="registerFormGroup.controls['email'].errors['email']" class="error-message">Email should be a valid email!</p>
+        </ng-container>
+
+        <div formGroupName="passwords">
+            <label for="password">Password:</label>
+        <input formControlName="password" type="password" name="password" id="password" placeholder="Password" >
+
+       
+
+        <label for="rePassword">Repeat Password:</label>
+        <input formControlName="rePassword" type="rePassword" name="rePassword" id="rePassword" placeholder="Repeat password" >
+
+       
+        </div>
+        
+
+       <!-- <button [disabled]="registerFormGroup.invalid" type="submit" class="button">REGISTER</button> -->
+       <button type="submit" class="button">REGISTER</button>
+    </form>
+    
+</section>
+
+
+
+
+        
+       
 

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { GuardService } from '../guard.service';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { CreateNannyComponent } from './create-nanny/create-nanny.component';
 import { DetailsNannyComponent } from './details-nanny/details-nanny.component';
 import { NanniesComponent } from './nannies/nannies.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
             },
             {
                 path: 'create',
+                canActivate: [GuardService],
                 component: CreateNannyComponent,   // TODO guard
             },
             // {
@@ -25,9 +27,13 @@ const routes: Routes = [
             // },
             {
                 path: ':nannyId',
-                component: DetailsNannyComponent,
-                canActivate: [GuardService]
-            }
+                canActivate: [GuardService],
+                component: DetailsNannyComponent,   
+            },
+            // {
+            //     path: '**',
+            //     component: PageNotFoundComponent
+            // }
             
         ]
     }

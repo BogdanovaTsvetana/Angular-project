@@ -12,6 +12,7 @@ import { AuthService } from './auth.service';
 import { GuardService } from './guard.service';
 import { CanDeactivateGuardService } from './can-deactivate-guard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     CoreModule,
     UserModule,

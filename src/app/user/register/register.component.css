@@ -1,0 +1,7 @@
+.error-message {
+    color: brown;
+}
+
+.input-error{
+    background-color: rgb(248, 220, 220);
+}

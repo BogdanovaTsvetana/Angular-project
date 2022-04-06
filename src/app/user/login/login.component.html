@@ -1,16 +1,32 @@
-<p>login works!</p>
-<section class="register">
+<section class="login">
     <h2>Login</h2>
-    <form class="form"  >
+    <form class="form" [formGroup]="loginFormGroup" (ngSubmit)="submitHandler()">
+
         <label for="username">Username:</label>
-        <input [(ngModel)]="username" type="text" name="username" placeholder="Username"  />
+        <input formControlName="username" type="text" name="username" id="username" placeholder="Username" >
+
+        <ng-container *ngIf="loginFormGroup.controls['username'].touched && loginFormGroup.controls['username'].errors">
+            <p *ngIf="loginFormGroup.controls['username'].errors['required']" class="error-message">Username is required!</p>
+        </ng-container>
+
         <label for="password">Password:</label>
-        <input [(ngModel)]="password" type="password" name="password" placeholder="Password" />
-        <input type="submit" value="Login" class="button"/>
-        
+        <input formControlName="password" type="password" name="password" id="password" placeholder="Password" >
+
+        <ng-container *ngIf="loginFormGroup.controls['password'].touched && loginFormGroup.controls['password'].errors">
+            <p *ngIf="loginFormGroup.controls['password'].errors['required']" class="error-message">
+                Password is required!
+            </p>
+            <p *ngIf="loginFormGroup.controls['password'].errors['minlength']" class="error-message">
+                Password should be at least 4 characters long!
+            </p>
+        </ng-container>
+
+       <button [disabled]="loginFormGroup.invalid" type="submit" class="button">LOGIN</button>
     </form>
-    <button (click)="submitHandler()" class="button">LOGIN</button>
+    
 </section>
+
+
 
 
         
