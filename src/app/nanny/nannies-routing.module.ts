@@ -17,8 +17,8 @@ const routes: Routes = [
                 component: NanniesComponent
             },
             {
-                path: 'create',
-                canActivate: [GuardService],
+                path: 'nannyregister',
+                //canActivate: [GuardService],    // TODO guard
                 component: CreateNannyComponent,   // TODO guard
             },
             // {

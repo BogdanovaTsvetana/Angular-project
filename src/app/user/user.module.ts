@@ -14,7 +14,7 @@ import { RegisterComponent } from './register/register.component';
   imports: [
     CommonModule,
     UserRouterModule,
-    FormsModule,
+    //FormsModule,
     ReactiveFormsModule
   ],
 })

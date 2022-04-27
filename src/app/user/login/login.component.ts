@@ -12,15 +12,10 @@ import { ICanDeactivateComponent } from 'src/app/can-deactivate-guard.service';
 })
 export class LoginComponent implements OnInit{
 
-  // username: string = '';
-  // password: string = '';
-  // errors: string[] = [];
-  // message: string = '';
-
   loginFormGroup: FormGroup = this.formBuilder.group({
-    username: new FormControl('', [Validators.required]),
+    //username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(4)])
+    password: new FormControl('', Validators.required)
   });
 
   constructor(
@@ -29,51 +24,20 @@ export class LoginComponent implements OnInit{
     private router: Router) { }
 
   ngOnInit(): void {
-    console.log('in login.comp: ' + this.authService.loggedIn)
+    console.log('in login.comp: ' + this.authService.loggedIn)  // TODO
   }
 
-  submitHandler(){
+  submitHandler(): void {
+   
+    const { email, password } = this.loginFormGroup.value;
 
-    console.log('form is submitted')
-    console.log(this.loginFormGroup)
-    console.log('username')
-    console.log(this.loginFormGroup.controls['username'].errors)
-    console.log('password')
-    console.log(this.loginFormGroup.controls['password'].errors)
+    const userData: {email: string, password: string} = { 
+      email: email,
+      password: password,
+    }
 
-
+    console.log(userData)
     
-    //this.authService.loggedIn = true;
-    // console.log('in login.comp: ' + 'this.authService.loggedIn: ' + this.authService.loggedIn);
-    // console.log('in login.comp: ' + this.username + this.password);
-    // console.log(this.username + this.password + this.errors.length)
-    
-
-    // if ( this.username === '') {
-    //   this.errors.push('Username is required!');
-    // } 
-
-    // if ( this.password === '') {
-    //   this.errors.push('Password is required!');
-    // }
-
-    // if ( this.errors.length > 0) {
-    //   this.message = this.errors.join('\n');
-    //   console.log('Message:')
-    //   console.log(this.message)
-    //   console.log('Message end')
-    // } else {
-
-      // this.authService.login(this.username, this.password)
-
-      // this.authService.loggedIn = true;
-     
-      // console.log('in login.comp: ' + 'this.authService.loggedIn: ' + this.authService.loggedIn);
-      // console.log('in login.comp: ' + this.username + this.password);
-      // console.log(this.username + this.password + this.errors.length)
-      // this.router.navigate(['nannies']);
-          
-    // }
   }
 
   // canExit(){

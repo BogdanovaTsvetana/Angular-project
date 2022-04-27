@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NanniesRoutingModule } from './nannies-routing.module';
 import { DetailsNannyComponent } from './details-nanny/details-nanny.component';
 import { NanniesComponent } from './nannies/nannies.component';
 import { CreateNannyComponent } from './create-nanny/create-nanny.component';
-
 
 
 @NgModule({
@@ -16,6 +16,7 @@ import { CreateNannyComponent } from './create-nanny/create-nanny.component';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     NanniesRoutingModule
   ],
 })

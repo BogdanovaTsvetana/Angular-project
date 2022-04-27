@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 
@@ -10,14 +10,30 @@ import { AuthService } from 'src/app/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
+  passwordControl = new FormControl(null, [Validators.required, Validators.minLength(4)]);
+
   registerFormGroup: FormGroup = this.formBuilder.group({
     username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     passwords: new FormGroup({
-      password: new FormControl('', [Validators.required, Validators.minLength(4)]),
-      rePassword: new FormControl('', [Validators.required, Validators.minLength(4)])
+      'password': this.passwordControl,
+      'rePassword': new FormControl(null, [Validators.required, this.passwordMatch(this.passwordControl)]),
     }),
   })
+
+  passwordMatch(passwordFormControl: AbstractControl) {
+    const validtorFn: ValidatorFn = (rePasswordFormControl: AbstractControl) => {
+        if (passwordFormControl.value !== rePasswordFormControl.value) {
+            return {
+              notMatched: true
+            }
+        }
+
+        return null;
+    }
+
+    return validtorFn;
+  }
 
   constructor(
       private formBuilder: FormBuilder,
@@ -28,21 +44,17 @@ export class RegisterComponent implements OnInit {
   }
 
   submitHandler(): void {
-    // console.log(this.registerFormGroup)
-    // console.log('username')
-    // console.log(this.registerFormGroup.controls['username'].errors)
-    // console.log('email')
-    // console.log(this.registerFormGroup.controls['email'].errors)
-    // console.log(this.registerFormGroup.value)
-
+    
     const { username, email, passwords } = this.registerFormGroup.value;
 
-    const userData: {username: string, email: string, password: string, memberSince: any} = { 
+    const userData: {username: string, email: string, password: string} = { 
       username: username, 
       email: email,
       password: passwords.password,
-      memberSince: new Date(),
+      //memberSince: new Date(),
     }
+
+    console.log(userData)
 
     this.authService.register$(userData).subscribe(() => {
       this.router.navigate(['nannies'])

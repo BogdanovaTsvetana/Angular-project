@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 //import { IUser } from './interfaces';
 
-export interface CreateUserDto { username: string, email: string, password: string, memberSince: any }
+export interface CreateUserDto { username: string, email: string, password: string }
 
 @Injectable()
 export class AuthService {
-    loggedIn: boolean = true;
+    loggedIn: boolean = false;
     isAclient: boolean = false;
     isAnanny: boolean = true;
 
@@ -34,7 +34,7 @@ export class AuthService {
       }
 
     
-    login(username: string, password: string){
+    login(email: string, password: string){
         
         this.loggedIn = true;
     }

@@ -5,7 +5,7 @@
 
 .create-nanny__title {
     text-align: center;
-    font-size: 30px;
+    font-size: 24px;
     margin-bottom: 20px;
 }
 
@@ -34,4 +34,21 @@ textarea {
     border-radius: 0 4px 4px 4px;
     margin: 8px 0 2em;
 }
+
+input.ng-valid, textarea.ng-valid, select.ng-valid  {
+    background-color: rgb(229, 246, 228);
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+    background-color: rgb(248, 220, 220);
+}
+
+.error-message {
+    color: brown;
+    padding: 12px;
+}
+
+
 
