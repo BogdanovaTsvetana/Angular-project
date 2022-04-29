@@ -10,10 +10,7 @@ import { IUser } from 'src/app/share/interfaces/user';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnChanges {
-
-  // isParent: boolean = this.authService.isParent;
-  // isNanny: boolean = this.authService.isNanny;
+export class HeaderComponent implements OnInit {
 
   constructor(public authService: AuthService, private router: Router) { }
 
@@ -21,22 +18,9 @@ export class HeaderComponent implements OnInit, OnChanges {
     
   }
 
-  ngOnChanges() {
-    
-      return this.authService.isNanny;
-    
-  }
-
-  //currentUser$: Observable<IUser> = this.authService.currentUser$;
   currentUser$: Observable<any> = this.authService.currentUser$;
   isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
   
-
-  //private isLoggingOut: boolean = false;
-  // get isLoggedIn(): boolean {
-  //   return this.authService.isLogged;
-  // }
-
   get isParent(): boolean {
     return this.authService.isParent;
   }
@@ -48,10 +32,6 @@ export class HeaderComponent implements OnInit, OnChanges {
   get isNanny(): boolean {
     return this.authService.isNanny;
   }
-
-  // get currentUser(): IUser {
-  //   return this.userService.currentUser;
-  // }
 
   logoutHandler(): void {
 

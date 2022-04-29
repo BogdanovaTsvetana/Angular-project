@@ -12,20 +12,12 @@ import { AuthService } from '../../auth.service';
 })
 export class CreateNannyComponent implements OnInit {
 
-  //@Input() pattern: string | RegExp = undefined;
-  //pattern="[^https?:\/\/]"  // TODO
-
   constructor(private router: Router, private nanniesService: NanniesService, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
   submitNannyRegister(nannyRegister: NgForm): void {
-    console.log(nannyRegister.value);
-
-    // this.authService.register$(userData).subscribe(() => {
-    //   this.router.navigate(['nannies'])
-    // });  
 
     this.nanniesService.becomeNanny$(nannyRegister.value).subscribe({
       next: (nanny) => {

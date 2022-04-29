@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CanDeactivateGuardService } from '../can-deactivate-guard.service';
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { GuardService } from '../guard.service';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 
 const routes: Routes = [
     {
@@ -15,6 +18,15 @@ const routes: Routes = [
             {
                 path: 'login',
                 component: LoginComponent
+            },
+            {
+                path: 'profile',
+                canActivate: [GuardService],
+                component: ProfileComponent
+            },
+            {
+                path: '**',
+                component: PageNotFoundComponent,
             }
     ]
     }

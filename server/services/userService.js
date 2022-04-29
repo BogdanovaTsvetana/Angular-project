@@ -91,6 +91,13 @@ async function login(email, password){
 
 }
 
+async function getUserById(id) {
+    //const item = await Item.findById(id).populate('user').lean();  //  TODO  to put this
+    const user = await User.findById(id).populate('nanny').lean();   // TODO
+
+    return user;
+}
+
 async function editUser(email, newData) {        // TODO
     const pattern = new RegExp(`^${email}$`, 'i')
     const user =  await User.findOne({ email: { $regex: pattern} });
@@ -144,5 +151,5 @@ module.exports = {
     editUser,
     // getUserByUsername,
     getUserByEmail,          // TODO
-    
+    getUserById,
 }

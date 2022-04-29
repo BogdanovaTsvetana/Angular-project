@@ -23,7 +23,6 @@ export class AuthInterceptor implements HttpInterceptor {
       tap(event => {
         if (event instanceof HttpResponse) {
           if (event.url?.endsWith('login') || event.url?.endsWith('register')) {
-            // const userData: IUser = event.body;
             const userData = event.body;
             this.authService.handleLogin(userData);
             console.log(userData)

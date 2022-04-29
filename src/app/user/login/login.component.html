@@ -10,13 +10,6 @@
         </ng-container>
         <input formControlName="email" [class.input-error]="loginFormGroup.controls['email'].touched && loginFormGroup.controls['email'].errors" type="email" name="email" id="email" placeholder="Email" >
 
-        <!-- <label for="username">Username:</label>
-        <ng-container *ngIf="loginFormGroup.controls['username'].touched && loginFormGroup.controls['username'].errors">
-            <p *ngIf="loginFormGroup.controls['username'].errors['required']" class="error-message">Username is required!</p>
-        </ng-container>
-        <input formControlName="username" [class.input-error]="loginFormGroup.controls['username'].touched && loginFormGroup.controls['username'].errors" type="text" name="username" id="username" placeholder="Username" > -->
-
-       
         <label for="password">Password:</label>
         <ng-container *ngIf="loginFormGroup.controls['password'].touched && loginFormGroup.controls['password'].errors">
             <p *ngIf="loginFormGroup.controls['password'].errors['required']" class="error-message">
@@ -24,7 +17,6 @@
             </p>
         </ng-container>
         <input formControlName="password" [class.input-error]="loginFormGroup.controls['password'].touched && loginFormGroup.controls['password'].errors" type="password" name="password" id="password" placeholder="Password" >
-
 
        <button [disabled]="loginFormGroup.invalid" type="submit" class="button">LOGIN</button>
     </form>

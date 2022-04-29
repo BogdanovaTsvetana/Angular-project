@@ -13,6 +13,6 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request);
+    return next.handle(request);   // TODO
   }
 }

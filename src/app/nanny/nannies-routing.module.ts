@@ -30,10 +30,10 @@ const routes: Routes = [
                 canActivate: [GuardService],
                 component: DetailsNannyComponent,   
             },
-            // {
-            //     path: '**',
-            //     component: PageNotFoundComponent
-            // }
+            {
+                path: '**',
+                component: PageNotFoundComponent
+            }
             
         ]
     }

@@ -3,7 +3,7 @@
 
         <div *ngIf="nanny" class="nanny__item">
             <div class="nanny__img-wrapper">
-                <img src={{nanny.image}} alt="">
+                <img src={{nanny.image}} alt="Nanny img">
             </div>
             <div class="content">
                 <h3 class="nanny__item__title">Name: {{nanny.name | uppercase}}</h3>
@@ -15,26 +15,9 @@
                 <p class="nanny__item__postDate">Registered: {{nanny.postDate | date: 'longDate' }}</p>
                 <p class="nanny__item__likes">Likes: {{nanny.likes.length}}</p>
                 <button (click)="likeHandler()" type="button" class="button">{{ canLike ? 'Like' : 'Unlike' }}</button>
-                <p>Id {{nanny._id}}</p>
+
             </div>
 
-            <!-- <div>
-                <p>Reviews
-                    To add a comment, Sign Up or Log In with your account.</p>
-
-                    <div class="comment" *ngFor="let comment of nanny.comments">
-                        <span>{{comment.author}}</span>
-                        <span>{{comment.createdAt}}</span>
-                        <p>{{comment.content}}</p>
-                    </div>
-                
-                    <form >
-                        <span>Comment: </span><br>
-                        <textarea name="content"></textarea>
-                        <input class="button" type="submit" value="Post comment">
-                    </form>
-   
-            </div> -->
         </div>
 
         <div *ngIf="!nanny" >

@@ -4,6 +4,7 @@ export interface IUser {
     email: string,
     password: string;
     userType: string;
+    nanny: object | string;
     memberSince: string,
     inbox: string,
     favourites: string[],

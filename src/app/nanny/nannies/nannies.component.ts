@@ -22,10 +22,16 @@ export class NanniesComponent implements OnInit {
   constructor(private nanniesService: NanniesService, private router: Router) { }
 
   ngOnInit(): void {
-    this.nanniesService.getNanniesAll().subscribe(nannies => {
-      this.nannies = nannies;
-      this.resultsFound = this.nannies.length;
-    });
+  
+    this.nanniesService.getNanniesAll$().subscribe({
+      next: (nannies) => {
+        this.nannies = nannies;
+        this.resultsFound = this.nannies.length;
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    })
   }
 
   selectWorkingTimeChangeHandler(event: any){
@@ -43,9 +49,8 @@ export class NanniesComponent implements OnInit {
     console.log(this.selectedGender)
   }
 
-  searchHandler(){
-    // this.nanniesService.getNanniesAll({ workingTime: this.selectWorkingTime, drivingLicence: this.selectedDrivingLicence, gender: this.selectedGender }).subscribe(nannies => {
-    //   this.nannies = nannies;
+  searchHandler(){  // TODO
+   
   }
 
 }

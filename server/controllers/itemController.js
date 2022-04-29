@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { isUser } = require('../middlewares/guards.js');
 const { parseError } = require('../util/parsers.js');
-const { editUser } = require('../services/userService.js');
+const { getUserByEmail, editUser } = require('../services/userService.js');
 
 router.get('/', async (req, res) => {
     
@@ -53,7 +53,7 @@ router.post('/', async (req, res) => {     // TODO  isUser(),
 
     try {
         const item = await req.storage.createItem(itemData);
-        const user = await editUser(req.user.email, {userType: 'nanny'});
+        const user = await editUser(req.user.email, {userType: 'nanny', nanny: item._id});
         console.log(user)
         res.status(201).json(item);
         
@@ -86,7 +86,7 @@ router.put('/:id', isUser(), async (req, res) => {    // isOwner
     try {
         const item = await req.storage.getItemById(req.params.id);
 
-        if (req.user._id != item.owner._id) {         // TODO  PROMENIH !!!!!
+        if (req.user._id != item.user._id) {         // TODO  PROMENIH !!!!!
             throw new Error('You haven\'t created it!!');    // TODO
         }
         
@@ -123,10 +123,36 @@ router.put('/:id', isUser(), async (req, res) => {    // isOwner
 
 router.delete('/:id', isUser(), async (req, res) => {
     try {
+        const nannyId = req.params.nannyId;
         const item = await req.storage.getItemById(req.params.id);
+        const user = await getUserByEmail(req.user.email);
+
+        const userUpdate = {
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            hashedPassword: user.hashedPassword,
+            userType: 'parent',
+            memberSince: user.memberSince,
+            inbox: user.inbox,
+            favourites: user.favourites,
+            conversations: user.conversations,
+        }
+
+        const userNew = await editUser(req.user.email, userUpdate);
+
+        // const userConversations = user.conversations;
+        // user.conversations = userConversations.filter(c => !(c._id.equals(conversationId)));
+        // await userService.editUser(username, user);
+
+        // const userNanny = user.nanny;
+        // user.nanny = userNanny.filter(c => !(c._id.equals(nannyId)));
+        // user.userType = 'parent';
+        // await userService.editUser(req.user.email, user);
+
         console.log('bike.owner')
-        console.log(item.owner)
-        if ( item.owner._id != req.user._id) {          // TODO
+        console.log(item.user)
+        if ( item.user._id != req.user._id) {          // TODO
             throw new Error('You haven\'t created it!');   // TODO
         }
 

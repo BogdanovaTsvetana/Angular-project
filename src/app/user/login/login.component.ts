@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
-import { ICanDeactivateComponent } from 'src/app/can-deactivate-guard.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +11,6 @@ import { ICanDeactivateComponent } from 'src/app/can-deactivate-guard.service';
 export class LoginComponent implements OnInit{
 
   loginFormGroup: FormGroup = this.formBuilder.group({
-    //username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   });
@@ -28,19 +25,6 @@ export class LoginComponent implements OnInit{
   }
 
   submitHandler(): void {
-   
-    // const { email, password } = this.loginFormGroup.value;
-
-    // const userData: {email: string, password: string} = { 
-    //   email: email,
-    //   password: password,
-    // }
-
-    // console.log(userData)
-
-    // this.authService.login$(userData).subscribe(() => {
-    //   this.router.navigate(['nannies'])
-    // }); 
 
     this.authService.login$(this.loginFormGroup.value).subscribe({
       next: () => {
@@ -55,14 +39,5 @@ export class LoginComponent implements OnInit{
     });
     
   }
-
-  // canExit(){
-  //   if( ( !this.username || !this.password ) && this.errors.length == 0) {
-  //     console.log(this.username + this.password + this.errors.length)
-  //     return confirm('You have not logged in.\nDo you want to continue without logging in? ');
-  //   } else {
-  //     return true;
-  //   }
-  // }
 
 }

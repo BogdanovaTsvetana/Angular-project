@@ -23,8 +23,11 @@
         </ng-container>
 
         <ng-container *ngIf="(isLoggedIn$ | async)">
-          <li  routerLinkActive="active" class="header__nav__item">
-            <a routerLink="/profile">{{( currentUser$ | async).username}} PROFILE</a>
+          <li  class="header__nav__item">
+            <a href="#">WELCOME {{( currentUser$ | async).username}}</a>
+          </li>
+          <li *ngIf="isNanny" routerLinkActive="active" class="header__nav__item">
+            <a routerLink="/user/profile">PROFILE</a>
           </li>
           <li *ngIf="isParent" routerLinkActive="active" class="header__nav__item">
             <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
@@ -32,9 +35,7 @@
           <li class="header__nav__item">
             <a href="javascript:void(0);" (click)="logoutHandler()">LOGOUT</a>
           </li>
-          <li class="header__nav__item">
-            <a >{{token}}</a>
-          </li>
+
         </ng-container>
 
       </ul>

@@ -2,7 +2,7 @@
 const router = require('express').Router();   
 const { body, validationResult } = require('express-validator');     
 const { isGuest, isUser} = require('../middlewares/guards.js');    
-const { register, login, } = require('../services/userService.js');
+const { register, login, getUserById } = require('../services/userService.js');
 
 
 router.post('/register',  
@@ -66,6 +66,20 @@ router.get('/logout', isUser(), (req, res) => {
 
 })
 
+router.get('/:id', async (req, res) => {
+    try {
+        const user = await getUserById(req.params.id);
+           
+        // let itemData = {...item, owner: item.owner}
+       
+        res.json(user)
+      
+    }catch(err) {
+        console.log(err.message);
+        res.status(err.status || 400).json( err.message );
+     
+    }
+});
 
 module.exports = router;
 

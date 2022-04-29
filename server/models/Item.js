@@ -14,7 +14,7 @@ const schema = new Schema({
     drivingLicence: { type: String },
     gender: {type: String},
     image: { type: String, match: [URL_PATTERN, 'Image must be a valid URL'] },
-    phone: { type: String, defauly: ''},
+    phone: { type: String, default: ''},
     postDate: { type: Date },
     
     user: { type: Schema.Types.ObjectId, ref: 'User' },  // TODO

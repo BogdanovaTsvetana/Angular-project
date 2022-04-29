@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { INanny } from '../share/interfaces/nanny';
 import { AuthService } from '../auth.service';
@@ -36,15 +35,32 @@ export class NanniesService {
     });
   }
 
-  getNanniesAll() {
+  getNanniesAll$() {
     return this.http.get(`${environment.apiURL}/list`);
   }
 
-  getNannyById(id: string) {
+  getNannyById$(id: string) {
     return this.http.get(`${environment.apiURL}/list/${id}`);
   }
 
-  editNanny(nannyId: string, updatedNanny: object) {
-    
+  editNanny$(nannyId: string, nannyData: CreateNannyDto) {
+    return this.http.put(`${environment.apiURL}/list/${nannyId}`, nannyData, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.token}`,
+      }
+    });
   }
+
+  deleteNanny$(nannyId: string) {
+    return this.http.delete(`${environment.apiURL}/list/${nannyId}`, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.token}`,
+      }
+    });
+  }
+
+
+
 }
