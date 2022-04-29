@@ -26,7 +26,7 @@ export class AuthService {
 get isParent() {    // TODO
     // currentUser$: Observable = this.currentUser$
     // return this.currentUser$.type == 'parent' 
-    return true;
+    return this.newUser.userType == 'parent' 
     // return this.currentUser$.pipe(take(1), map(currentUser => {
     //   if ( !!currentUser && currentUser.userType == 'parent') {
     //     const userType = currentUser.userType
@@ -40,8 +40,8 @@ get accessToken() {
 }
 
 get isNanny() {       // TODO
-    // return this.currentUser?.type == 'nanny' 
-    return false;
+    return this.newUser.userType == 'nanny' 
+    //return false;
 }
 
 constructor(private httpClient: HttpClient) {

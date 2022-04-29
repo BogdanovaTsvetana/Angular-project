@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
@@ -10,7 +10,7 @@ import { IUser } from 'src/app/share/interfaces/user';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnChanges {
 
   // isParent: boolean = this.authService.isParent;
   // isNanny: boolean = this.authService.isNanny;
@@ -18,6 +18,12 @@ export class HeaderComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    
+  }
+
+  ngOnChanges() {
+    
+      return this.authService.isNanny;
     
   }
 

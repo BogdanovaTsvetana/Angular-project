@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { INanny } from '../share/interfaces/nanny';
+import { AuthService } from '../auth.service';
 
 export interface CreateNannyDto { 
   name: string,
@@ -19,11 +20,20 @@ export interface CreateNannyDto {
   providedIn: 'root'
 })
 export class NanniesService {
+
+  get token() {
+    return this.authService.accessToken;
+  }
   
-  constructor(private http: HttpClient) { }
+  constructor(public authService: AuthService, private http: HttpClient) { }
 
   becomeNanny$( nannyData: CreateNannyDto) {
-    return this.http.post(`${environment.apiURL}/list`, nannyData);
+    return this.http.post(`${environment.apiURL}/list`, nannyData, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.token}`,
+      }
+    });
   }
 
   getNanniesAll() {

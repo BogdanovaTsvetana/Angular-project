@@ -46,14 +46,14 @@ router.post('/', async (req, res) => {     // TODO  isUser(),
             phone: req.body.phone,
             //years: req.body.years,
             postDate: new Date(),
-            user: req.user._id,   //TODO
+            user: req.user._id,   // TODO
             //user: 'userID',   // TODO
            
     };
 
     try {
         const item = await req.storage.createItem(itemData);
-        const user = await editUser('tsvetanabb@gmail.com', {type: 'nanny'});
+        const user = await editUser(req.user.email, {userType: 'nanny'});
         console.log(user)
         res.status(201).json(item);
         

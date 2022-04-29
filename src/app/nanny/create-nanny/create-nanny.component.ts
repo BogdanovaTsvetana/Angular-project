@@ -30,7 +30,7 @@ export class CreateNannyComponent implements OnInit {
     this.nanniesService.becomeNanny$(nannyRegister.value).subscribe({
       next: (nanny) => {
         console.log(nanny);
-        //  this.authService.currentUser.type='nanny';  // TODO
+        this.authService.newUser.userType='nanny';  // TODO
         this.router.navigate(['/nannies']);
       },
       error: (error) => {
