@@ -1,6 +1,6 @@
 .nannies {
     background-color: var(--color-background-main);
-    padding: var(--padding-section);
+    padding: 40px 60px;
   }
 
   .nannies__item {
@@ -12,9 +12,26 @@
     font-size: 30px;
     margin-bottom: 20px;
   }
+
+  .filters {
+    display: flex;
+    gap: 15px;
+    align-items: center; 
+    margin: 20px;
+  }
+
+  .results-found {
+    margin: 20px;
+  }
+
+  .button.search {
+      margin: 0px;
+  }
   
   .nannies__items {
     display: flex;
+    flex-wrap: wrap;
+    
     gap: 15px;
   }
   
@@ -24,6 +41,7 @@
     align-items: center;
     -webkit-box-shadow: var(--box-shadow-card);
     box-shadow: var(--box-shadow-card);
+    max-width: 250px;
   }
   
   .nannies__img-wrapper img {
@@ -35,6 +53,13 @@
     object-fit: cover;
     height: 100%;
     width: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px;
   }
   
   .nannies__item__title {

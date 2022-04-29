@@ -10,15 +10,27 @@ import { NanniesService } from '../nannies.service';
 })
 export class NanniesComponent implements OnInit {
 
-  nannies: INanny[] | undefined;
+  // nannies: INanny[] | undefined;
+  nannies: any;   // TODO
 
-  selectedDrivingLicence: string = 'no';
-  selectedGender: string = 'female';
+  selectWorkingTime: string = ''
+  selectedDrivingLicence: string = '';
+  selectedGender: string = '';
+
+  resultsFound: number = 0;
 
   constructor(private nanniesService: NanniesService, private router: Router) { }
 
   ngOnInit(): void {
-    this.nannies = this.nanniesService.getNanniesAll();
+    this.nanniesService.getNanniesAll().subscribe(nannies => {
+      this.nannies = nannies;
+      this.resultsFound = this.nannies.length;
+    });
+  }
+
+  selectWorkingTimeChangeHandler(event: any){
+    this.selectWorkingTime = event.target.value;
+    console.log(this.selectWorkingTime)
   }
 
   selectDrivingLicenceChangeHandler(event: any){
@@ -32,7 +44,8 @@ export class NanniesComponent implements OnInit {
   }
 
   searchHandler(){
-    console.log(this.selectedDrivingLicence + this.selectedGender)
+    // this.nanniesService.getNanniesAll({ workingTime: this.selectWorkingTime, drivingLicence: this.selectedDrivingLicence, gender: this.selectedGender }).subscribe(nannies => {
+    //   this.nannies = nannies;
   }
 
 }

@@ -12,28 +12,31 @@
         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="header__nav__item">
           <a routerLink="/nannies">LIST</a>
         </li>
-        <ng-container *ngIf="!isLoggedIn">
+        <ng-container *ngIf="!(isLoggedIn$ | async)">
           <li routerLinkActive="active" class="header__nav__item">
             <a routerLink="/user/register">REGISTER</a>
           </li>
-          <li routerLinkActive="active" class="header__nav__item">
-            <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
-          </li>
+         
           <li routerLinkActive="active" class="header__nav__item">
             <a routerLink="/user/login">LOGIN</a>
           </li>
         </ng-container>
 
-        <ng-container *ngIf="isLoggedIn">
-          <li *ngIf="isNanny" routerLinkActive="active" class="header__nav__item">
-            <a routerLink="/nannies/:nannyId">MY PROFILE</a>
+        <ng-container *ngIf="(isLoggedIn$ | async)">
+          <li  routerLinkActive="active" class="header__nav__item">
+            <a routerLink="/profile">{{( currentUser$ | async).username}} PROFILE</a>
+          </li>
+          <li *ngIf="isParent" routerLinkActive="active" class="header__nav__item">
+            <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
           </li>
           <li class="header__nav__item">
-            <a href="#">LOGOUT</a>
+            <a href="javascript:void(0);" (click)="logoutHandler()">LOGOUT</a>
+          </li>
+          <li class="header__nav__item">
+            <a >{{token}}</a>
           </li>
         </ng-container>
-        
-        
+
       </ul>
     </nav>
   </header>

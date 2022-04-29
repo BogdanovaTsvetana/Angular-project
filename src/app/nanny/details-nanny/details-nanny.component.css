@@ -21,10 +21,11 @@
     box-shadow: var(--box-shadow-card);
   }
   
-  .nanny__img-wrapper img {
+  .nanny__img-wrapper {
     aspect-ratio: 1 / 1;
     overflow: hidden;
     max-width: 200px;
+    margin: 20px;
   }
 
   .nanny__img-wrapper img {
@@ -32,18 +33,21 @@
     height: 100%;
     width: 100%;
   }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px;
+  }
   
   .nanny__item__title {
-    font-size: 18px;
+    font-size: 20px;
     text-align: center;
     padding: 15px;
+
   }
   
-  .nanny__item__desc {
-    padding: 15px;
-    text-align: center;
-  }
-    
   .button {
     background-color: var(--color-blue-main);
     color: white;

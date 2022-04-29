@@ -12,38 +12,42 @@ import { NanniesService } from '../nannies.service';
 export class DetailsNannyComponent implements OnInit, OnDestroy {
 
   nannyId: any | undefined;
-  nanny: INanny | undefined;
+  nanny: any | undefined;
   canLike: boolean = false;
   routeParamObs: any;
 
   constructor(private activatedRoute: ActivatedRoute, private nanniesService: NanniesService) { }
 
   ngOnInit(): void {
+    
     this.routeParamObs = this.activatedRoute.paramMap.subscribe(param => {
       this.nannyId = param.get('nannyId'); 
     });
     
-    this.nanny = this.nanniesService.getNannyById(this.nannyId!);
-    this.canLike = !this.nanny?.likes.includes('11');
+    this.nanniesService.getNannyById(this.nannyId).subscribe(nanny => {
+      this.nanny = nanny;
+      this.canLike = !this.nanny?.likes.includes(this.nannyId);
+    });
+
   }
 
   likeHandler() {
     console.log('click')
-    if ( this.nanny?.likes.includes('11') ) {
-      this.nanny.likes = this.nanny?.likes.filter(u => u != '11');
-      console.log(1)
-      console.log(this.nanny)
-      // TODO to POST the updated nanny
-      this.nanniesService.editNanny(this.nannyId, this.nanny);
-      this.canLike = true;   // to del
-    } else if ( !this.nanny?.likes.includes('11') ){
-      this.nanny?.likes.push('11');
-      console.log(2)
-      console.log(this.nanny)
-      this.nanniesService.editNanny(this.nannyId, this.nanny!);
-      // TODO to POST the updated nanny
-      this.canLike = false;   // to del
-    }
+    // if ( this.nanny?.likes.includes(this.nannyId) ) {
+    //   this.nanny.likes = this.nanny?.likes.filter(u => u != this.nannyId);
+    //   console.log(1)
+    //   console.log(this.nanny)
+    //   // TODO to POST the updated nanny
+    //   this.nanniesService.editNanny(this.nannyId, this.nanny);
+    //   this.canLike = true;   // to del
+    // } else if ( !this.nanny?.likes.includes(this.nannyId) ){
+    //   this.nanny?.likes.push(this.nannyId);
+    //   console.log(2)
+    //   console.log(this.nanny)
+    //   this.nanniesService.editNanny(this.nannyId, this.nanny!);
+    //   // TODO to POST the updated nanny
+    //   this.canLike = false;   // to del
+    // }
   }
 
   ngOnDestroy() {

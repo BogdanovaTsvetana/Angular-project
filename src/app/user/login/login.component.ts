@@ -24,19 +24,35 @@ export class LoginComponent implements OnInit{
     private router: Router) { }
 
   ngOnInit(): void {
-    console.log('in login.comp: ' + this.authService.loggedIn)  // TODO
+    
   }
 
   submitHandler(): void {
    
-    const { email, password } = this.loginFormGroup.value;
+    // const { email, password } = this.loginFormGroup.value;
 
-    const userData: {email: string, password: string} = { 
-      email: email,
-      password: password,
-    }
+    // const userData: {email: string, password: string} = { 
+    //   email: email,
+    //   password: password,
+    // }
 
-    console.log(userData)
+    // console.log(userData)
+
+    // this.authService.login$(userData).subscribe(() => {
+    //   this.router.navigate(['nannies'])
+    // }); 
+
+    this.authService.login$(this.loginFormGroup.value).subscribe({
+      next: () => {
+        this.router.navigate(['nannies']);
+      },
+      complete: () => {
+        console.log('login completed')
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
     
   }
 

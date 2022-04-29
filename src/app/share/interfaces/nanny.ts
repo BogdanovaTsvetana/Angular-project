@@ -1,7 +1,7 @@
 export interface INanny {
-    id: string,
+    _id: string,
     name: string;
-    years: string;
+    //years: string;
     description: string;
     workingTime: string;
     drivingLicence: string;
@@ -9,10 +9,10 @@ export interface INanny {
     phone: string;
     image: string;
     user: object | string;
+
     postDate: string;
     likes: string[];
     comments: any[];
-
-    
+    __v: string;
 }
 

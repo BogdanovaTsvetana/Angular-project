@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submitHandler(): void {
+  submitHandler(): void {  // TODO
     
     const { username, email, passwords } = this.registerFormGroup.value;
 
@@ -51,14 +51,15 @@ export class RegisterComponent implements OnInit {
       username: username, 
       email: email,
       password: passwords.password,
-      //memberSince: new Date(),
     }
 
     console.log(userData)
 
     this.authService.register$(userData).subscribe(() => {
       this.router.navigate(['nannies'])
-    });    
+    });  
+    
+  
     
   }
 

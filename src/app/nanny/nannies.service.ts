@@ -1,36 +1,40 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { INanny } from '../share/interfaces/nanny';
+
+export interface CreateNannyDto { 
+  name: string,
+  description: string,
+  workingTime: string,
+  drivingLicence: string,
+  gender: string,
+  phone: string,
+  image: string,
+  user: object | string, 
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class NanniesService {
-  nannies = [
-    {id: '1', name: 'Maya', years: '30', description: 'Maya is a nanny', workingTime: 'part', drivingLicence: 'yes', gender: 'male', postDate: '20-02-22', image: '//http:lla', user: {}, phone: '0889', likes: ['11', '22'], comments: [{id: '1', author: '11', content: 'asdasd', createdAt: '22/01/22'},
-    {id: '2', author: '22', content: 'aqwerty', createdAt: '06/05/21'}]},
-    {id: '2', name: 'Liz', years: '30', description: 'Liz is a nanny', workingTime: 'part', drivingLicence: 'no', gender: 'female', postDate: '20-02-22', image: '//http:lla', user: {}, phone: '0889', likes: ['11'], comments: [{id: '1', author: '11', content: 'asdasd', createdAt: '22/01/22'}]},
-    {id: '3', name: 'Shaz', years: '30', description: 'Shaz is a nanny', workingTime: 'part', drivingLicence: 'yes', gender: 'female', postDate: '20-02-22', image: '//http:lla', user: {}, phone: '0889', likes: [], comments: []},
-  ]
+  
+  constructor(private http: HttpClient) { }
 
- 
-
-  comments = [
-    {id: '1', author: '11', content: 'asdasd', createdAt: '22/01/22'},
-    {id: '2', author: '22', content: 'aqwerty', createdAt: '06/05/21'}
-  ]
-
-  constructor() { }
-
-  getNannyById(id: string) {
-    return this.nannies.find(x => x.id == id);
+  becomeNanny$( nannyData: CreateNannyDto) {
+    return this.http.post(`${environment.apiURL}/list`, nannyData);
   }
 
   getNanniesAll() {
-    return this.nannies;
+    return this.http.get(`${environment.apiURL}/list`);
+  }
+
+  getNannyById(id: string) {
+    return this.http.get(`${environment.apiURL}/list/${id}`);
   }
 
   editNanny(nannyId: string, updatedNanny: object) {
     
   }
-
-  
 }

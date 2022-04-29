@@ -1,15 +1,14 @@
 export interface IUser {
-    // _id: string;
+    _id: string,
     username: string;
-     // email: string,
+    email: string,
     password: string;
-    type: string[];
-    // memberSince: string,
-    // inbox: number,
-    // favourites: object[],
-    // conversations: object[],
-    // nanny: object,
-    // __v: string;
+    userType: string;
+    memberSince: string,
+    inbox: string,
+    favourites: string[],
+    conversations: string[],
+    __v: string;
 
 }
 
