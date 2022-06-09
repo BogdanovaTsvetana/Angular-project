@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 import { INanny } from 'src/app/share/interfaces/nanny';
 import { NanniesService } from '../nannies.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-details-nanny',
@@ -20,7 +21,7 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
     return this.authService.userId;
   }
 
-  constructor(private activatedRoute: ActivatedRoute, private nanniesService: NanniesService, private authService: AuthService) { }
+  constructor(private activatedRoute: ActivatedRoute, private nanniesService: NanniesService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     

@@ -16,6 +16,7 @@
                 <p class="nanny__item__likes">Likes: {{nanny.likes.length}}</p>
                 <button (click)="likeHandler()" type="button" class="button">{{ canLike ? 'Like' : 'Unlike' }}</button>
 
+                <a routerLink="/conversations/send-message">Send Message</a>
             </div>
 
         </div>
