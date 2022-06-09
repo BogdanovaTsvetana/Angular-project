@@ -23,7 +23,8 @@ export class CreateNannyComponent implements OnInit {
       next: (nanny) => {
         console.log(nanny);
         this.authService.newUser.userType='nanny';  // TODO
-        this.router.navigate(['/nannies']);
+        //this.router.navigate(['/nannies']);
+        this.router.navigate(['/user/profile']);
       },
       error: (error) => {
         console.error(error);

@@ -52,6 +52,7 @@ async function register({username, email, password, memberSince}) {        // TO
 }
 
 function generateToken(user) {    // 1
+    
     const token = jwt.sign({
         _id: user._id,          
         username: user.username,
@@ -100,7 +101,8 @@ async function getUserById(id) {
 
 async function editUser(email, newData) {        // TODO
     const pattern = new RegExp(`^${email}$`, 'i')
-    const user =  await User.findOne({ email: { $regex: pattern} });
+    //const user =  await User.findOne({ email: { $regex: pattern} });
+    const user = await User.findOneAndReplace({ email: { $regex: pattern}}, newData)
     console.log('>> in editUser')
     //console.log(user)
     
@@ -108,9 +110,11 @@ async function editUser(email, newData) {        // TODO
         throw new Error('No such user in database!')
     }
 
-    Object.assign(user, newData);
+    // Object.assign(user, newData);
 
-    await user.save();
+    // await user.save();
+
+
     return user;
 }
 

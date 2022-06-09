@@ -8,6 +8,11 @@ async function createItem(itemData) {
     return item;
 }
 
+async function getItemByUserId(userId){
+    const item = await Item.find({ user: userId });
+    return item;
+}
+
 async function getAllItems(query) {
     
     //return items;
@@ -68,6 +73,7 @@ async function editItem(id, newData){
 
 async function deleteItem(id) {
     return Item.findByIdAndDelete(id);  
+  
 }
 
 
@@ -76,6 +82,7 @@ module.exports = {
     createItem,
     getAllItems,
     getItemById,
+    getItemByUserId,
     editItem,
     deleteItem,
    

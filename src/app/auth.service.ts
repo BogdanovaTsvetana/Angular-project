@@ -74,7 +74,7 @@ export class AuthService {
       this._currentUser.next(undefined);
   }
 
-  getProfile$(id: string): Observable<IUser> {
+  getProfile$(id: string): Observable<IUser> {  // TODEL
     return this.httpClient.get<IUser>(`${environment.apiURL}/user/${id}`)
   }
 

@@ -5,7 +5,6 @@ const { getUserByEmail, editUser } = require('../services/userService.js');
 
 router.get('/', async (req, res) => {
     
-    
     try {
         const item = await req.storage.getAllItems(req.query);  // todo
         res.status(200).json(item);
@@ -53,8 +52,26 @@ router.post('/', async (req, res) => {     // TODO  isUser(),
 
     try {
         const item = await req.storage.createItem(itemData);
-        const user = await editUser(req.user.email, {userType: 'nanny', nanny: item._id});
-        console.log(user)
+
+        const user = await getUserByEmail(req.user.email);
+
+        const userUpdate = {
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            hashedPassword: user.hashedPassword,
+            userType: 'nanny',
+            nanny: item._id,
+            memberSince: user.memberSince,
+            inbox: user.inbox,
+            favourites: user.favourites,
+            conversations: user.conversations,
+            __v: 0,
+        }
+        // const user = await editUser(req.user.email, {userType: 'nanny', nanny: item._id});
+        console.log('In item controller')
+        const userNew = await editUser(req.user.email, userUpdate);
+        console.log(userNew)
         res.status(201).json(item);
         
     } catch(err) {
@@ -74,6 +91,17 @@ router.get('/:id', async (req, res) => {
        
         res.json(itemData)
       
+    }catch(err) {
+        console.log(err.message);
+        res.status(err.status || 400).json( err.message );
+     
+    }
+});
+
+router.get('/profile/:userId', async (req, res) => {  // 
+    try {
+        const item = await req.storage.getItemByUserId(req.params.userId);
+        res.json(item);
     }catch(err) {
         console.log(err.message);
         res.status(err.status || 400).json( err.message );
@@ -133,11 +161,25 @@ router.delete('/:id', isUser(), async (req, res) => {
             email: user.email,
             hashedPassword: user.hashedPassword,
             userType: 'parent',
+            nanny: '',
             memberSince: user.memberSince,
             inbox: user.inbox,
             favourites: user.favourites,
             conversations: user.conversations,
+            __v: 0,
         }
+
+        delete userUpdate.nanny;
+
+    //     username: { type: String, required: true},
+    // email: { type: String },
+    // hashedPassword: { type: String , required: true},
+    // userType: { type: String, default: 'parent' },
+    // memberSince: { type: Date },
+    // inbox: {type: Number, default: 0 },
+    // nanny: { type: Schema.Types.ObjectId, ref: 'Item' },
+    // favourites: [{ type: Schema.Types.ObjectId, ref: 'Item', default: [] }],
+    // conversations: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
 
         const userNew = await editUser(req.user.email, userUpdate);
 

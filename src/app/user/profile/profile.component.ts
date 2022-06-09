@@ -42,7 +42,8 @@ export class ProfileComponent implements OnInit {
     this.nanniesService.editNanny$(this.nanny._id, editProfileForm.value).subscribe({
       next: (nanny) => {
         console.log(nanny)
-        this.router.navigate(['/nannies']);
+        //this.router.navigate(['/nannies']);
+        this.router.navigate(['/user/profile']);
       },
       error: (error) => {
         console.error(error);
