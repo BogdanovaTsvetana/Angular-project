@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+import { ConversationsService } from '../conversations.service';
+
 @Component({
   selector: 'app-send-message',
   templateUrl: './send-message.component.html',
@@ -8,7 +10,7 @@ import { NgForm } from '@angular/forms';
 })
 export class SendMessageComponent implements OnInit {
 
-  constructor() { }
+  constructor( private conversationsService: ConversationsService ) { }
 
   ngOnInit(): void {
   }
@@ -29,6 +31,19 @@ export class SendMessageComponent implements OnInit {
 
     console.log('send-message')
     console.log(sendMessage.value)
+
+    //this.conversationsService.createConversation(sendMessage.value)
+
+    this.conversationsService.createConversation$(sendMessage.value).subscribe({
+        next: (conversation) => {
+          console.log('conv from server')
+          console.log(conversation)
+        },
+        error: (error) => {
+          console.error(error);
+        }
+    });
+ 
   }
-  
+
 }

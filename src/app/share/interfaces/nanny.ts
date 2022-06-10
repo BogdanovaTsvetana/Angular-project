@@ -1,5 +1,5 @@
 export interface INanny {
-    _id: string,
+    _id: string;
     name: string;
     description: string;
     workingTime: string;
