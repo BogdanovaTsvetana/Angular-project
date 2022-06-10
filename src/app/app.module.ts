@@ -21,8 +21,6 @@ import { ConversationsModule } from './conversations/conversations.module';
     AppComponent,
     HomeComponent,
     PageNotFoundComponent,
-    SendMessageComponent,
-    InboxComponent,
   ],
   imports: [
     BrowserModule,

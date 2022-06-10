@@ -11,6 +11,7 @@ const routes: Routes = [
    
             {
                 path: 'conversations/send-message',
+                canActivate: [GuardService],    // TODO guard
                 component: SendMessageComponent,
             },
             {
