@@ -26,18 +26,12 @@ export class ConversationsService {
     private httpClitent: HttpClient, 
     private authService: AuthService) { }
 
-  // createConversation(sendMessage: any) {
-  //   console.log('conversationService createConversation')
-  //   console.log(sendMessage)
-  // }
-
-  createConversation$( conversationData: CreateConversationDto) {
-    return this.httpClitent.post(`${environment.apiURL}/conversations`, conversationData, {
+  createConversation$( userId: string, receiverId: string, conversationData: CreateConversationDto) {
+    return this.httpClitent.post(`${environment.apiURL}/conversations/${userId}/send-message/${receiverId}`, conversationData, {
       headers: {
         'Content-type': 'application/json',
         'X-Authorization': `${this.token}`,
       }
     });
   }
-
 }

@@ -5,30 +5,30 @@ const userService = require('../services/userService.js');  // 1
 const Conversation = require('../models/Conversation.js');
 
 // Create conversation  send message 
-//router.post('/:username/send-message/:receiverUsername/:itemTitle', isUser(), async (req, res) => {
-router.post('/', isUser(), async (req, res) => {    
+router.post('/:userId/send-message/:receiverId', isUser(), async (req, res) => { 
     const messageData = req.body;
     // const username = req.params.username;
     // const receiverUsername = req.params.receiverUsername;
     // const itemTitle = req.params.itemTitle;
+    const userId = req.params.userId;
+    const receiverId = req.params.receiverId;
 
- 
-   
     try {
         // const user = await userService.getUserByUsername(username);
         // const receiver = await userService.getUserByUsername(receiverUsername);
+        const user = await userService.getUserById(userId);
+        const receiver = await userService.getUserById(receiverId);
 
-        // let conversationData = {
-        //     user1: user._id,
-        //     user2: receiver._id,
-        //     subject: itemTitle,
-        // }
+        let conversationData = {
+            user1: user._id,
+            user2: receiver._id,
+            //subject: itemTitle,
+        }
 
-        // let conversation = await req.conversations.createConversation(user._id, receiver._id, conversationData);
-        // const message = await req.conversations.sendMessage(conversation._id, messageData)
+        let conversation = await req.conversations.createConversation(user._id, receiver._id, conversationData);
+        //const message = await req.conversations.sendMessage(conversation._id, messageData)
         console.log('conversations controller', messageData)
-        //res.status(201).json(message);
-        res.status(201).json({message: 'pp', ok: 'OK'});
+        res.status(201).json(conversation);
     }catch(err) {
         console.log(err.message);
         res.status(err.status || 400).json( err.message );

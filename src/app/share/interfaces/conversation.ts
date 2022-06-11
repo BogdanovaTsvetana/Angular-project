@@ -1,7 +1,11 @@
+import { IUser } from "./user";
+
 export interface Conversation {
     _id: string;
-    user1: string | object;
-    user2: string | object;
+    // user1: string | object;
+    // user2: string | object;
+    user1: IUser;
+    user2: IUser;
     //subject: string ,
     messages: object[];
     __v: string;

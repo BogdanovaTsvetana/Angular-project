@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { ConversationsService } from '../conversations.service';
 
@@ -10,40 +12,36 @@ import { ConversationsService } from '../conversations.service';
 })
 export class SendMessageComponent implements OnInit {
 
-  constructor( private conversationsService: ConversationsService ) { }
+  userId: any;
+  receiverId: any;
+  routeParamObs: any;
+
+  constructor( 
+      private conversationsService: ConversationsService,
+      private activatedRoute: ActivatedRoute,
+      private router: Router,
+      ) { }
 
   ngOnInit(): void {
+    this.routeParamObs = this.activatedRoute.paramMap.subscribe(param => {
+      this.userId = param.get('userId');
+      this.receiverId = param.get('receiverId'); 
+    });
+
+    console.log(this.userId, this.receiverId)  
   }
 
   sendMessageHandler(sendMessage: NgForm): void {
 
-    // this.nanniesService.becomeNanny$(sendMessage.value).subscribe({
-    //   next: (nanny) => {
-    //     console.log(nanny);
-    //     this.authService.newUser.userType='nanny';  // TODO
-    //     //this.router.navigate(['/nannies']);
-    //     this.router.navigate(['/user/profile']);
-    //   },
-    //   error: (error) => {
-    //     console.error(error);
-    //   }
-    // })
-
-    console.log('send-message')
-    console.log(sendMessage.value)
-
-    //this.conversationsService.createConversation(sendMessage.value)
-
-    this.conversationsService.createConversation$(sendMessage.value).subscribe({
+    this.conversationsService.createConversation$(this.userId, this.receiverId, sendMessage.value).subscribe({
         next: (conversation) => {
           console.log('conv from server')
-          console.log(conversation)
+          console.log(conversation)   //TODO  notification 'Message sent'
+          this.router.navigate(['/nannies']);
         },
         error: (error) => {
           console.error(error);
         }
     });
- 
   }
-
 }

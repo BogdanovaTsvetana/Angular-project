@@ -8,9 +8,11 @@ import { SendMessageComponent } from './send-message/send-message.component';
 
 
 const routes: Routes = [
-   
+    {
+        path: 'conversations',
+        children: [
             {
-                path: 'conversations/send-message',
+                path: ':userId/send-message/:receiverId',
                 canActivate: [GuardService],    // TODO guard
                 component: SendMessageComponent,
             },
@@ -23,8 +25,8 @@ const routes: Routes = [
                 path: '**',
                 component: PageNotFoundComponent
             }
-            
-     
+        ]
+    }       
 ]
 
 @NgModule({
