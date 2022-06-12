@@ -26,6 +26,7 @@ export class NanniesComponent implements OnInit {
     this.nanniesService.getNanniesAll$().subscribe({
       next: (nannies) => {
         this.nannies = nannies;
+        console.log(nannies)
         this.resultsFound = this.nannies.length;
       },
       error: (error) => {

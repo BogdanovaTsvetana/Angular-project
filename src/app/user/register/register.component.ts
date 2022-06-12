@@ -13,7 +13,8 @@ export class RegisterComponent implements OnInit {
   passwordControl = new FormControl(null, [Validators.required, Validators.minLength(4)]);
 
   registerFormGroup: FormGroup = this.formBuilder.group({
-    username: new FormControl('', [Validators.required]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     passwords: new FormGroup({
       'password': this.passwordControl,
@@ -45,10 +46,11 @@ export class RegisterComponent implements OnInit {
 
   submitHandler(): void {  
     
-    const { username, email, passwords } = this.registerFormGroup.value;
+    const { firstName, lastName, email, passwords } = this.registerFormGroup.value;
 
-    const userData: {username: string, email: string, password: string} = { 
-      username: username, 
+    const userData: {firstName: string, lastName: string, email: string, password: string} = { 
+      firstName: firstName, 
+      lastName: lastName, 
       email: email,
       password: passwords.password,
     }

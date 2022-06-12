@@ -10,9 +10,12 @@ router.post('/register',
     body('email')
         .trim()
         .isEmail().withMessage('Invalid email'),
-    body('username')
+    body('firstName')
         .trim()
-        .isLength({ min: 1 }).withMessage('Username is required'),
+        .isLength({ min: 1 }).withMessage('First name is required'),
+    body('lastName')
+        .trim()
+        .isLength({ min: 1 }).withMessage('Last name is required'),    
     body('password')
         .trim()
         .isLength({ min: 1 }).withMessage('Password is required'),
@@ -28,7 +31,8 @@ router.post('/register',
         }
 
         const userData = {
-            username: req.body.username,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             email: req.body.email,
             password: req.body.password, 
             memberSince: new Date(),

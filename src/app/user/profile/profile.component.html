@@ -9,7 +9,7 @@
                     <img src={{nanny.image}} alt="">
                 </div>
                 <div class="content">
-                    <h3 class="nanny__item__title">Name: {{nanny.name | uppercase}}</h3>
+                    <h3 class="nanny__item__title">{{nanny.firstName | uppercase}} {{nanny.lastName | uppercase}}</h3>
                     <p class="nanny__item__email">Email: {{currentUser.email}}</p>
                     <p class="nanny__item__workingTime">Working Time: {{nanny.workingTime}}</p>
                     <p class="nanny__item__desc">Description: {{nanny.description}}</p>

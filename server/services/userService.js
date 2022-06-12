@@ -7,8 +7,8 @@ const bcrypt = require('bcrypt');    // 1
 const jwt = require('jsonwebtoken');                  // 1
 const { TOKEN_SECRET } = require('../config/index.js');  // 1
 
-async function register({username, email, password, memberSince}) {        // TODO
-
+async function register({firstName, lastName, email, password, memberSince}) {        // 12-06
+//async function register({username, email, password, memberSince}) {        // TODO
     //const pattern = new RegExp(`^${username}$`, 'i')
     //const existUsermane =  await User.findOne({ username: { $regex: pattern} });
     const existEmail = await User.findOne({ email });
@@ -33,7 +33,8 @@ async function register({username, email, password, memberSince}) {        // TO
     const hashedPassword = await bcrypt.hash(password, 10);
              
     const user = new User({
-        username,
+        firstName,
+        lastName,
         email,                   // TODO
         hashedPassword,
         memberSince,
@@ -44,7 +45,8 @@ async function register({username, email, password, memberSince}) {        // TO
 
     return {
         _id: user._id,
-        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         userType: user.userType,
         accessToken: generateToken(user)
@@ -55,7 +57,8 @@ function generateToken(user) {    // 1
     
     const token = jwt.sign({
         _id: user._id,          
-        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         userType: user.userType,
     }, TOKEN_SECRET); 
@@ -84,7 +87,8 @@ async function login(email, password){
 
     return {
         _id: user._id,
-        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         userType: user.userType,
         accessToken: generateToken(user)

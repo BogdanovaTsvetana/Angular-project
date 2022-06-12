@@ -19,24 +19,30 @@ router.get('/', async (req, res) => {
 // router.post('/', isUser(), async (req, res) => {    TODO 
 router.post('/', async (req, res) => {     // TODO  isUser(), 
    
-    const itemData = {
-            // title: req.body.title,
-            // year: req.body.year,
-            // price: Number(req.body.price), //  currency
-            // category: req.body.category,
-            // condition: req.body.condition,
-            // frameSize: req.body.frameSize,
-            // wheelSize: req.body.wheelSize,
-            // material: req.body.material.trim(),
-            // frontTravel: req.body.frontTravel,
-            // rearTravel: req.body.rearTravel,
-            // location: req.body.location,
-            // postDate: new Date(),
-            // description: req.body.description,
-            // image: req.body.image,
-            // owner: req.user._id, 
+    // const itemData = {
+    //         // owner: req.user._id, 
+    //         //name: req.body.name.trim(),
+    //         workingTime: req.body.workingTime,
+    //         description: req.body.description,
+    //         drivingLicence: req.body.drivingLicence,
+    //         gender: req.body.gender,
+    //         image: req.body.image,
+    //         phone: req.body.phone,
+    //         //years: req.body.years,
+    //         postDate: new Date(),
+    //         user: req.user._id,   // TODO
+    //         //user: 'userID',   // TODO 
+    // };
 
-            name: req.body.name.trim(),
+    try {
+        
+        const user = await getUserByEmail(req.user.email);
+
+        const itemData = {
+            // owner: req.user._id, 
+            //name: req.body.name.trim(),
+            firstName: user.firstName,
+            lastName: user.lastName,
             workingTime: req.body.workingTime,
             description: req.body.description,
             drivingLicence: req.body.drivingLicence,
@@ -46,18 +52,17 @@ router.post('/', async (req, res) => {     // TODO  isUser(),
             //years: req.body.years,
             postDate: new Date(),
             user: req.user._id,   // TODO
-            //user: 'userID',   // TODO
-           
-    };
+            //user: 'userID',   // TODO 
+        };
 
-    try {
         const item = await req.storage.createItem(itemData);
-
-        const user = await getUserByEmail(req.user.email);
+        console.log('router.post item')
+        console.log(item)
 
         const userUpdate = {
             _id: user._id,
-            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
             hashedPassword: user.hashedPassword,
             userType: 'nanny',
@@ -87,7 +92,7 @@ router.get('/:id', async (req, res) => {
     try {
         const item = await req.storage.getItemById(req.params.id);
            
-         let itemData = {...item, owner: item.owner}
+        let itemData = {...item, owner: item.owner}     // TODO
        
         res.json(itemData)
       
@@ -128,7 +133,8 @@ router.put('/:id', isUser(), async (req, res) => {    // isOwner
             // description: req.body.description,
             // image: req.body.image,
 
-            name: req.body.name,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             gender: req.body.gender,
             years: req.body.years,
             workingTime: req.body.workingTime,
@@ -157,7 +163,8 @@ router.delete('/:id', isUser(), async (req, res) => {
 
         const userUpdate = {
             _id: user._id,
-            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
             hashedPassword: user.hashedPassword,
             userType: 'parent',

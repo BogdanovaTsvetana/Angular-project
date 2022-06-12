@@ -5,7 +5,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { IUser } from './share/interfaces/user';
 
-export interface CreateUserDto { username: string, email: string, password: string }
+export interface CreateUserDto { 
+  firstName: string, 
+  lastName: string, 
+  email: string, 
+  password: string 
+}
 
 @Injectable()
 export class AuthService {

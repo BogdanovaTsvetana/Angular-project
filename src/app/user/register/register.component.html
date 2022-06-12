@@ -3,12 +3,17 @@
 
     <form class="form" [formGroup]="registerFormGroup" (ngSubmit)="submitHandler()">
 
-        <label for="username">Username:</label>
-        <ng-container *ngIf="registerFormGroup.controls['username'].touched && registerFormGroup.controls['username'].errors">
-            <p *ngIf="registerFormGroup.controls['username'].errors['required']" class="error-message">Username is required!</p>
+        <label for="firstName">First name:</label>
+        <ng-container *ngIf="registerFormGroup.controls['firstName'].touched && registerFormGroup.controls['firstName'].errors">
+            <p *ngIf="registerFormGroup.controls['firstName'].errors['required']" class="error-message">First name is required!</p>
         </ng-container>
-        <input formControlName="username" [class.input-error]="registerFormGroup.controls['username'].touched && registerFormGroup.controls['username'].errors" type="text" name="username" id="username" placeholder="Username" >
+        <input formControlName="firstName" [class.input-error]="registerFormGroup.controls['firstName'].touched && registerFormGroup.controls['firstName'].errors" type="text" name="firstName" id="firstName" placeholder="First name" >
 
+        <label for="lastName">Last name:</label>
+        <ng-container *ngIf="registerFormGroup.controls['lastName'].touched && registerFormGroup.controls['lastName'].errors">
+            <p *ngIf="registerFormGroup.controls['lastName'].errors['required']" class="error-message">Last name is required!</p>
+        </ng-container>
+        <input formControlName="lastName" [class.input-error]="registerFormGroup.controls['lastName'].touched && registerFormGroup.controls['lastName'].errors" type="text" name="lastName" id="lastName" placeholder="Last name" >
        
         <label for="email">Email:</label>
         <ng-container *ngIf="registerFormGroup.controls['email'].touched && registerFormGroup.controls['email'].errors">

@@ -1,6 +1,6 @@
 export interface INanny {
     _id: string;
-    name: string;
+    //name: string;
     description: string;
     workingTime: string;
     drivingLicence: string;

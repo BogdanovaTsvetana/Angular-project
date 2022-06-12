@@ -33,6 +33,18 @@ export class SendMessageComponent implements OnInit {
 
   sendMessageHandler(sendMessage: NgForm): void {
 
+    // const messageData = {
+    //   author: 'username',
+    //   message: sendMessage.value,
+    // }
+
+    // const conversationData = {
+    //   user1: string | object;
+    //   user2: string | object;
+    //   //subject: string ,
+    //   messages: messageData;
+    // }
+
     this.conversationsService.createConversation$(this.userId, this.receiverId, sendMessage.value).subscribe({
         next: (conversation) => {
           console.log('conv from server')

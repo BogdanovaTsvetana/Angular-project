@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class DetailsNannyComponent implements OnInit, OnDestroy {
 
+
   nannyId: any | undefined;
   nanny: any | undefined;
   canLike: boolean = false;
@@ -21,7 +22,11 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
     return this.authService.userId;
   }
 
-  constructor(private activatedRoute: ActivatedRoute, private nanniesService: NanniesService, private authService: AuthService, private router: Router) { }
+  constructor(
+      private activatedRoute: ActivatedRoute, 
+      private nanniesService: NanniesService, 
+      private authService: AuthService, 
+      private router: Router) { }
 
   ngOnInit(): void {
     

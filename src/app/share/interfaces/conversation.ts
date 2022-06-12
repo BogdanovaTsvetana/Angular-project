@@ -1,6 +1,6 @@
 import { IUser } from "./user";
 
-export interface Conversation {
+export interface IConversation {
     _id: string;
     // user1: string | object;
     // user2: string | object;

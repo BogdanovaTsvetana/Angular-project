@@ -3,11 +3,18 @@ const { Schema, model} = require('mongoose');
 const URL_PATTERN = /^https?:\/\//;
 
 const schema = new Schema({
-    name: { 
+    // name: { 
+    //     type: String, 
+    //     required: [true, 'Name is required'], 
+    // },
+    firstName: { 
         type: String, 
-        required: [true, 'Name is required'], 
+        required: [true, 'First name is required'], 
     },
-   
+    lastName: { 
+        type: String, 
+        required: [true, 'Last name is required'], 
+    },
     //years: { type: Number },
     workingTime: { type: String },
     description: { type: String },

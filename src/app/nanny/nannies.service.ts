@@ -5,7 +5,7 @@ import { INanny } from '../share/interfaces/nanny';
 import { AuthService } from '../auth.service';
 
 export interface CreateNannyDto { 
-  name: string,
+  // name: string,
   description: string,
   workingTime: string,
   drivingLicence: string,
