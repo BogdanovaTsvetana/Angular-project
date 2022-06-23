@@ -95,8 +95,8 @@ router.get('/:userId', isUser(), async (req, res) => {
     const userId = req.params.userId;
 
     try {
-        const user = await userService.getUserById(userId);
-        let conversationsRaw = user.conversations; // all conversations of the user
+        const conversations = await req.conversations.getUserConversations(userId);
+       // let conversationsRaw = user.conversations; // all conversations of the user
         
         // let conversations = [];
         // for(let i = 0; i < conversationsRaw.length; i++) {
@@ -130,9 +130,9 @@ router.get('/:userId', isUser(), async (req, res) => {
         //     conversations.push(c);
         // }
         console.log('in Inbox controller')
-        console.log(conversationsRaw)
+        console.log(conversations)
         
-        res.json(conversationsRaw)
+        res.json(conversations)
     }catch(err) {
         console.log(err.message);
         res.redirect('/404');
