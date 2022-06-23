@@ -42,4 +42,16 @@ export class ConversationsService {
       }
     });
   }
+
+  getAllConversations$( userId: string ) {
+    return this.httpClitent.get(`${environment.apiURL}/conversations/${userId}`, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.token}`,
+      }
+    })
+  }
+
+  
+
 }
