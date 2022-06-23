@@ -19,6 +19,13 @@ router.post('/:userId/send-message/:receiverId', isUser(), async (req, res) => {
         const user = await userService.getUserById(userId);
         const receiver = await userService.getUserById(receiverId);
 
+        const messageData = {
+            authorFirstName: user.firstName,
+            authorLastName: user.lastName,
+            message: req.body.message,
+            postDate: new Date(),
+        }
+
         let conversationData = {
             user1: user._id,
             user2: receiver._id,
@@ -26,9 +33,9 @@ router.post('/:userId/send-message/:receiverId', isUser(), async (req, res) => {
         }
 
         let conversation = await req.conversations.createConversation(user._id, receiver._id, conversationData);
-        //const message = await req.conversations.sendMessage(conversation._id, messageData)
+        const message = await req.conversations.sendMessage(conversation._id, messageData)
         console.log('conversations controller', messageData)
-        res.status(201).json(conversation);
+        res.status(201).json(messageData);
     }catch(err) {
         console.log(err.message);
         res.status(err.status || 400).json( err.message );
