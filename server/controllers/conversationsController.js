@@ -96,39 +96,7 @@ router.get('/:userId', isUser(), async (req, res) => {
 
     try {
         const conversations = await req.conversations.getUserConversations(userId);
-       // let conversationsRaw = user.conversations; // all conversations of the user
-        
-        // let conversations = [];
-        // for(let i = 0; i < conversationsRaw.length; i++) {
-        //     let conversationRaw = conversationsRaw[i];
-        //     let newMessages = 0;
 
-        //     for(m of conversationRaw.messages) {
-        //         if (  (m.read == false) && (m.author != username )) {
-        //             newMessages++;
-        //         }
-        //         console.log(m.author)
-        //     }
-
-        //     let c = {
-        //         username,
-        //         conversationId: conversationRaw._id,
-        //         withh: '',
-        //         subject: conversationRaw.subject,
-        //         newMessages,
-        //     };
-        
-        //     let user1Username = conversationRaw.user1.username;
-        //     let uder2Username = conversationRaw.user2.username;
-
-        //     if ( user1Username == username ) {
-        //         c.withh = uder2Username;
-        //     } else if ( uder2Username == username ) {
-        //         c.withh = user1Username;
-        //     }
-    
-        //     conversations.push(c);
-        // }
         console.log('in Inbox controller')
         console.log(conversations)
         
@@ -139,45 +107,93 @@ router.get('/:userId', isUser(), async (req, res) => {
     }   
 });
 
-// Conversation Details 2
-router.get('/:username/:conversationId', isUser(), async(req, res) => {
-    const username = req.params.username;
+// Conversation Details 2  OLD TO DELETE
+// router.get('/:username/:conversationId', isUser(), async(req, res) => {
+//     const username = req.params.username;
+//     const conversationId = req.params.conversationId;
+//     try{
+//         let conversation = await req.conversations.getConversationById(conversationId);
+//         let user = await userService.getUserByUsername(username);
+//         let messages = conversation.messages;
+
+//        for ( let m of messages ) {
+//             if ( m.author != username && (m.read == false)) {
+//             m.read = true;
+//             user.inbox--;  
+//             req.user.inbox--;
+            
+//             let newM = await req.conversations.editMessage(m._id, m);
+//             newUser = await userService.editUser(username, user)
+//             } 
+//        }
+
+//         let ctx = {
+//             username,
+//             conversationId,
+//             withh: '',
+//             subject: conversation.subject,
+//             messages: conversation.messages,
+//         };
+        
+//         let user1Username = conversation.user1.username;
+//         let user2Username = conversation.user2.username;
+
+//         if ( user1Username == username ) {
+//             ctx.withh = user2Username;
+//         } else if ( user2Username == username ) {
+//             ctx.withh = user1Username;
+//         }
+    
+//         console.log(ctx)
+//         res.json(ctx)
+//     }catch(err){
+//         console.log(err.message);
+//         res.status(err.status || 400).json( err.message );
+//     }
+
+// });
+
+// Conversation Details 2  NEW
+router.get('/:userId/:conversationId', isUser(), async(req, res) => {
+    const userId = req.params.userId;
     const conversationId = req.params.conversationId;
     try{
         let conversation = await req.conversations.getConversationById(conversationId);
-        let user = await userService.getUserByUsername(username);
+        let user = await userService.getUserById(userId);
         let messages = conversation.messages;
 
-       for ( let m of messages ) {
-            if ( m.author != username && (m.read == false)) {
-            m.read = true;
-            user.inbox--;  
-            req.user.inbox--;
+    //    for ( let m of messages ) {
+    //         if ( m.author != username && (m.read == false)) {
+    //         m.read = true;
+    //         user.inbox--;  
+    //         req.user.inbox--;
             
-            let newM = await req.conversations.editMessage(m._id, m);
-            newUser = await userService.editUser(username, user)
-            } 
-       }
+    //         let newM = await req.conversations.editMessage(m._id, m);
+    //         newUser = await userService.editUser(username, user)
+    //         } 
+    //    }
 
-        let ctx = {
-            username,
-            conversationId,
-            withh: '',
-            subject: conversation.subject,
-            messages: conversation.messages,
-        };
+        // let ctx = {
+        //     username,
+        //     conversationId,
+        //     withh: '',
+        //     subject: conversation.subject,
+        //     messages: conversation.messages,
+        // };
         
-        let user1Username = conversation.user1.username;
-        let user2Username = conversation.user2.username;
+        // let user1Username = conversation.user1.username;
+        // let user2Username = conversation.user2.username;
 
-        if ( user1Username == username ) {
-            ctx.withh = user2Username;
-        } else if ( user2Username == username ) {
-            ctx.withh = user1Username;
-        }
+        // if ( user1Username == username ) {
+        //     ctx.withh = user2Username;
+        // } else if ( user2Username == username ) {
+        //     ctx.withh = user1Username;
+        // }
     
-        console.log(ctx)
-        res.json(ctx)
+        // console.log(ctx)
+        // res.json(ctx)
+        console.log(messages)
+        res.json({8: 5})
     }catch(err){
         console.log(err.message);
         res.status(err.status || 400).json( err.message );

@@ -7,7 +7,8 @@
             <div class="content">
                 <h3 class="inbox__item__title">{{conversation.otherUserFirstName}} {{conversation.otherUserLastName}}</h3>
                 <p class="inbox__item__title">New messages: {{conversation.newMessages}}</p>
-               
+
+                <button [routerLink]="['/conversations', conversation.userId, conversation.conversationId]" type="button" class="button">All Messages</button>
             </div>
         </li>
     </ul>

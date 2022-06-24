@@ -44,7 +44,12 @@
     padding: 15px;
   }
   
-
+.content {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin: 20px;
+}
     
   .button {
     background-color: var(--color-blue-main);

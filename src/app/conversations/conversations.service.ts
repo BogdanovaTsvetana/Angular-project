@@ -52,6 +52,15 @@ export class ConversationsService {
     })
   }
 
+  getConversation$( userId: string, conversationId: string ) {
+    return this.httpClitent.get(`${environment.apiURL}/conversations/${userId}/${conversationId}`, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.token}`,
+      }
+    })
+  }
+
   
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 import { ConversationsService } from '../conversations.service';
 
@@ -27,6 +28,7 @@ export class InboxComponent implements OnInit {
   constructor( 
       private conversationService: ConversationsService,
       private authService: AuthService,
+      private router: Router,
       ) { }
 
   ngOnInit() {
@@ -73,49 +75,6 @@ export class InboxComponent implements OnInit {
         }
       })
 
-      //         let conversations = [];
-//         for(let i = 0; i < conversationsRaw.length; i++) {
-//             let conversationRaw = conversationsRaw[i];
-//             let newMessages = 0;
-
-//             for(m of conversationRaw.messages) {
-//                 if (  (m.read == false) && (m.author != username )) {
-//                     newMessages++;
-//                 }
-//                 console.log(m.author)
-//             }
-
-//             let c = {
-//                 username,
-//                 conversationId: conversationRaw._id,
-//                 withh: '',
-//                 subject: conversationRaw.subject,
-//                 newMessages,
-//             };
-        
-//             let user1Username = conversationRaw.user1.username;
-//             let uder2Username = conversationRaw.user2.username;
-
-//             if ( user1Username == username ) {
-//                 c.withh = uder2Username;
-//             } else if ( uder2Username == username ) {
-//                 c.withh = user1Username;
-//             }
-    
-//             conversations.push(c);
-//         }
-
-
-    // this.nanniesService.getNanniesAll$().subscribe({
-    //   next: (nannies) => {
-    //     this.nannies = nannies;
-    //     console.log(nannies)
-    //     this.resultsFound = this.nannies.length;
-    //   },
-    //   error: (error) => {
-    //     console.error(error);
-    //   }
-    // })
 
 
   }
