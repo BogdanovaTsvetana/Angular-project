@@ -162,16 +162,22 @@ router.get('/:userId/:conversationId', isUser(), async(req, res) => {
         let user = await userService.getUserById(userId);
         let messages = conversation.messages;
 
-    //    for ( let m of messages ) {
-    //         if ( m.author != username && (m.read == false)) {
-    //         m.read = true;
-    //         user.inbox--;  
-    //         req.user.inbox--;
-            
-    //         let newM = await req.conversations.editMessage(m._id, m);
-    //         newUser = await userService.editUser(username, user)
-    //         } 
-    //    }
+        for ( let m of messages ) {
+            if (( m.authorFirstName != user.firstName )
+                && ( m.authorLastName != user.LastName )
+                && (m.read == false)) {
+                m.read = true;
+
+            let newM = await req.conversations.editMessage(m._id, m);
+
+            // user.inbox--;  
+            // req.user.inbox--; 
+            // newUser = await userService.editUser(username, user)
+
+            } 
+        }
+
+        let conversationRead = await req.conversations.getConversationById(conversationId);
 
         // let ctx = {
         //     username,
@@ -192,8 +198,8 @@ router.get('/:userId/:conversationId', isUser(), async(req, res) => {
     
         // console.log(ctx)
         // res.json(ctx)
-        console.log(messages)
-        res.json({8: 5})
+        console.log(conversationRead)
+        res.json(conversationRead)
     }catch(err){
         console.log(err.message);
         res.status(err.status || 400).json( err.message );
