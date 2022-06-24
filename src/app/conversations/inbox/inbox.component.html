@@ -1,1 +1,24 @@
 <p>inbox works!</p>
+<section class="inbox">
+    <h2 class="inbox__title">INBOX</h2>
+
+    <ul  *ngIf="conversations" class="inbox__items">
+        <li *ngFor="let conversation of conversations" class="inbox__item">
+            <div class="content">
+                <h3 class="inbox__item__title">{{conversation.otherUserFirstName}} {{conversation.otherUserLastName}}</h3>
+                <p class="inbox__item__title">New messages: {{conversation.newMessages}}</p>
+               
+            </div>
+        </li>
+    </ul>
+
+    <div *ngIf="!conversations">
+        <p>No messages</p>
+    </div>
+</section>
+
+
+
+
+
+

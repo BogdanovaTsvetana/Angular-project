@@ -38,6 +38,14 @@ export class AuthService {
   return this.newUser._id;
   }
 
+  get userFirstName() {
+    return this.newUser.firstName;
+    }
+
+  get userLastName() {
+    return this.newUser.lastName;
+  }  
+
   constructor(private httpClient: HttpClient) {
     console.log('UserService#constructor')
   }

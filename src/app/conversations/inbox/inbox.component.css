@@ -1,0 +1,57 @@
+.inbox {
+    background-color: var(--color-background-main);
+    padding: 40px 60px;
+  }
+
+.inbox__title {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+.inbox__items {
+    display: flex;
+    flex-wrap: wrap;
+    
+    gap: 15px;
+}
+  
+  .inbox__item {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    -webkit-box-shadow: var(--box-shadow-card);
+    box-shadow: var(--box-shadow-card);
+    max-width: 250px;
+  }
+  
+  .nannies__img-wrapper img {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+  }
+
+  .nannies__img-wrapper img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+
+  
+  .inbox__item__title {
+    font-size: 18px;
+    text-align: center;
+    padding: 15px;
+  }
+  
+
+    
+  .button {
+    background-color: var(--color-blue-main);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: block;
+    margin: 10px auto 25px;
+  }
