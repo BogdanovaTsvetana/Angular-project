@@ -23,7 +23,7 @@ export class InboxComponent implements OnInit {
   }
 
   conversations: any = [];
-  inboxView: any;
+  //inboxView: any;
 
   constructor( 
       private conversationService: ConversationsService,
@@ -38,7 +38,7 @@ export class InboxComponent implements OnInit {
         for ( let currentConversation of conversationsRaw ) {
             let newMessages = 0;
 
-            // check if there are new messages fron the other user
+            // check if there are new messages from the other user
             for ( let message of currentConversation.messages ) {
                 if ((message.read === false) 
                 && (message.authorFirstName != this.userFirstName)

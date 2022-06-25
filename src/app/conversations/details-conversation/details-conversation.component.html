@@ -1,1 +1,33 @@
-<p>details-conversation works!</p>
+<section class="details-conversation">
+    <h2 class="details-conversation__title">Conversation  with {{otherUserFirstName}} {{otherUserLastName}}</h2>
+    
+    <ul  *ngIf="messages" class="details-conversation__items">
+        <li *ngFor="let message of messages" class="details-conversation__item">
+            <div class="content">
+                
+                <p class="details-conversation__item__title">{{message.authorFirstName}} {{message.authorLastName}} says: </p>
+                <p class="details-conversation__item__title">{{message.message}}</p>
+                <p class="details-conversation__item__title">{{message.postDate}}</p>
+                <p>-----</p>
+
+            </div>
+        </li>
+    </ul>
+
+    <form #sendMessage="ngForm" (ngSubmit)="sendMessageHandler(sendMessage)" class="form">
+
+        <ng-container *ngIf="message.touched && message.invalid">
+            <div *ngIf="message.errors?.['required']" class="error-message">
+                Message is required!
+            </div>
+
+            <div *ngIf="message.errors?.['minlength']" class="error-message">
+                Message should be more than 2 characters long!
+            </div>
+        </ng-container>
+        <textarea #message="ngModel" ngModel required minlength="2" name="message" rows="7" cols="50" placeholder="Your message here..." id="message"></textarea>
+
+        <button [disabled]="sendMessage.invalid" class="button">Send</button>
+    </form>  
+
+</section>
