@@ -5,7 +5,7 @@ const userService = require('../services/userService.js');  // 1
 const Conversation = require('../models/Conversation.js');
 
 // Create conversation  send message 
-router.post('/:userId/send-message/:receiverId', isUser(), async (req, res) => { 
+router.post('/:userId/create/:receiverId', isUser(), async (req, res) => { 
     const messageData = req.body;
     // const username = req.params.username;
     // const receiverUsername = req.params.receiverUsername;
@@ -170,34 +170,14 @@ router.get('/:userId/:conversationId', isUser(), async(req, res) => {
 
             let newM = await req.conversations.editMessage(m._id, m);
 
-            // user.inbox--;  
-            // req.user.inbox--; 
-            // newUser = await userService.editUser(username, user)
-
+            user.inbox--;  
+            req.user.inbox--; 
+            await userService.editUser(userId, user)
             } 
         }
 
         let conversationRead = await req.conversations.getConversationById(conversationId);
 
-        // let ctx = {
-        //     username,
-        //     conversationId,
-        //     withh: '',
-        //     subject: conversation.subject,
-        //     messages: conversation.messages,
-        // };
-        
-        // let user1Username = conversation.user1.username;
-        // let user2Username = conversation.user2.username;
-
-        // if ( user1Username == username ) {
-        //     ctx.withh = user2Username;
-        // } else if ( user2Username == username ) {
-        //     ctx.withh = user1Username;
-        // }
-    
-        // console.log(ctx)
-        // res.json(ctx)
         console.log(conversationRead)
         res.json(conversationRead)
     }catch(err){
@@ -207,34 +187,88 @@ router.get('/:userId/:conversationId', isUser(), async(req, res) => {
 
 });
 
-// Conversation Details
-router.post('/:username/:conversationId', isUser(), async(req, res) => {
-    const username = req.params.username;
+// Conversation Details  OLD
+// router.post('/:username/:conversationId', isUser(), async(req, res) => {
+//     const username = req.params.username;
+//     const conversationId = req.params.conversationId;
+//     const messageData = {
+//         author: username,
+//         message: req.body.message,
+//     }
+//     console.log('username, conversationId, messageData')
+//     console.log(username, conversationId, messageData)
+
+//     let message = {};
+    
+//     try{
+//         const conversation = await req.conversations.getConversationById(conversationId);
+//         let user1Username = conversation.user1.username;
+//         let uder2Username = conversation.user2.username;
+        
+//         let receiverUsername;
+//         if ( user1Username == username ) {
+//             receiverUsername = uder2Username;
+//         } else if ( uder2Username == username ) {
+//             receiverUsername = user1Username;
+//         }
+
+//         const receiver = await userService.getUserByUsername(receiverUsername);
+
+//         // In case the receiver has deleted the conversation
+//         let conversationsReceiver = receiver.conversations;
+//         console.log('>>> conversationsReceiver')
+//         console.log(conversationsReceiver)
+//         let hasConversation = conversationsReceiver.some(c => c._id.equals(conversationId));
+//         console.log('>> hasConversation   ', hasConversation)
+
+//         if ( !hasConversation ) {
+//             receiver.conversations.push(conversation);
+//         }
+//         // In case the receiver has deleted the conversation    - end
+
+//         try{
+//             message = await req.conversations.sendMessage(conversationId, messageData)
+//             receiver.inbox++;
+//             await userService.editUser(receiverUsername, receiver);
+//             //await req.conversations.editConversation(conversation._id, conversation);
+//         } catch(err){
+//             console.log(err)
+//         }
+       
+//         res.json(message)
+//     }catch(err){
+//         console.log(err.message);
+//         res.status(err.status || 400).json( err.message );
+//     }
+// });
+
+// Conversation Details  new
+router.post('/:userId/:conversationId', isUser(), async(req, res) => {
+    const userId = req.params.userId;
     const conversationId = req.params.conversationId;
     const messageData = {
-        author: username,
-        message: req.body.message,
-    }
-    console.log('username, conversationId, messageData')
-    console.log(username, conversationId, messageData)
-
-    let message = {};
+        authorFirstName: req.body.authorFirstName,
+        authorLastName: req.body.authorLastName,
+        message: req.body.message.trim(),
+    };
     
     try{
         const conversation = await req.conversations.getConversationById(conversationId);
-        let user1Username = conversation.user1.username;
-        let uder2Username = conversation.user2.username;
+        //const user = await userService.getUserById(userId);
+        let user1_id = conversation.user1._id;
+        let user2_id = conversation.user2._id;
         
-        let receiverUsername;
-        if ( user1Username == username ) {
-            receiverUsername = uder2Username;
-        } else if ( uder2Username == username ) {
-            receiverUsername = user1Username;
+        // Check who is 
+        let receiverId;
+        if ( userId == user1_id) {
+            receiverId = user2_id;
+        } else if ( userId == user2_id ) {
+            receiverId = user1_id;
         }
 
-        const receiver = await userService.getUserByUsername(receiverUsername);
+        const receiver = await userService.getUserById(receiverId);
 
-        // In case the receiver has deleted the conversation
+         // In case the receiver has deleted the conversation
         let conversationsReceiver = receiver.conversations;
         console.log('>>> conversationsReceiver')
         console.log(conversationsReceiver)
@@ -246,15 +280,9 @@ router.post('/:username/:conversationId', isUser(), async(req, res) => {
         }
         // In case the receiver has deleted the conversation    - end
 
-        try{
-            message = await req.conversations.sendMessage(conversationId, messageData)
-            receiver.inbox++;
-            await userService.editUser(receiverUsername, receiver);
-            //await req.conversations.editConversation(conversation._id, conversation);
-        } catch(err){
-            console.log(err)
-        }
-       
+        const message = await req.conversations.sendMessage(conversationId, messageData);
+        receiver.inbox++;
+        await userService.editUser(receiverId, receiver);       
         res.json(message)
     }catch(err){
         console.log(err.message);

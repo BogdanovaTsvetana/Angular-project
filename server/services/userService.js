@@ -103,10 +103,29 @@ async function getUserById(id) {
     return user;
 }
 
-async function editUser(email, newData) {        // TODO
-    const pattern = new RegExp(`^${email}$`, 'i')
+// async function editUser(email, newData) {        // OLD
+//     const pattern = new RegExp(`^${email}$`, 'i')
+//     //const user =  await User.findOne({ email: { $regex: pattern} });
+//     const user = await User.findOneAndReplace({ email: { $regex: pattern}}, newData)
+//     console.log('>> in editUser')
+//     //console.log(user)
+    
+//     if(!user) {
+//         throw new Error('No such user in database!')
+//     }
+
+//     // Object.assign(user, newData);
+
+//     // await user.save();
+
+
+//     return user;
+// }
+
+async function editUser(userId, newData) {        // NEW
+    //const pattern = new RegExp(`^${email}$`, 'i')
     //const user =  await User.findOne({ email: { $regex: pattern} });
-    const user = await User.findOneAndReplace({ email: { $regex: pattern}}, newData)
+    const user = await User.findOneAndReplace({ _id: userId}, newData)
     console.log('>> in editUser')
     //console.log(user)
     

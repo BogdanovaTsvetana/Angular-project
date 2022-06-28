@@ -5,21 +5,16 @@ import { environment } from '../../environments/environment';
 import { AuthService } from '../auth.service';
 
 // export interface CreateConversationDto { 
-//   // _id: string;
 //   user1: string | object;
 //   user2: string | object;
-//   //subject: string ,
 //   messages: object[];
-//   // __v: string;
 // }
 
-// export interface MessageDto { 
-//   // _id: string;
-//   author: string;
-//   message: string;
-//   // postDate: string;
-//   // __v: string;
-// }
+export interface MessageDto { 
+  authorFirstName: string;
+  authorLastName: string;
+  message: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -34,14 +29,7 @@ export class ConversationsService {
     private httpClitent: HttpClient, 
     private authService: AuthService) { }
 
-  createConversation$( userId: string, receiverId: string, messageData: string) {
-    return this.httpClitent.post(`${environment.apiURL}/conversations/${userId}/send-message/${receiverId}`, messageData, {
-      headers: {
-        'Content-type': 'application/json',
-        'X-Authorization': `${this.token}`,
-      }
-    });
-  }
+
 
   getAllConversations$( userId: string ) {
     return this.httpClitent.get(`${environment.apiURL}/conversations/${userId}`, {
@@ -59,6 +47,24 @@ export class ConversationsService {
         'X-Authorization': `${this.token}`,
       }
     })
+  }
+
+  createConversation$( userId: string, receiverId: string, messageData: string) {
+    return this.httpClitent.post(`${environment.apiURL}/conversations/${userId}/create/${receiverId}`, messageData, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.token}`,
+      }
+    });
+  }
+
+  sendMessage$( userId: string, conversationId: string, messageData: MessageDto) {
+    return this.httpClitent.post(`${environment.apiURL}/conversations/${userId}/${conversationId}`, messageData, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.token}`,
+      }
+    });
   }
 
   

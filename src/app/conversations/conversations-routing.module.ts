@@ -13,7 +13,7 @@ const routes: Routes = [
         path: 'conversations',
         children: [
             {
-                path: ':userId/send-message/:receiverId',
+                path: ':userId/create/:receiverId',
                 canActivate: [GuardService],    // TODO guard
                 component: SendMessageComponent,
             },

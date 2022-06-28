@@ -76,16 +76,38 @@ export class DetailsConversationComponent implements OnInit {
     //   messages: messageData;
     // }
 
-    // this.conversationsService.createConversation$(this.userId, this.receiverId, sendMessage.value).subscribe({
-    //     next: (conversation) => {
-    //       console.log('conv from server')
-    //       console.log(conversation)   //TODO  notification 'Message sent'
-    //       this.router.navigate(['/nannies']);
-    //     },
-    //     error: (error) => {
-    //       console.error(error);
-    //     }
-    // });
+  //   const { firstName, lastName, email, passwords } = this.registerFormGroup.value;
+
+  //   const userData: {firstName: string, lastName: string, email: string, password: string} = { 
+  //     firstName: firstName, 
+  //     lastName: lastName, 
+  //     email: email,
+  //     password: passwords.password,
+  //   }
+
+  //   let messageData = {
+  //     author: user.username,
+  //     message,
+  // }
+
+    const messageData: { authorFirstName: string, authorLastName: string, message: string } = {
+      authorFirstName: this.userFirstName,
+      authorLastName: this.userLastName,
+      message: sendMessage.value.message,
+    }
+
+    console.log(messageData)
+
+    this.conversationService.sendMessage$(this.userId, this.conversationId, messageData).subscribe({
+        next: (message) => {
+          console.log('message from server')
+          console.log(message)   //TODO  notification 'Message sent'
+          //this.router.navigate(['/nannies']);
+        },
+        error: (error) => {
+          console.error(error);
+        }
+    });
   }
 
 
