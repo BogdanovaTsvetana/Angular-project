@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/auth.service';
 import { ConversationsService } from '../conversations.service';
@@ -29,6 +30,7 @@ export class DetailsConversationComponent implements OnInit {
 
   constructor( 
     private activatedRoute: ActivatedRoute, 
+    private router: Router,
     private conversationService: ConversationsService,
     private authService: AuthService,
     ) { }
@@ -62,52 +64,36 @@ export class DetailsConversationComponent implements OnInit {
   }
 
 
-  sendMessageHandler(sendMessage: NgForm): void {
-    console.log(sendMessage.value)
-    // const messageData = {
-    //   author: 'username',
-    //   message: sendMessage.value,
-    // }
-
-    // const conversationData = {
-    //   user1: string | object;
-    //   user2: string | object;
-    //   //subject: string ,
-    //   messages: messageData;
-    // }
-
-  //   const { firstName, lastName, email, passwords } = this.registerFormGroup.value;
-
-  //   const userData: {firstName: string, lastName: string, email: string, password: string} = { 
-  //     firstName: firstName, 
-  //     lastName: lastName, 
-  //     email: email,
-  //     password: passwords.password,
-  //   }
-
-  //   let messageData = {
-  //     author: user.username,
-  //     message,
-  // }
-
+  sendMessageHandler(sendMessageForm: NgForm): void {
+ 
     const messageData: { authorFirstName: string, authorLastName: string, message: string } = {
       authorFirstName: this.userFirstName,
       authorLastName: this.userLastName,
-      message: sendMessage.value.message,
+      message: sendMessageForm.value.message,
     }
-
-    console.log(messageData)
 
     this.conversationService.sendMessage$(this.userId, this.conversationId, messageData).subscribe({
         next: (message) => {
-          console.log('message from server')
-          console.log(message)   //TODO  notification 'Message sent'
-          //this.router.navigate(['/nannies']);
+          this.messages = this.messages.concat(message);
+          sendMessageForm.reset();
+
         },
         error: (error) => {
           console.error(error);
         }
     });
+  }
+
+  deleteConversationHandler(): void {
+      this.conversationService.deleteConversation$(this.userId, this.conversationId).subscribe({
+        next: () => {
+          console.log('deleted');
+          this.router.navigate(['/conversations/inbox']);
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
   }
 
 

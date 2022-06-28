@@ -111,14 +111,15 @@ async function getItemById(id) {
     return item;
 }
 
-async function deleteConversation(id) {
-   
-    return Conversation.findByIdAndDelete(id);
-}
-
 async function deleteMessage(message){
     return Message.findByIdAndDelete(message);
 }
+
+async function deleteConversation(id) {
+    return Conversation.findByIdAndDelete(id);
+}
+
+
 
 
 

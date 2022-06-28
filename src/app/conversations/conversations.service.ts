@@ -67,6 +67,15 @@ export class ConversationsService {
     });
   }
 
+  deleteConversation$( userId: string, conversationId: string ) {
+    return this.httpClitent.delete(`${environment.apiURL}/conversations/${userId}/${conversationId}`, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.token}`,
+      }
+    });
+  }
+
   
 
 }

@@ -60,3 +60,7 @@
     display: block;
     margin: 10px auto 25px;
   }
+
+  .button.delete-button {
+    background-color: rgb(208, 163, 163);
+  }

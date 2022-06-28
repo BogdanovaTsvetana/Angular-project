@@ -14,7 +14,7 @@
         </li>
     </ul>
 
-    <form #sendMessage="ngForm" (ngSubmit)="sendMessageHandler(sendMessage)" class="form">
+    <form #sendMessageForm="ngForm" (ngSubmit)="sendMessageHandler(sendMessageForm)" class="form">
 
         <ng-container *ngIf="message.touched && message.invalid">
             <div *ngIf="message.errors?.['required']" class="error-message">
@@ -27,7 +27,9 @@
         </ng-container>
         <textarea #message="ngModel" ngModel required minlength="2" name="message" rows="7" cols="50" placeholder="Your message here..." id="message"></textarea>
 
-        <button [disabled]="sendMessage.invalid" class="button">Send</button>
-    </form>  
+        <button [disabled]="sendMessageForm.invalid" class="button">Send Message</button>
+    </form>
+    
+    <button (click)="deleteConversationHandler()" class="button delete-button">Delete All Messages</button>
 
 </section>
