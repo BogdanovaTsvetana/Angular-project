@@ -11,8 +11,8 @@ module.exports = () => (req, res, next) => {
         if (token) {
             const userData = jwt.verify(token, TOKEN_SECRET);
             req.user = userData;
-            console.log('>> in server, auth, userData ot tokena ')
-            console.log(userData)
+            console.log('>> in server, auth, valid token ')
+            //console.log(userData)
         }
         next();
     } catch(err) {

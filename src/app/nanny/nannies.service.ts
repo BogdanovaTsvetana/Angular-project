@@ -61,6 +61,15 @@ export class NanniesService {
     });
   }
 
+  createComment$(nannyId: string, commentData: any) {
+    return this.http.post(`${environment.apiURL}/comments/${nannyId}`, commentData, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.token}`,
+      }
+    });
+  }
+
 
 
 }

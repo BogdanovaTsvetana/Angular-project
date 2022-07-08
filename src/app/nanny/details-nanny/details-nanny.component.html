@@ -17,6 +17,17 @@
                 <button (click)="likeHandler()" type="button" class="button">{{ canLike ? 'Like' : 'Unlike' }}</button>
 
                 <button [routerLink]="['/conversations', userId, 'create', nanny.user]" type="button" class="button">Send Message</button>
+
+               
+              <h3 class="create-comment__title">Comments</h3>
+    
+              <form #createComment="ngForm" (ngSubmit)="createCommentHandler(createComment)" class="form">
+          
+                  <textarea #comment="ngModel" ngModel required name="comment" rows="7" cols="50" placeholder="Your comment here..." id="comment"></textarea>
+          
+                  <button [disabled]="createComment.invalid" class="button">Post Comment</button>
+              </form>  
+
             </div>
 
         </div>

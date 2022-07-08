@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/auth.service';
 import { INanny } from 'src/app/share/interfaces/nanny';
 import { NanniesService } from '../nannies.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-details-nanny',
@@ -44,6 +46,21 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
       }
     });
 
+  }
+
+  createCommentHandler(createComment: NgForm): void {   // TODO 
+    console.log(createComment.value)
+
+    this.nanniesService.createComment$(this.nannyId, createComment.value).subscribe({
+      next: (comment) => {
+        console.log('comment from server')
+        console.log(comment)   //TODO  notification 'Comment sent'
+        //this.router.navigate(['/nannies']);
+      },
+      error: (error) => {
+        console.error(error);
+      }
+  });
   }
 
   likeHandler() {     // TODO

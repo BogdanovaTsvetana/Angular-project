@@ -59,7 +59,7 @@ async function getUserConversations(userId) {
                 throw new ReferenceError('No such conversation in database');
             }
 
-            console.log('currentConversation')
+            console.log('in ConversationService, getUserConversations, currentConversation')
             console.log(currentConversation)
             convPopulated.push(currentConversation)
         }

@@ -6,7 +6,7 @@ const Conversation = require('../models/Conversation.js');
 
 // Create conversation  send message 
 router.post('/:userId/create/:receiverId', isUser(), async (req, res) => { 
-    const messageData = req.body;
+    //const messageData = req.body;
     // const username = req.params.username;
     // const receiverUsername = req.params.receiverUsername;
     // const itemTitle = req.params.itemTitle;
@@ -31,6 +31,39 @@ router.post('/:userId/create/:receiverId', isUser(), async (req, res) => {
             user2: receiver._id,
             //subject: itemTitle,
         }
+
+        // TODO  to think
+        // let message;
+
+        // if ( user.conversations.length > 0 ) {
+        //     let existingConversationId;
+        //     console.log(existingConversationId)
+        //     console.log('existingConversationId')
+        //     for ( let c of user.conversations ) {
+        //         console.log('c')
+        //         console.log(c)
+        //         if ( c.user1 == receiverId || c.user2 == receiverId ) {
+        //             existingConversationId = c._id;
+        //             console.log('tuk')
+        //         }
+        //     }
+
+        //     if ( existingConversationId ) {
+        //         message = await req.conversations.sendMessage(existingConversationId, messageData);
+        //     } else {
+        //         let conversationNew = await req.conversations.createConversation(user._id, receiver._id, conversationData);
+        //         message = await req.conversations.sendMessage(conversationNew._id, messageData)
+        //     }
+            
+        // } 
+        
+        // if ( user.conversations.length = 0 )  {
+        //     let conversationNew = await req.conversations.createConversation(user._id, receiver._id, conversationData);
+        //     message = await req.conversations.sendMessage(conversationNew._id, messageData)
+        // }
+        
+        // console.log('conversations controller', message)
+        // res.status(201).json(message);
 
         let conversation = await req.conversations.createConversation(user._id, receiver._id, conversationData);
         const message = await req.conversations.sendMessage(conversation._id, messageData)
