@@ -24,6 +24,14 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
     return this.authService.userId;
   }
 
+  get userFirstName() {
+    return this.authService.userLastName;
+  }
+
+  get userLastName() {
+    return this.authService.userLastName;
+  }
+
   constructor(
       private activatedRoute: ActivatedRoute, 
       private nanniesService: NanniesService, 
@@ -49,9 +57,14 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
   }
 
   createCommentHandler(createComment: NgForm): void {   // TODO 
-    console.log(createComment.value)
+   
+    const commentData: { author: string, content: string } = {
+      //author: this.userId,
+      author: this.userFirstName + ' ' + this.userLastName,
+      content: createComment.value.comment,
+    }
 
-    this.nanniesService.createComment$(this.nannyId, createComment.value).subscribe({
+    this.nanniesService.createComment$(this.nannyId, commentData).subscribe({
       next: (comment) => {
         console.log('comment from server')
         console.log(comment)   //TODO  notification 'Comment sent'

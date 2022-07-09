@@ -1,5 +1,6 @@
 const Item = require('../models/Item.js');    //  TODO
 const User = require('../models/User.js');
+const Comment = require('../models/Comment.js');
 
 async function createItem(itemData) {
 
@@ -52,10 +53,37 @@ async function getAll(query) {
 }
 
 async function getItemById(id) {
-    //const item = await Item.findById(id).populate('user').lean();  //  TODO  to put this
-    const item = await Item.findById(id).lean();   // TODO
+    const nanny = await Item
+        .findById(id)
+        // .populate({
+        //     path: 'comments',
+        //     populate: { path: 'author' }  
+        // }) 
+        .populate('comments')
+        .lean();   // TODO
 
-    return item;
+    if(nanny) {
+
+        // const viewModel = {
+        //     _id: nanny._id,
+        //     firstName: nanny.firstName,
+        //     lastName: nanny.lastName,
+        //     workingTime: nanny.workingTime,
+        //     description: nanny.description,
+        //     drivingLicence: nanny.drivingLicence,
+        //     gender: nanny.gender,
+        //     image: nanny.image,
+        //     phone: nanny.phone,
+        //     postDate: nanny.postDate,
+        //     user: nanny.user,   // TODO
+        //     comments: nanny.comments.map(c=> ({content: c.content, author: c.author?.firstName + ' ' + c.author?.lastName})),     // TODO   to test
+        //     likes: nanny.likes,     //  TODO
+        // }
+
+        return nanny;
+    } else {
+        throw new Error('No such nanny in database')
+    }
 }
 
 async function editItem(id, newData){
@@ -76,6 +104,19 @@ async function deleteItem(id) {
   
 }
 
+async function createComment(itemId, comment) {
+    const item = await Item.findById(itemId);
+   
+    if (!item) {
+        throw new ReferenceError('No such id in database');
+    }
+
+    const newComment = new Comment(comment);
+    await newComment.save();
+
+    item.comments.push(newComment);
+    return item.save();
+}
 
 
 module.exports = {
@@ -85,6 +126,7 @@ module.exports = {
     getItemByUserId,
     editItem,
     deleteItem,
-   
+    createComment,
+
 }
 

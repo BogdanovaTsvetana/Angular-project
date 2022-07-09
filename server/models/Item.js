@@ -23,40 +23,10 @@ const schema = new Schema({
     image: { type: String, match: [URL_PATTERN, 'Image must be a valid URL'] },
     phone: { type: String, default: ''},
     postDate: { type: Date },
-    
     user: { type: Schema.Types.ObjectId, ref: 'User' },  // TODO
-    
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', default: [] }],
     likes: [{type: Schema.Types.ObjectId, ref: 'User', default: [] }],
-    comments: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
 });
-
-
-
-
-// const schema = new Schema({
-//     title: { 
-//         type: String, 
-//         required: [true, 'Title is required'], 
-//     },
-//     year: { type: String },
-//     price: { type: Number },
-//     category: { type: String },
-//     condition: { 
-//         type: String,
-//         required: [true, 'Condition is required'],
-//     },
-//     frameSize: { type: String },
-//     wheelSize: { type: String },
-//     material: { type: String },
-//     frontTravel: { type: String },
-//     rearTravel: { type: String },
-//     location: { type: String },
-//     postDate: { type: Date },
-//     description: { type: String },
-//     image: { type: String, match: [URL_PATTERN, 'Image must be a valid URL'] },
-//     owner: { type: Schema.Types.ObjectId, ref: 'User' },
-    
-// });
 
 module.exports = model('Item', schema);
 
