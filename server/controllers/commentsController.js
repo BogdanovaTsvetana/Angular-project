@@ -7,7 +7,7 @@ router.post('/:nannyId', isUser(), async (req, res) => {
     const commentData = {
         author: req.body.author,
         content: req.body.content.trim(),
-        createdAt: new Date(),
+        postDate: new Date(),
     }
 
     try {

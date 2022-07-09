@@ -65,10 +65,10 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
     }
 
     this.nanniesService.createComment$(this.nannyId, commentData).subscribe({
-      next: (comment) => {
-        console.log('comment from server')
-        console.log(comment)   //TODO  notification 'Comment sent'
-        //this.router.navigate(['/nannies']);
+      next: (nannyUpdated) => {
+        console.log('nannyUpdated from server')
+        console.log(nannyUpdated)   //TODO  notification 'Comment sent'
+        this.nanny = nannyUpdated;
       },
       error: (error) => {
         console.error(error);

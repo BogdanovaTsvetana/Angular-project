@@ -7,7 +7,7 @@ const schema = new Schema({
       required: [true, 'Name is required'], 
     },
     content: { type: String, required: true },
-    createdAt: { type: Date }
+    postDate: { type: Date }
   });
 
 module.exports =  model('Comment', schema);
