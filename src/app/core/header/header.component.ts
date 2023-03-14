@@ -15,23 +15,16 @@ export class HeaderComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    
+   
   }
 
   currentUser$: Observable<any> = this.authService.currentUser$;
   isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
   
-  get isParent(): boolean {
-    return this.authService.isParent;
-  }
-
   get token() {
     return this.authService.accessToken;
   }
 
-  get isNanny(): boolean {
-    return this.authService.isNanny;
-  }
 
   logoutHandler(): void {
 

@@ -98,7 +98,7 @@ async function login(email, password){
 
 async function getUserById(id) {
     //const item = await Item.findById(id).populate('user').lean();  //  TODO  to put this
-    const user = await User.findById(id).populate('nanny').lean();   // TODO
+    const user = await User.findById(id).populate('nanny').populate('conversations').lean();   // TODO
 
     return user;
 }

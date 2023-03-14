@@ -26,13 +26,13 @@
           <li  class="header__nav__item">
             <a href="#">WELCOME {{( currentUser$ | async).username}}</a>
           </li>
-          <li *ngIf="isNanny" routerLinkActive="active" class="header__nav__item">
+          <li *ngIf="(currentUser$ | async).userType === 'nanny'" routerLinkActive="active" class="header__nav__item">
             <a routerLink="/user/profile">PROFILE</a>
           </li>
           <li routerLinkActive="active" class="header__nav__item">
             <a routerLink="user/inbox">INBOX</a>
           </li>
-          <li *ngIf="isParent" routerLinkActive="active" class="header__nav__item">
+          <li *ngIf="(currentUser$ | async).userType === 'parent'" routerLinkActive="active" class="header__nav__item">
             <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
           </li>
           <li class="header__nav__item">

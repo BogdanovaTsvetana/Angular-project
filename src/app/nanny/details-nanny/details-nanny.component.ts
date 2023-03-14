@@ -25,7 +25,7 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
   }
 
   get userFirstName() {
-    return this.authService.userLastName;
+    return this.authService.userFirstName;
   }
 
   get userLastName() {

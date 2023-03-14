@@ -119,14 +119,6 @@ async function deleteConversation(id) {
     return Conversation.findByIdAndDelete(id);
 }
 
-
-
-
-
-
-
-
-
 module.exports = {
     sendMessage,
     createConversation,

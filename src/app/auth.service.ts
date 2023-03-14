@@ -18,25 +18,16 @@ export class AuthService {
   newUser: any;
 
   private _currentUser = new BehaviorSubject(undefined);
-
   currentUser$ = this._currentUser.asObservable();
   isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
   
-  get isParent() {    
-    return this.newUser.userType == 'parent'
-  }
-
-  get isNanny() {      
-    return this.newUser.userType == 'nanny' 
+  get userId() {
+  return this.newUser._id;
   }
 
   get accessToken() {
     return this.newUser.accessToken;
-  }
-
-  get userId() {
-  return this.newUser._id;
-  }
+    }
 
   get userFirstName() {
     return this.newUser.firstName;
@@ -72,9 +63,13 @@ export class AuthService {
   }  
  
   logout$() {
+    let accessToken: string = '';
+    this.currentUser$.pipe(map(user => user?.accessToken)).subscribe(v => accessToken = v)
+    console.log(accessToken)
     return this.httpClient.get(`${environment.apiURL}/user/logout`, {
       headers: {
-        'X-Authorization': `${this.accessToken}`,
+        // 'X-Authorization': `${this.accessToken}`,
+        'X-Authorization': `${accessToken}`,
       }
     })
   }
