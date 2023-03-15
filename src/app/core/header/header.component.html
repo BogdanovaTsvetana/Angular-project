@@ -41,6 +41,10 @@
 
         </ng-container>
 
+        <ng-container *ngIf="message">
+          <p [ngClass]="{ error: message.type == 'error', success: message.type == 'success' }">{{ message.text }}</p>
+        </ng-container>
+
       </ul>
     </nav>
   </header>

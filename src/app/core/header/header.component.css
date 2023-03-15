@@ -41,3 +41,21 @@
     text-decoration: none;
     color: var(--color-font-main);
   }
+
+  .error, .success {
+    color: white;
+    position: relative;
+    animation: scale-up-hor-right 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+.success {
+    background-color: rgb(118, 173, 118);
+}
+
+.error {
+  background-color: rgb(191, 44, 44);
+}
+.error p, .success p {
+    padding: 20px;
+    margin-left: 60px;
+}

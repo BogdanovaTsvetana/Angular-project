@@ -5,6 +5,7 @@ import { IUser } from '../../share/interfaces/user';
 import { INanny } from '../../share/interfaces/nanny';
 import { AuthService } from '../../auth.service';
 import { NanniesService } from '../../nanny/nannies.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,8 @@ export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService, private nanniesService: NanniesService, private router: Router) { }
 
   ngOnInit(): void {
-    this.authService.getProfile$(this.userId).subscribe({
+
+        this.authService.getProfile$(this.userId).subscribe({
       next: (user) => {
         this.currentUser = user;
         this.nanny = user.nanny;
