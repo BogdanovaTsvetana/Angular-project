@@ -5,6 +5,7 @@ import { NanniesRoutingModule } from './nannies-routing.module';
 import { DetailsNannyComponent } from './details-nanny/details-nanny.component';
 import { NanniesComponent } from './nannies/nannies.component';
 import { CreateNannyComponent } from './create-nanny/create-nanny.component';
+import { ShareModule } from '../share/share.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CreateNannyComponent } from './create-nanny/create-nanny.component';
   imports: [
     CommonModule,
     FormsModule,
-    NanniesRoutingModule
+    NanniesRoutingModule,
+    ShareModule
   ],
 })
 export class NannyModule { }

@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SendMessageComponent } from './conversations/send-message/send-message.component';
 import { InboxComponent } from './conversations/inbox/inbox.component';
 import { ConversationsModule } from './conversations/conversations.module';
+import { ShareModule } from './share/share.module';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { ConversationsModule } from './conversations/conversations.module';
     AppRoutingModule,
     HttpClientModule,
     CoreModule,
+  
     UserModule,
     NannyModule,
     ConversationsModule,

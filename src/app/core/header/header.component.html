@@ -23,9 +23,6 @@
         </ng-container>
 
         <ng-container *ngIf="(isLoggedIn$ | async)">
-          <li  class="header__nav__item">
-            <a href="#">WELCOME {{( currentUser$ | async).username}}</a>
-          </li>
           <li *ngIf="(currentUser$ | async).userType === 'nanny'" routerLinkActive="active" class="header__nav__item">
             <a routerLink="/user/profile">PROFILE</a>
           </li>
@@ -37,6 +34,9 @@
           </li>
           <li class="header__nav__item">
             <a href="javascript:void(0);" (click)="logoutHandler()">LOGOUT</a>
+          </li>
+          <li  class="header__nav__item">
+            <a href="javascript:void(0);">WELCOME {{( currentUser$ | async).firstName}}</a>
           </li>
 
         </ng-container>

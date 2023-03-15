@@ -22,7 +22,7 @@
                         <div class="content">
                             <p class="nanny__item__workingTime">Author: {{comment.author}}</p>
                             <p class="nanny__item__desc">Comment: {{comment.content}}</p>
-                            <p class="nanny__item__driving-licence">Post date: {{comment.postDate | date: 'longDate'}}</p>
+                            <p class="nanny__item__driving-licence">Comment made: {{comment.postDate | timeAgo}}</p>
                         </div>
                     </li>
                 </ul>
