@@ -18,7 +18,7 @@ export class MessageBusService {
   constructor() { }
 
   notifyForMessage(message: Message){
-    console.log(message)
+    // console.log(message)
     this._message$.next(message);
   }
 

@@ -19,7 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
   // }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log('lllll')
+    // console.log('lllll')
     // console.log('accessToken ', this.token)
 
     // request = request.clone({

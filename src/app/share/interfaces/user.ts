@@ -14,4 +14,13 @@ export interface IUser {
 
 }
 
+export interface ICurrentUser {
+    _id: string,
+    firstName: string;
+    lastName: string;
+    email: string,
+    userType: string;
+    accessToken: string,
+}
+
  

@@ -14,7 +14,7 @@ const schema = new Schema({
     //soldItems: [{ type: Schema.Types.ObjectId, ref: 'Item', default: [] }],
     nanny: { type: Schema.Types.ObjectId, ref: 'Item' },
     favourites: [{ type: Schema.Types.ObjectId, ref: 'Item', default: [] }],
-    conversations: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],       // TODO
+    conversations: [{ type: Schema.Types.ObjectId, ref: 'Conversation', default: [] }],       // TODO
     //followers: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
 });
 

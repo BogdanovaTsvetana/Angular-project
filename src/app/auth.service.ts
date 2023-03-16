@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { IUser } from './share/interfaces/user';
+import { IUser, ICurrentUser } from './share/interfaces/user';
+import { IrootState } from './+store/reducers';
+import { Store } from '@ngrx/store';
+import { login, logout } from './+store/actions';
 
 export interface CreateUserDto { 
   firstName: string, 
@@ -17,8 +20,11 @@ export class AuthService {
   
   newUser: any;
 
-  private _currentUser = new BehaviorSubject(undefined);
-  currentUser$ = this._currentUser.asObservable();
+  // Without State Management
+  // private _currentUser = new BehaviorSubject<ICurrentUser>(undefined);
+  // currentUser$ = this._currentUser.asObservable();
+
+  currentUser$ = this.store.select(globalState => globalState.currentUser);
   isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
   
   get userId() {
@@ -37,12 +43,12 @@ export class AuthService {
     return this.newUser.lastName;
   }  
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private store: Store<IrootState>) {
     console.log('UserService#constructor')
   }
 
-  register$(userData: CreateUserDto) {
-    return this.httpClient.post(`${environment.apiURL}/user/register`, userData, { observe: 'response' })
+  register$(userData: CreateUserDto): Observable<ICurrentUser> {
+    return this.httpClient.post<ICurrentUser>(`${environment.apiURL}/user/register`, userData, { observe: 'response' })
           .pipe(
             tap(response => console.log(response)),
             map(response => response.body),
@@ -52,11 +58,11 @@ export class AuthService {
     }  
 
     
-  login$(userData: { email: string, password: string }) {
+  login$(userData: { email: string, password: string }): Observable<ICurrentUser> {
     return this.httpClient
-      .post(`${environment.apiURL}/user/login`, userData, { observe: 'response' })
+      .post<ICurrentUser>(`${environment.apiURL}/user/login`, userData, { observe: 'response' })
       .pipe(
-        tap(response => console.log(response)),
+        // tap(response => console.log(response)),
         map(response => response.body),
         tap(user => this.newUser = user)
       )
@@ -74,12 +80,16 @@ export class AuthService {
     })
   }
 
-  handleLogin(newUser: any) {
-    this._currentUser.next(newUser);
+  handleLogin(newUser: ICurrentUser) {
+    // Without State Management
+    // this._currentUser.next(newUser);
+    this.store.dispatch(login({ currentUser: newUser}));
   }
     
   handleLogout() {
-      this._currentUser.next(undefined);
+    // Without State Management
+    // this._currentUser.next(undefined);
+    this.store.dispatch(logout());
   }
 
   getProfile$(id: string): Observable<IUser> {  // TODEL

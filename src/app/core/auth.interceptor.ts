@@ -10,7 +10,7 @@ import {
 
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { IUser } from '../share/interfaces/user';
+import { ICurrentUser, IUser } from '../share/interfaces/user';
 import { AuthService } from '../auth.service';
 
 @Injectable()
@@ -21,19 +21,13 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       tap(event => {
-        console.log(event)
+        // console.log(event)
         if (event instanceof HttpResponse) {
           if (event.url?.endsWith('login') || event.url?.endsWith('register')) {
-            const userData: any = event.body;
-            // console.log(userData)
-            // this.authService.handleLogin({
-            //   _id: userData._id,
-            //   email: userData.email,
-            //   firstName: userData.firstName,
-            //   lastName: userData.lastName,
-            //   userType: userData.userType,
-            // });
+            const userData: ICurrentUser = event.body;
+            console.log(userData)
             this.authService.handleLogin(userData);
+            console.log('accessToken: ', userData.accessToken)
           } else if (event.url?.endsWith('logout')) {
             this.authService.handleLogout();
           }

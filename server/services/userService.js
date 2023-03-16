@@ -57,10 +57,10 @@ function generateToken(user) {    // 1
     
     const token = jwt.sign({
         _id: user._id,          
-        firstName: user.firstName,
-        lastName: user.lastName,
+        // firstName: user.firstName,
+        // lastName: user.lastName,
         email: user.email,
-        userType: user.userType,
+        // userType: user.userType,
     }, TOKEN_SECRET); 
     
     //console.log(token)

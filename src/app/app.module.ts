@@ -15,6 +15,8 @@ import { SendMessageComponent } from './conversations/send-message/send-message.
 import { InboxComponent } from './conversations/inbox/inbox.component';
 import { ConversationsModule } from './conversations/conversations.module';
 import { ShareModule } from './share/share.module';
+import { StoreModule } from '@ngrx/store';
+import { currentUserReducer, IrootState } from './+store/reducers';
 
 
 @NgModule({
@@ -32,6 +34,9 @@ import { ShareModule } from './share/share.module';
     UserModule,
     NannyModule,
     ConversationsModule,
+    StoreModule.forRoot<IrootState>({
+      currentUser: currentUserReducer,
+    }, {}),
   ],
   providers: [AuthService, GuardService, CanDeactivateGuardService],
   bootstrap: [AppComponent]
