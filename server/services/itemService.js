@@ -53,15 +53,17 @@ async function getAll(query) {
 }
 
 async function getItemById(id) {
+    console.log('>>5' + id)
     const nanny = await Item
         .findById(id)
         // .populate({
         //     path: 'comments',
         //     populate: { path: 'author' }  
         // }) 
+
         .populate('comments')
         .lean();   // TODO
-
+    console.log('>>5' )
     if(nanny) {
 
         // const viewModel = {
@@ -87,12 +89,13 @@ async function getItemById(id) {
 }
 
 async function editItem(id, newData){
+    console.log('>> in service/editItem')
     const item = await Item.findById(id);   
-   
+
     if(!item) {
         throw new Error('No such ID in database')     
     }
-
+ 
     Object.assign(item, newData);
 
     await item.save();
@@ -118,13 +121,26 @@ async function createComment(itemId, comment) {
     return item.save();
 }
 
+// async function likeItem(itemId, userId){
+//     const item = await Item.findById(id);   
+   
+//     if(!item) {
+//         throw new Error('No such item in database')     
+//     }
 
+//     await item.updateOne(itemId, {$addToSet: { likes: userId }})
+//     return item;
+// }
+
+
+// postModel.updateOne({ _id: postId }, { $addToSet: { likes: userId } }, { new: true })
 module.exports = {
     createItem,
     getAllItems,
     getItemById,
     getItemByUserId,
     editItem,
+    // likeItem,
     deleteItem,
     createComment,
 

@@ -75,7 +75,7 @@ router.post('/', async (req, res) => {     // TODO  isUser(),
         }
         // const user = await editUser(req.user.email, {userType: 'nanny', nanny: item._id});
         console.log('In item controller')
-        const userNew = await editUser(req.user.email, userUpdate);
+        const userNew = await editUser(req.user._id, userUpdate);
         console.log(userNew)
         res.status(201).json(item);
         
@@ -143,6 +143,7 @@ router.put('/:id', isUser(), async (req, res) => {    // isOwner
             image: req.body.image,
             user: req.user._id,
             phone: req.body.phone,
+            likes: req.body.likes,
         };
         const updatedItem = await req.storage.editItem(req.params.id, newData);
 
@@ -212,6 +213,69 @@ router.delete('/:id', isUser(), async (req, res) => {
         console.log(err.message);
         res.status(err.status || 400).json( err.message );
        
+    }
+});
+
+
+// ne raboti
+// router.put('/like/:id', isUser(), async (req, res) => {    
+//     try {
+//         const itemId = req.params.id;
+//         const userId = req.user._id;
+//         const item = await req.storage.getItemById(itemId);
+
+//         if (userId == item.user._id) {         // TODO  PROMENIH !!!!!
+//             throw new Error(`You can't like yourself`);    // TODO
+//         }
+        
+//         const updatedItem = await req.storage.likeItem(itemId, userId);
+//         console.log('>>> Item liked')
+//         res.json(updatedItem)
+
+//     } catch(err) {
+//         console.log(err.message);
+//         res.status(err.status || 400).json( err.message );
+      
+//     }
+// });
+
+router.put('/like/:id', isUser(), async (req, res) => {    
+    try {
+        const itemId = req.params.id;
+        const item = await req.storage.getItemById(itemId);
+        const user = await getUserByEmail(req.user.email);
+        if (user._id == item.user._id.toString()) {       
+            throw new Error(`You can't like yourself`);    
+        }
+
+        item.likes.push(user._id);    
+        const updatedItem = await req.storage.editItem(itemId, item);
+        console.log('>>> Item liked')
+        res.json(updatedItem)
+
+    } catch(err) {
+        console.log(err.message);
+        res.status(err.status || 400).json({ message: err.message }); 
+    }
+});
+
+router.put('/unlike/:id', isUser(), async (req, res) => {    
+    try {
+        const itemId = req.params.id;
+        const item = await req.storage.getItemById(itemId);
+        const user = await getUserByEmail(req.user.email);
+        if (user._id == item.user._id.toString()) {       
+            throw new Error(`You can't unlike yourself`);    
+        }
+
+        item.likes = item.likes.filter(u => u.toString() != user._id); 
+        const updatedItem = await req.storage.editItem(itemId, item);
+        console.log('>>> Item unliked')
+        res.json(updatedItem)
+
+    } catch(err) {
+        console.log(err.message);
+        res.status(err.status || 400).json({ message: err.message });
     }
 });
 

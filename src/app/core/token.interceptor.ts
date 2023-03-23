@@ -18,9 +18,12 @@ export class TokenInterceptor implements HttpInterceptor {
   //   return this.authService.accessToken 
   // }
 
+  token: string = this.authService.accessToken;
+
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // console.log('lllll')
     // console.log('accessToken ', this.token)
+    // console.log(request)
 
     // request = request.clone({
     //   setHeaders: {
@@ -28,6 +31,7 @@ export class TokenInterceptor implements HttpInterceptor {
     //   'X-Authorization': `${this.token}`,
     //   }
     // })
+    // console.log('mina lllll')
     return next.handle(request);
   }
 }

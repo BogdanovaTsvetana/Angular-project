@@ -18,7 +18,7 @@ router.post('/:nannyId', isUser(), async (req, res) => {
         res.status(201).json(nannyUpdated);
     }catch(err) {
         console.log(err.message);
-        res.status(err.status || 400).json( err.message );
+        res.status(err.status || 400).json({ message: err.message });
     }   
 });
 

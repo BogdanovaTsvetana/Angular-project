@@ -22,7 +22,7 @@ export interface MessageDto {
 export class ConversationsService {
 
   get token() {
-    return this.authService.accessToken;
+    return this.authService.accessToken
   }
 
   constructor( 

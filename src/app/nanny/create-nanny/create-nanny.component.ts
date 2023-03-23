@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 
 import { NanniesService } from '../nannies.service';
 import { AuthService } from '../../auth.service';
+import { Store } from '@ngrx/store';
+import { IrootState } from 'src/app/+store/reducers';
+import { switchToNanny } from 'src/app/+store/actions';
 
 @Component({
   selector: 'app-create-nanny',
@@ -12,9 +15,16 @@ import { AuthService } from '../../auth.service';
 })
 export class CreateNannyComponent implements OnInit {
 
-  constructor(private router: Router, private nanniesService: NanniesService, private authService: AuthService) { }
+  token: string | undefined;
+  constructor(private router: Router, 
+    private nanniesService: NanniesService, 
+    private authService: AuthService,
+    private store: Store<IrootState>,) { }
 
   ngOnInit(): void {
+    // this.authService.accessToken$.subscribe(t => this.token = t)
+    this.token = this.authService.accessToken
+    console.log(this.token)
   }
 
   submitNannyRegister(nannyRegister: NgForm): void {
@@ -22,7 +32,7 @@ export class CreateNannyComponent implements OnInit {
     this.nanniesService.becomeNanny$(nannyRegister.value).subscribe({
       next: (nanny) => {
         console.log(nanny);
-        this.authService.newUser.userType='nanny';  // TODO
+        this.store.dispatch(switchToNanny())  // TODO
         //this.router.navigate(['/nannies']);
         this.router.navigate(['/user/profile']);
       },
@@ -32,6 +42,26 @@ export class CreateNannyComponent implements OnInit {
     })
 
   }
+
+  // submitNewTheme(newThemeForm: NgForm): void {
+  //   console.log(newThemeForm.value);
+  //   this.themeService.addTheme$(newThemeForm.value).subscribe({
+  //     next: (theme) => {
+  //       console.log(theme);
+  //       this.router.navigate(['/themes']);
+  //     },
+  //     error: (error) => {
+  //       console.error(error);
+  //     }
+  //   })
+
+  // submitNannyRegister(nannyRegister: NgForm) {
+
+  //   let nanny = this.nanniesService.becomeNanny$(nannyRegister.value)
+  //   console.log(nanny)
+     
+
+  // }
 
   
 

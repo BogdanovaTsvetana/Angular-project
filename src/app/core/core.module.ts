@@ -30,14 +30,15 @@ import { ErrorHandlerInterceptor } from './error-handler.interceptor';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerInterceptor,
-      multi: true
+      useClass: TokenInterceptor,
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true,
+      useClass: ErrorHandlerInterceptor,
+      multi: true
     }
+   
   ]
 })
 export class CoreModule { }

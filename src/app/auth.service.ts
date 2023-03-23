@@ -19,21 +19,34 @@ export interface CreateUserDto {
 export class AuthService {
   
   newUser: any;
+  // accessToken: string = '';
 
   // Without State Management
   // private _currentUser = new BehaviorSubject<ICurrentUser>(undefined);
   // currentUser$ = this._currentUser.asObservable();
-
-  currentUser$ = this.store.select(globalState => globalState.currentUser);
-  isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
   
+  currentUser$ = this.store.select(globalState => globalState.currentUser)
+    // .pipe(tap(u => this.accessToken = u.accessToken));
+
+
+  isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
+  // accessToken$ = this.currentUser$.pipe(map(user => user.accessToken));
+  // accessToken$ = this.store.select(globalState => globalState.currentUser.accessToken)
+
   get userId() {
   return this.newUser._id;
   }
 
   get accessToken() {
-    return this.newUser.accessToken;
+    let tok = undefined;
+    this.currentUser$.pipe(map(user => user?.accessToken)).subscribe(t => tok = t);
+    console.log('in get accessToken ' + tok)
+    return tok;
     }
+
+    // get accessToken() {
+    //   return this.newUser?.accessToken;
+    //   }  
 
   get userFirstName() {
     return this.newUser.firstName;
@@ -68,14 +81,37 @@ export class AuthService {
       )
   }  
  
-  logout$() {
-    let accessToken: string = '';
-    this.currentUser$.pipe(map(user => user?.accessToken)).subscribe(v => accessToken = v)
-    console.log(accessToken)
+  // logout$() {
+  //   let accessToken: string = '';
+  //   this.currentUser$.pipe(map(user => user?.accessToken)).subscribe(v => accessToken = v)
+  //   console.log(accessToken)
+  //   return this.httpClient.get(`${environment.apiURL}/user/logout`, {
+  //     headers: {
+  //       // 'X-Authorization': `${this.accessToken}`,
+  //       'X-Authorization': `${accessToken}`,
+  //     }
+  //   })
+
+    // logout$() {
+    //   let accessToken: string = '';
+    //   this.currentUser$.pipe(map(user => user?.accessToken)).subscribe(v => accessToken = v)
+    //   // console.log(this.accessToken)
+    //   return this.httpClient.get(`${environment.apiURL}/user/logout`, {
+    //     headers: {
+    //       // 'X-Authorization': `${this.accessToken}`,
+    //       'X-Authorization': `${this.accessToken}`,
+    //     }
+    //   })
+
+      logout$() {
+        // let accessToken: string = '';
+        // this.currentUser$.pipe(map(user => user?.accessToken)).subscribe(v => accessToken = v)
+        // console.log(this.accessToken)
+        // return this.httpClient.get(`${environment.apiURL}/user/logout`)
+
     return this.httpClient.get(`${environment.apiURL}/user/logout`, {
       headers: {
-        // 'X-Authorization': `${this.accessToken}`,
-        'X-Authorization': `${accessToken}`,
+        'X-Authorization': `${this.accessToken}`,
       }
     })
   }

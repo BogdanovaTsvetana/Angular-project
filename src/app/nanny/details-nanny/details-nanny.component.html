@@ -7,13 +7,15 @@
             </div>
             <div class="content">
                 <h3 class="nanny__item__title">{{nanny.firstName | uppercase}} {{nanny.lastName | uppercase}}</h3>
+                <p class="nanny__item__workingTime">nanny_id: {{nanny._id}}</p>
+                <p class="nanny__item__workingTime">nanny.user: {{nanny.user}}</p>
                 <p class="nanny__item__workingTime">Working Time: {{nanny.workingTime}}</p>
                 <p class="nanny__item__desc">Description: {{nanny.description}}</p>
                 <p class="nanny__item__driving-licence">Driving Licence: {{nanny.drivingLicence}}</p>
                 <p class="nanny__item__gender">Gender: {{nanny.gender}}</p>
                 <p class="nanny__item__phone">Phone: {{nanny.phone}}</p>
                 <p class="nanny__item__postDate">Registered: {{nanny.postDate | date: 'longDate' }}</p>
-                <p class="nanny__item__likes">Likes: {{nanny.likes.length}}</p>
+                <p class="nanny__item__likes">Likes: {{nanny.likes.length}} from {{nanny.likes}}</p>
 
                 <h3 class="create-comment__title">Comments</h3>
 
@@ -27,17 +29,22 @@
                     </li>
                 </ul>
     
-                <form #createComment="ngForm" (ngSubmit)="createCommentHandler(createComment)" class="form">
+                <div *ngIf="nanny.user != currentUser._id">
+                <!-- <div> -->
+                 
+                    <form #createComment="ngForm" (ngSubmit)="createCommentHandler(createComment)" class="form">
           
-                    <textarea #comment="ngModel" ngModel required name="comment" rows="7" cols="50" placeholder="Your comment here..." id="comment"></textarea>
-          
-                    <button [disabled]="createComment.invalid" class="button">Post Comment</button>
-                </form>  
-
-                <button (click)="likeHandler()" type="button" class="button">{{ canLike ? 'Like' : 'Unlike' }}</button>
-
-                <button [routerLink]="['/conversations', userId, 'create', nanny.user]" type="button" class="button">Send Message</button>
-
+                        <textarea #comment="ngModel" ngModel required name="comment" rows="7" cols="50" placeholder="Your comment here..." id="comment"></textarea>
+              
+                        <button [disabled]="createComment.invalid" class="button">Post Comment</button>
+                    </form>  
+    <!-- TODO buttons like unlike  icons -->
+                    <button (click)="likeHandler()" type="button" class="button">{{ canLike ? 'Like' : 'Unlike' }}</button>
+    
+                    <button [routerLink]="['/conversations', currentUser._id, 'create', nanny.user]" type="button" class="button">Send Message</button>
+    
+                </div>
+               
             </div>
 
         </div>

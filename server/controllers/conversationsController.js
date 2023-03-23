@@ -71,7 +71,7 @@ router.post('/:userId/create/:receiverId', isUser(), async (req, res) => {
         res.status(201).json(messageData);
     }catch(err) {
         console.log(err.message);
-        res.status(err.status || 400).json( err.message );
+        res.status(err.status || 400).json( { message: err.message } );
     }   
 });
 
@@ -215,7 +215,7 @@ router.get('/:userId/:conversationId', isUser(), async(req, res) => {
         res.json(conversationRead)
     }catch(err){
         console.log(err.message);
-        res.status(err.status || 400).json( err.message );
+        res.status(err.status || 400).json( { message: err.message } );
     }
 
 });
@@ -320,7 +320,7 @@ router.post('/:userId/:conversationId', isUser(), async(req, res) => {
         res.json(message)
     }catch(err){
         console.log(err.message);
-        res.status(err.status || 400).json( err.message );
+        res.status(err.status || 400).json( { message: err.message } );
     }
 });
 
@@ -434,7 +434,7 @@ router.delete('/:userId/:conversationId', isUser(), async(req, res) => {   // is
         res.status(204).json();
     }catch(err){
         console.log(err.message);
-        res.status(err.status || 400).json( err.message );
+        res.status(err.status || 400).json( { message: err.message } );
     }
 });
 

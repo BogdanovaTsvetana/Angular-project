@@ -5,6 +5,11 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/auth.service';
 import { INanny } from 'src/app/share/interfaces/nanny';
 import { NanniesService } from '../nannies.service';
+import { mergeMap, tap, map, Subscription, combineLatest } from 'rxjs';
+import { ICurrentUser } from 'src/app/share/interfaces/user';
+import { Store } from '@ngrx/store';
+import { IrootState } from 'src/app/+store/reducers';
+import { switchToNanny } from 'src/app/+store/actions';
 
 
 @Component({
@@ -15,91 +20,147 @@ import { NanniesService } from '../nannies.service';
 export class DetailsNannyComponent implements OnInit, OnDestroy {
 
 
-  nannyId: any | undefined;
+  // nannyId: any | undefined;
+
+  currentUser: ICurrentUser;
   nanny: any | undefined;
   canLike: boolean = false;
-  routeParamObs: any;
 
-  get userId() {
-    return this.authService.userId;
-  }
+  nannySubscription: Subscription;
 
-  get userFirstName() {
-    return this.authService.userFirstName;
-  }
+  // get userId() {
+  //   return this.authService.userId;
+  // }
 
-  get userLastName() {
-    return this.authService.userLastName;
-  }
+  // get userFirstName() {
+  //   return this.authService.userFirstName;
+  // }
+
+  // get userLastName() {
+  //   return this.authService.userLastName;
+  // }
 
   constructor(
       private activatedRoute: ActivatedRoute, 
       private nanniesService: NanniesService, 
       private authService: AuthService, 
+      private store: Store<IrootState>,
       private router: Router) { }
 
   ngOnInit(): void {
+    //  OLD variant
+    // this.routeParamObs = this.activatedRoute.paramMap.subscribe(param => {
+    //   this.nannyId = param.get('nannyId'); 
+    // });
     
-    this.routeParamObs = this.activatedRoute.paramMap.subscribe(param => {
-      this.nannyId = param.get('nannyId'); 
-    });
-    
-    this.nanniesService.getNannyById$(this.nannyId).subscribe({
-      next: (nanny) => {
-        this.nanny = nanny;
-        this.canLike = !this.nanny?.likes.includes(this.userId);
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    });
+    // this.nanniesService.getNannyById$(this.nannyId).subscribe({
+    //   next: (nanny) => {
+    //     this.nanny = nanny;
+    //     this.canLike = !this.nanny?.likes.includes(this.userId);
+    //   },
+    //   error: (error) => {
+    //     console.error(error);
+    //   }
+    // });
 
+    // this.routeParamObs = this.activatedRoute.params.pipe(
+    //   map(p => p['nannyId']),
+    //   mergeMap(nannyId => this.nanniesService.getNannyById$(nannyId)).subscribe({
+    //     next: (nanny) => {
+    //           this.nanny = nanny;
+    //           this.canLike = !this.nanny?.likes.includes(this.userId);
+    //         },
+    //         error: (error) => {
+    //           console.error(error);
+    //         }
+    //   })
+    // )
+
+    combineLatest([
+      this.activatedRoute.params.pipe(
+        mergeMap( params => {
+            const nannyId = params['nannyId'];
+            return this.nanniesService.getNannyById$(nannyId)
+        })),
+      this.authService.currentUser$  
+    ]) 
+      .subscribe({
+        next: ([nanny, currentUser]) => {
+          this.nanny = nanny;
+          this.currentUser = currentUser;
+          this.canLike = currentUser && !this.nanny?.likes.includes(currentUser._id);
+          console.log(this.nanny)
+          console.log('nanny ID ' + this.nanny?._id)
+          console.log('user ID ' + this.currentUser?._id)
+        },
+        error: (err) => {
+          console.error(err.error.message);
+        }
+      })
+        
   }
+
+  // ngOnInit(): void {
+  //   this.activatedRoute.params.subscribe(params => {
+  //     const themeId = params['themeId'];
+  //     this.themeService.loadThemeById(themeId).subscribe(theme => {
+  //       this.theme = theme;
+  //       this.canSubscribe = !this.theme.subscribers.includes('5fa64b162183ce1728ff371d');
+  //     });
+  //   })
+  // }
 
   createCommentHandler(createComment: NgForm): void {   // TODO 
    
     const commentData: { author: string, content: string } = {
       //author: this.userId,
-      author: this.userFirstName + ' ' + this.userLastName,
+      author: this.currentUser.firstName + ' ' + this.currentUser.lastName,
       content: createComment.value.comment,
     }
 
-    this.nanniesService.createComment$(this.nannyId, commentData).subscribe({
+    this.nanniesService.createComment$(this.nanny._id, commentData).subscribe({
       next: (nannyUpdated) => {
         console.log('nannyUpdated from server')
         console.log(nannyUpdated)   //TODO  notification 'Comment sent'
         this.nanny = nannyUpdated;
+     
+
       },
-      error: (error) => {
-        console.error(error);
+      error: (err) => {
+        console.error(err.error.message);
       }
   });
   }
 
-  likeHandler() {     // TODO
-    console.log('click')
-   
+  likeHandler() {     
+    if ( !this.nanny?.likes.includes(this.currentUser._id) ){
+      this.nanniesService.likeNanny$(this.nanny._id).subscribe({
+        next: (nannyUpdated) => {
+          this.nanny = nannyUpdated; 
+          this.canLike = false; 
+        },
+        error: (err) => {
+          console.error(err.error.message);
+        }
+      })
+    }
 
-    // if ( !this.nanny?.likes.includes(this.userId) ){
-    //   this.nanny?.likes.push(this.userId);
-    //   console.log(2)
-    //   console.log(this.nanny)
-    //   this.nanniesService.editNanny$(this.nanny._id, this.nanny).subscribe({
-    //     next: (nanny) => {
-    //       console.log(nanny)
-          
-    //     },
-    //     error: (error) => {
-    //       console.error(error);
-    //     }
-    //   })
-    // }
+    if ( this.nanny?.likes.includes(this.currentUser._id) ){
+      this.nanniesService.unlikeNanny$(this.nanny._id).subscribe({
+        next: (nannyUpdated) => {
+          this.nanny = nannyUpdated; 
+          this.canLike = true; 
+        },
+        error: (err) => {
+          console.error(err.error.message);
+        }
+      })
+    }
 
-      this.canLike = false;   // to del
   }
 
   ngOnDestroy() {
-    this.routeParamObs.unsubscribe();
+    // this.nannySubscription.unsubscribe();
   }
 
 }
