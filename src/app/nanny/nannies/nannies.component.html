@@ -6,25 +6,28 @@
         <h3 class="filters__title">Filters:</h3>
 
         <label for="workingTime">Working Time:</label>
-        <select (change)="selectWorkingTimeChangeHandler($event)" name="workingTime" id="workingTime"> 
-            <option value="All">All</option>
-            <option value="Full time">Full time</option>
-            <option value="Part time">Part time</option>
+        <select (change)="selectWorkingTimeChangeHandler($event)" name="workingTime" id="workingTime" [(ngModel)]="selectedWorkingTime"> 
+            <option value="">all</option>
+            <option value="Full time">full time</option>
+            <option value="Part time">part time</option>
         </select>
     
         <label for="driving-licence">Driving Licence:</label>
-        <select (change)="selectDrivingLicenceChangeHandler($event)" name="driving-licence" id="driving-licence"> 
+        <select (change)="selectDrivingLicenceChangeHandler($event)" name="driving-licence" id="driving-licence" [(ngModel)]="selectedDrivingLicence"> 
+        <option value="">all</option>    
         <option value="no">no</option>
         <option value="yes">yes</option>
         </select>
     
         <label for="gender">Gender:</label>
-        <select (change)="selectGenderHandler($event)" name="gender" id="gender">
+        <select (change)="selectGenderHandler($event)" name="gender" id="gender" [(ngModel)]="selectedGender">
+        <option value="">all</option>    
         <option value="female">female</option>
         <option value="male">male</option>
         </select>
     
-        <button (click)="searchHandler()" class="button search">Filter</button>
+        <button (click)="filterHandler()" class="button search">Filter</button>
+        <button (click)="clearFilterHandler()" class="button search">Clear filter</button>
     </div>
 
     <div>

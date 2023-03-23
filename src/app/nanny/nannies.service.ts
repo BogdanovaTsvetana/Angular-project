@@ -78,9 +78,20 @@ export class NanniesService {
   //       return this.nanniesService.getNannyById$(nannyId)
   //   })),
 
-  getNanniesAll$() {
-    return this.http.get(`${environment.apiURL}/list`);
+  getNanniesAll$(time: string, dl: string, gender: string) {
+    return this.http.get(`${environment.apiURL}/list?time=${time}&dl=${dl}&gender=${gender}`);
+    // return this.http.get(`${environment.apiURL}/list?workingtime=full&dl=yes&gender=male`);
+    // return this.http.get(`${environment.apiURL}/list?workingtime=full&dl=yes&gender=male`);
   }
+
+  // loadThemeList(searchTerm: string = ''): Observable<ITheme[]> {
+  //   return this.http.get<ITheme[]>(`${apiUrl}/themes?title=${searchTerm}`, {
+  //     params: new HttpParams({
+  //       fromObject: {
+  //       }
+  //     })
+  //   });
+  // }
 
   getNannyById$(id: string) {
     return this.http.get(`${environment.apiURL}/list/${id}`);

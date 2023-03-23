@@ -4,15 +4,15 @@ const { parseError } = require('../util/parsers.js');
 const { getUserByEmail, editUser } = require('../services/userService.js');
 
 router.get('/', async (req, res) => {
-    
+    console.log(req.query)
     try {
-        const item = await req.storage.getAllItems(req.query);  // todo
+        const item = await req.storage.getAllItems(req.query);  
         res.status(200).json(item);
       
     } catch(err) {
         const message = parseError(err);
         res.status(err.status || 400).json({ message });
-        console.log(err.message);
+        console.log(message);
     }
 });
 

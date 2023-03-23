@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { INanny } from 'src/app/share/interfaces/nanny';
 import { NanniesService } from '../nannies.service';
 
@@ -8,50 +9,64 @@ import { NanniesService } from '../nannies.service';
   templateUrl: './nannies.component.html',
   styleUrls: ['./nannies.component.css']
 })
-export class NanniesComponent implements OnInit {
+export class NanniesComponent implements OnInit, OnDestroy {
 
   // nannies: INanny[] | undefined;
   nannies: any;   // TODO
 
-  selectWorkingTime: string = ''
+  selectedWorkingTime: string = ''
   selectedDrivingLicence: string = '';
   selectedGender: string = '';
-
   resultsFound: number = 0;
+  nannySubscription: Subscription | undefined;
 
   constructor(private nanniesService: NanniesService, private router: Router) { }
 
   ngOnInit(): void {
-  
-    this.nanniesService.getNanniesAll$().subscribe({
-      next: (nannies) => {
-        this.nannies = nannies;
-        console.log(nannies)
-        this.resultsFound = this.nannies.length;
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    })
+    this.getNannies()
   }
 
   selectWorkingTimeChangeHandler(event: any){
-    this.selectWorkingTime = event.target.value;
-    console.log(this.selectWorkingTime)
+    this.selectedWorkingTime = event.target.value;
   }
 
   selectDrivingLicenceChangeHandler(event: any){
     this.selectedDrivingLicence = event.target.value;
-    console.log(this.selectedDrivingLicence)
   }
 
   selectGenderHandler(event: any){
     this.selectedGender = event.target.value;
-    console.log(this.selectedGender)
   }
 
-  searchHandler(){  // TODO
-   
+  getNannies(){
+    this.nannySubscription = this.nanniesService
+      .getNanniesAll$(this.selectedWorkingTime, this.selectedDrivingLicence, this.selectedGender)
+      .subscribe({
+      next: (nannies) => {
+        this.nannies = nannies;
+        this.resultsFound = this.nannies.length;
+      },
+      error: (err) => {
+        console.error(err.error.message);
+      }
+    })
+  }
+
+  filterHandler(){  
+    this.getNannies()
+  }
+
+  clearFilterHandler(){
+    this.selectedWorkingTime = '';
+    this.selectedDrivingLicence = '';
+    this.selectedGender = '';
+    this.getNannies()
+  }
+
+  ngOnDestroy(): void {
+    if (this.nannySubscription) {
+      this.nannySubscription.unsubscribe();
+    }
   }
 
 }

@@ -15,41 +15,25 @@ async function getItemByUserId(userId){
 }
 
 async function getAllItems(query) {
-    
-    //return items;
+    console.log('>> in itemService')
+    console.log(query)
+    const options = {};
 
-    // let options = {}
-    // if(query) {
-    //     options.category = { $regex: query.category, $options: 'i'}
-    //     console.log(options)
-    // }
-    //const items = await Housing.find(options).lean();  //  TODO  change Model
-    // const items = await Item.find({}).populate('user').lean();  //  TODO  to put this
-    const items = await Item.find({}).lean();  //  TODO  change Model
-    //console.log(items)
-
-     return items;
-
-}
-
-async function getAll(query) {
-    let cubes = Object
-                    .entries(data)
-                    .map(([id, v]) => Object.assign({}, { id }, v));
-
-    if (query.search) {
-        cubes = cubes.filter(c => c.name.toLowerCase().includes(query.search.toLowerCase()));
+    if (query.time) {
+        options.workingTime = query.time;
     };
-    
-    if (query.from) {
-        cubes = cubes.filter(c => c.difficulty >= Number(query.from));
-    }
 
-    if (query.to) {
-        cubes = cubes.filter(c => c.difficulty <= Number(query.to));
-    }
+    if (query.dl) {
+        options.drivingLicence = query.dl;
+    };
 
-    return cubes;
+    if (query.gender) {
+        options.gender = query.gender;
+    };
+
+    console.log(options)
+    const items = Item.find(options).lean();  
+    return items;
 }
 
 async function getItemById(id) {
