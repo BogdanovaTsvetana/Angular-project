@@ -46,7 +46,7 @@ export class AuthService {
     this.currentUser$.pipe(map(user => user?.accessToken)).subscribe(t => tok = t);
     console.log('in get accessToken ' + tok)
     return tok;
-    }
+  }
   
   get userId(){
     let id = undefined;

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { INanny } from '../share/interfaces/nanny';
 import { AuthService } from '../auth.service';
-import { map, mergeMap, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, map, mergeMap, Observable, Subject, switchMap, tap } from 'rxjs';
 
 export interface CreateNannyDto { 
   // name: string,
@@ -21,6 +21,16 @@ export interface CreateNannyDto {
 })
 export class NanniesService {
 
+  private _currentNanny = new BehaviorSubject<INanny>(undefined);
+  currentNany$ = this._currentNanny.asObservable();
+
+  // get nannyId() {
+  //   let id = undefined;
+  //   this.currentNany$.pipe(map(n => n?._id)).subscribe( id => id = id);
+  //   console.log('in get nannyId ' + id)
+  //   return id;
+  // }
+
   get accessToken() {
     return this.authService.accessToken
   }  
@@ -28,12 +38,12 @@ export class NanniesService {
   constructor(public authService: AuthService, private http: HttpClient) { }
 
   becomeNanny$( nannyData: CreateNannyDto) {
-    return this.http.post(`${environment.apiURL}/list`, nannyData, {
+    return this.http.post<INanny>(`${environment.apiURL}/list`, nannyData, {
       headers: {
         'Content-type': 'application/json',
         'X-Authorization': `${this.accessToken}`,
       }
-    });
+    }).pipe(tap(res => this._currentNanny.next(res)));
   }
  // With mergeAll, we subscribe to the observables as they arrive and emit values as they arrive. I
   // becomeNanny$( nannyData: CreateNannyDto) {
@@ -81,34 +91,35 @@ export class NanniesService {
   }
 
   getNannyById$(id: string) {
-    return this.http.get(`${environment.apiURL}/list/${id}`);
+    return this.http.get<INanny>(`${environment.apiURL}/list/${id}`)
+    .pipe(tap(res => this._currentNanny.next(res)));
   }
 
   editNanny$(nannyId: string, nannyData: CreateNannyDto) {
-    return this.http.put(`${environment.apiURL}/list/${nannyId}`, nannyData, {
+    return this.http.put<INanny>(`${environment.apiURL}/list/${nannyId}`, nannyData, {
       headers: {
         'Content-type': 'application/json',
         'X-Authorization': `${this.accessToken}`,
       }
-    });
+    }).pipe(tap(res => this._currentNanny.next(res)));;
   }
 
   likeNanny$(nannyId: string) {
-    return this.http.put(`${environment.apiURL}/list/like/${nannyId}`, {}, {
+    return this.http.put<INanny>(`${environment.apiURL}/list/like/${nannyId}`, {}, {
       headers: {
         'Content-type': 'application/json',
         'X-Authorization': `${this.accessToken}`,
       }
-    });
+    }).pipe(tap(res => this._currentNanny.next(res)));;
   }
 
   unlikeNanny$(nannyId: string) {
-    return this.http.put(`${environment.apiURL}/list/unlike/${nannyId}`, {}, {
+    return this.http.put<INanny>(`${environment.apiURL}/list/unlike/${nannyId}`, {}, {
       headers: {
         'Content-type': 'application/json',
         'X-Authorization': `${this.accessToken}`,
       }
-    });
+    }).pipe(tap(res => this._currentNanny.next(res)));;
   }
 
   deleteNanny$(nannyId: string) {

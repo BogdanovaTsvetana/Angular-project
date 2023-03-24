@@ -1,5 +1,5 @@
 <section class="send-message">
-    <h2 class="send-message__title">SEND MESSAGE</h2>
+    <h2 class="send-message__title">SEND MESSAGE TO {{nannyFirstName | uppercase}} {{nannyLastName | uppercase}}</h2>
     
     <form #sendMessage="ngForm" (ngSubmit)="sendMessageHandler(sendMessage)" class="form">
 
@@ -12,7 +12,7 @@
                 Message should be more than 2 characters long!
             </div>
         </ng-container>
-        <textarea #message="ngModel" ngModel required minlength="2" name="message" rows="7" cols="50" placeholder="Your message here..." id="message"></textarea>
+        <textarea #message="ngModel" ngModel required minlength="2" name="message" rows="7" cols="60" placeholder="Your message here..." id="message"></textarea>
 
         <button [disabled]="sendMessage.invalid" class="button">Send</button>
     </form>  
