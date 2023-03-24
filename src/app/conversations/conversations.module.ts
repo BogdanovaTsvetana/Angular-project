@@ -6,6 +6,7 @@ import { ConversationsRoutingModule } from './conversations-routing.module';
 import { SendMessageComponent } from './send-message/send-message.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { DetailsConversationComponent } from './details-conversation/details-conversation.component';
+import { ShareModule } from '../share/share.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { DetailsConversationComponent } from './details-conversation/details-con
     CommonModule,
     ConversationsRoutingModule,
     FormsModule,
+    ShareModule
   ]
 })
 export class ConversationsModule { }

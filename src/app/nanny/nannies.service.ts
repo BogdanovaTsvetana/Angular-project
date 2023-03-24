@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { INanny } from '../share/interfaces/nanny';
 import { AuthService } from '../auth.service';
@@ -21,20 +21,13 @@ export interface CreateNannyDto {
 })
 export class NanniesService {
 
-  // token: string = undefined;
-  
   get accessToken() {
-    let tok = undefined;
-    this.authService.currentUser$.pipe(map(user => user?.accessToken)).subscribe(t => tok = t);
-    console.log('in get accessToken ' + tok)
-    return tok;
-    }
-  // this.authService.currentUser$.pipe(map(user => user?.accessToken)).subscribe(t => tok = t);
-
+    return this.authService.accessToken
+  }  
+ 
   constructor(public authService: AuthService, private http: HttpClient) { }
 
   becomeNanny$( nannyData: CreateNannyDto) {
-    console.log('token: ' + this.accessToken)
     return this.http.post(`${environment.apiURL}/list`, nannyData, {
       headers: {
         'Content-type': 'application/json',
@@ -79,19 +72,13 @@ export class NanniesService {
   //   })),
 
   getNanniesAll$(time: string, dl: string, gender: string) {
-    return this.http.get(`${environment.apiURL}/list?time=${time}&dl=${dl}&gender=${gender}`);
-    // return this.http.get(`${environment.apiURL}/list?workingtime=full&dl=yes&gender=male`);
-    // return this.http.get(`${environment.apiURL}/list?workingtime=full&dl=yes&gender=male`);
+    const params = new HttpParams()
+      .set('time', time)
+      .set('dl', dl)
+      .set('gender', gender);
+    return this.http.get(`${environment.apiURL}/list`, {params});
+    // return this.http.get(`${environment.apiURL}/list?time=${time}&dl=${dl}&gender=${gender}`);
   }
-
-  // loadThemeList(searchTerm: string = ''): Observable<ITheme[]> {
-  //   return this.http.get<ITheme[]>(`${apiUrl}/themes?title=${searchTerm}`, {
-  //     params: new HttpParams({
-  //       fromObject: {
-  //       }
-  //     })
-  //   });
-  // }
 
   getNannyById$(id: string) {
     return this.http.get(`${environment.apiURL}/list/${id}`);

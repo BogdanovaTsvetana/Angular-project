@@ -9,19 +9,30 @@ import { ConversationsService } from '../conversations.service';
   styleUrls: ['./inbox.component.css']
 })
 export class InboxComponent implements OnInit {
+  
+ 
+  
+  // get currentUser() {
+  //   return this.authService.currentUser;
+  // }
 
-  get userId() {
-    return this.authService.userId;
-  }
+  // get userId() {
+  //   return this.authService.userId;
+  // }
 
-  get userFirstName() {
-    return this.authService.userFirstName;
-  }
+  // get userFirstName() {
+  //   return this.authService.userFirstName;
+  // }
 
-  get userLastName() {
-    return this.authService.userLastName;
-  }
+  // get userLastName() {
+  //   return this.authService.userLastName;
+  // }
 
+
+  // get user() {
+  //   return this.authService.currentUser;
+  // }
+  user = undefined;
   conversations: any = [];
   //inboxView: any;
 
@@ -32,7 +43,10 @@ export class InboxComponent implements OnInit {
       ) { }
 
   ngOnInit() {
-      this.conversationService.getAllConversations$(this.userId).subscribe({
+    this.authService.currentUser$.subscribe(u => this.user = u)
+    console.log('user')
+    console.log(this.user)
+      this.conversationService.getAllConversations$(this.user._id).subscribe({
         next: (conversationsRaw: any) => {
 
         for ( let currentConversation of conversationsRaw ) {
@@ -41,15 +55,15 @@ export class InboxComponent implements OnInit {
             // check if there are new messages from the other user
             for ( let message of currentConversation.messages ) {
                 if ((message.read === false) 
-                && (message.authorFirstName != this.userFirstName)
-                && (message.authorLastName != this.userLastName)) {
+                && (message.authorFirstName != this.user.firstName)
+                && (message.authorLastName != this.user.lastName)) {
                   newMessages++;
                 }
             }
 
             // info for viewing
             let conversationView = {
-                userId: this.userId,
+                userId: this.user._id,
                 conversationId: currentConversation._id,
                 otherUserFirstName: '',
                 otherUserLastName: '',
@@ -57,10 +71,10 @@ export class InboxComponent implements OnInit {
             };
                       
            // check who is the other user
-            if ( currentConversation.user1._id == this.userId ) {
+            if ( currentConversation.user1._id == this.user._id ) {
               conversationView.otherUserFirstName = currentConversation.user2.firstName;
               conversationView.otherUserLastName = currentConversation.user2.lastName;
-            } else if ( currentConversation.user2._id == this.userId ) {
+            } else if ( currentConversation.user2._id == this.user._id ) {
               conversationView.otherUserFirstName = currentConversation.user1.firstName;
               conversationView.otherUserLastName = currentConversation.user1.lastName;
             }
@@ -70,8 +84,8 @@ export class InboxComponent implements OnInit {
           // this.conversationns = conversations;
           console.log(this.conversations);
         },
-        error: (error) => {
-          console.log(error);
+        error: (err) => {
+          console.log(err.error.message);
         }
       })
 

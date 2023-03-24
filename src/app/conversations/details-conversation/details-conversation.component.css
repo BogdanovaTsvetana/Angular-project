@@ -12,18 +12,18 @@
 .details-conversation__items {
     display: flex;
     flex-wrap: wrap;
-    
+    flex-direction: column;
     gap: 15px;
 }
   
   .details-conversation__item {
     background-color: white;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     -webkit-box-shadow: var(--box-shadow-card);
     box-shadow: var(--box-shadow-card);
-    max-width: 250px;
+    max-width: 1000px;
   }
   
   .nannies__img-wrapper img {
@@ -48,7 +48,14 @@
     display: flex;
     flex-direction: row;
     gap: 15px;
-    margin: 20px;
+    margin: 6px;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  /* margin: 0px; */
 }
     
   .button {

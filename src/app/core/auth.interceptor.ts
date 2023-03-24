@@ -25,6 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (event instanceof HttpResponse) {
           if (event.url?.endsWith('login') || event.url?.endsWith('register')) {
             const userData: ICurrentUser = event.body;
+            console.log('currentUser: ')
             console.log(userData)
             this.authService.handleLogin(userData);
             console.log('accessToken: ', userData.accessToken)

@@ -29,8 +29,6 @@ export class ConversationsService {
     private httpClitent: HttpClient, 
     private authService: AuthService) { }
 
-
-
   getAllConversations$( userId: string ) {
     return this.httpClitent.get(`${environment.apiURL}/conversations/${userId}`, {
       headers: {

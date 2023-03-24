@@ -33,8 +33,12 @@ export class AuthService {
   // accessToken$ = this.currentUser$.pipe(map(user => user.accessToken));
   // accessToken$ = this.store.select(globalState => globalState.currentUser.accessToken)
 
-  get userId() {
-  return this.newUser._id;
+  // get userId() {
+  // return this.newUser._id;
+  // }
+
+  get currentUser() {
+    return this.currentUser$.subscribe()
   }
 
   get accessToken() {
@@ -43,6 +47,13 @@ export class AuthService {
     console.log('in get accessToken ' + tok)
     return tok;
     }
+  
+  get userId(){
+    let id = undefined;
+    this.currentUser$.pipe(map(user => user?._id)).subscribe(i => id = i);
+    console.log('in get id ' + id)
+    return id;
+  }  
 
     // get accessToken() {
     //   return this.newUser?.accessToken;
