@@ -48,7 +48,7 @@ async function register({firstName, lastName, email, password, memberSince}) {  
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        userType: user.userType,
+        isNanny: user.isNanny,
         accessToken: generateToken(user)
     } 
 }
@@ -90,7 +90,7 @@ async function login(email, password){
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
-        userType: user.userType,
+        isNanny: user.isNanny,
         accessToken: generateToken(user)
     } 
 

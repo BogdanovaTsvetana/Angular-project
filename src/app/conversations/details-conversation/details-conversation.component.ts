@@ -2,8 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { ConversationsService } from '../conversations.service';
+import { ICurrentUser } from 'src/app/share/interfaces/user';
+import { IConversation } from 'src/app/share/interfaces/conversation';
+import { IMessage } from 'src/app/share/interfaces/message';
+
 
 @Component({
   selector: 'app-details-conversation',
@@ -12,24 +17,12 @@ import { ConversationsService } from '../conversations.service';
 })
 export class DetailsConversationComponent implements OnInit {
 
-  // userId: any | undefined;
-  
-  
-  user: any | undefined;
-  routeParamObs: any;    // TODO
-  conversationId: any | undefined;
-
-  // get userFirstName() {
-  //   return this.authService.userFirstName;
-  // }
-
-  // get userLastName() {
-  //   return this.authService.userLastName;
-  // }
-
+  user: ICurrentUser | undefined;
+  routeParamObs: Subscription;    // TODO
+  conversationId: string | undefined;
   otherUserFirstName: string | undefined;
   otherUserLastName: string | undefined;
-  messages: any;
+  messages: IMessage[] = [];
 
   constructor( 
     private activatedRoute: ActivatedRoute, 
@@ -41,15 +34,13 @@ export class DetailsConversationComponent implements OnInit {
   ngOnInit(): void {
 
     this.authService.currentUser$.subscribe(u => this.user = u)
-    console.log('user')
-    console.log(this.user)
     
     this.routeParamObs = this.activatedRoute.paramMap.subscribe(param => {
       this.conversationId = param.get('conversationId');
     });
 
     this.conversationService.getConversation$(this.user._id, this.conversationId).subscribe({
-      next: (conversation: any) => {
+      next: (conversation: IConversation) => {
           this.messages = conversation.messages;
   
            // check who is the other user
@@ -60,16 +51,12 @@ export class DetailsConversationComponent implements OnInit {
               this.otherUserFirstName = conversation.user1.firstName;
               this.otherUserLastName = conversation.user1.lastName;
           }          
-              
-        console.log(conversation);
       },
       error: (error) => {
         console.log(error.error.message);
       }
     })
-
   }
-
 
   sendMessageHandler(sendMessageForm: NgForm): void {
  
@@ -102,7 +89,4 @@ export class DetailsConversationComponent implements OnInit {
         }
       });
   }
-
-
-
 }

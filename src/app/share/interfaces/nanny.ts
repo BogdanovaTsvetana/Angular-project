@@ -1,6 +1,8 @@
+import { IUser } from "./user";
+
 export interface INanny {
     _id: string;
-    //name: string;
+    user: string | IUser;
     firstName: string;
     lastName: string;
     description: string;
@@ -9,11 +11,9 @@ export interface INanny {
     gender: string;
     phone: string;
     image: string;
-    user: object | string;
-
-    postDate: string;
-    likes: string[];
-    comments: any[];
+    likes: (string | IUser)[];
+    comments: (string | IUser)[];
+    created_at: string;
     __v: string;
 }
 

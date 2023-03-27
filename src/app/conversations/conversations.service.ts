@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 import { AuthService } from '../auth.service';
+import { IConversation } from '../share/interfaces/conversation';
+import { IMessage } from '../share/interfaces/message';
+import { Observable } from 'rxjs';
 
 // export interface CreateConversationDto { 
 //   user1: string | object;
@@ -29,8 +32,8 @@ export class ConversationsService {
     private httpClitent: HttpClient, 
     private authService: AuthService) { }
 
-  getAllConversations$( userId: string ) {
-    return this.httpClitent.get(`${environment.apiURL}/conversations/${userId}`, {
+  getAllConversations$( userId: string ): Observable<IConversation[]> {
+    return this.httpClitent.get<Array<IConversation>>(`${environment.apiURL}/conversations/${userId}`, {
       headers: {
         //'Content-type': 'application/json',
         'X-Authorization': `${this.token}`,
@@ -38,8 +41,8 @@ export class ConversationsService {
     })
   }
 
-  getConversation$( userId: string, conversationId: string ) {
-    return this.httpClitent.get(`${environment.apiURL}/conversations/${userId}/${conversationId}`, {
+  getConversation$( userId: string, conversationId: string ): Observable<IConversation> {
+    return this.httpClitent.get<IConversation>(`${environment.apiURL}/conversations/${userId}/${conversationId}`, {
       headers: {
         'Content-type': 'application/json',
         'X-Authorization': `${this.token}`,
@@ -47,8 +50,8 @@ export class ConversationsService {
     })
   }
 
-  createConversation$( userId: string, receiverId: string, messageData: string) {
-    return this.httpClitent.post(`${environment.apiURL}/conversations/${userId}/create/${receiverId}`, messageData, {
+  createConversation$( userId: string, receiverId: string, messageData: string): Observable<IConversation> {
+    return this.httpClitent.post<IConversation>(`${environment.apiURL}/conversations/${userId}/create/${receiverId}`, messageData, {
       headers: {
         'Content-type': 'application/json',
         'X-Authorization': `${this.token}`,
@@ -56,8 +59,8 @@ export class ConversationsService {
     });
   }
 
-  sendMessage$( userId: string, conversationId: string, messageData: MessageDto) {
-    return this.httpClitent.post(`${environment.apiURL}/conversations/${userId}/${conversationId}`, messageData, {
+  sendMessage$( userId: string, conversationId: string, messageData: MessageDto): Observable<IMessage> {
+    return this.httpClitent.post<IMessage>(`${environment.apiURL}/conversations/${userId}/${conversationId}`, messageData, {
       headers: {
         'Content-type': 'application/json',
         'X-Authorization': `${this.token}`,

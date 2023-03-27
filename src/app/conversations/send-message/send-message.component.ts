@@ -17,8 +17,6 @@ export class SendMessageComponent implements OnInit, OnDestroy {
   userId: string | undefined;
   receiverId: string | undefined;
   currentNanny$: Observable<INanny> = this.nanniesService.currentNany$;
-  nannyFirstName: string | undefined;
-  nannyLastName: string | undefined;
   nannyId: string | undefined;
   routeParamSubs: Subscription;
 
@@ -37,8 +35,6 @@ export class SendMessageComponent implements OnInit, OnDestroy {
     });
 
     this.currentNanny$.subscribe(n => {
-      this.nannyFirstName = n.firstName;
-      this.nannyLastName = n.lastName;
       this.nannyId = n._id;
     })
   }

@@ -1,6 +1,6 @@
 <section class="send-message">
-    <h2 class="send-message__title">SEND MESSAGE TO {{nannyFirstName | uppercase}} {{nannyLastName | uppercase}}</h2>
-    
+    <h2 class="send-message__title">SEND MESSAGE TO {{(currentNanny$ | async).firstName | uppercase}} {{(currentNanny$ | async).lastName | uppercase}}</h2>
+ 
     <form #sendMessage="ngForm" (ngSubmit)="sendMessageHandler(sendMessage)" class="form">
 
         <ng-container *ngIf="message.touched && message.invalid">

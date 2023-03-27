@@ -30,6 +30,7 @@ export class AuthService {
 
 
   isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
+  // isNanny$ = this.currentUser$.pipe(map(user => user.isNanny))
   // accessToken$ = this.currentUser$.pipe(map(user => user.accessToken));
   // accessToken$ = this.store.select(globalState => globalState.currentUser.accessToken)
 
