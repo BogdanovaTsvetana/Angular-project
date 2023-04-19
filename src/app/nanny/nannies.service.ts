@@ -6,14 +6,12 @@ import { AuthService } from '../auth.service';
 import { BehaviorSubject, map, mergeMap, Observable, Subject, switchMap, tap } from 'rxjs';
 
 export interface CreateNannyDto { 
-  // name: string,
   description: string,
   workingTime: string,
   drivingLicence: string,
   gender: string,
   phone: string,
   image: string,
-  user: object | string, 
 }
 
 @Injectable({
@@ -24,20 +22,13 @@ export class NanniesService {
   private _currentNanny = new BehaviorSubject<INanny>(undefined);
   currentNany$ = this._currentNanny.asObservable();
 
-  // get nannyId() {
-  //   let id = undefined;
-  //   this.currentNany$.pipe(map(n => n?._id)).subscribe( id => id = id);
-  //   console.log('in get nannyId ' + id)
-  //   return id;
-  // }
-
   get accessToken() {
-    return this.authService.accessToken
+    return this.authService.accessToken;
   }  
  
   constructor(public authService: AuthService, private http: HttpClient) { }
 
-  becomeNanny$( nannyData: CreateNannyDto) {
+  becomeNanny$( nannyData: CreateNannyDto): Observable<INanny> {
     return this.http.post<INanny>(`${environment.apiURL}/list`, nannyData, {
       headers: {
         'Content-type': 'application/json',
@@ -45,57 +36,22 @@ export class NanniesService {
       }
     }).pipe(tap(res => this._currentNanny.next(res)));
   }
- // With mergeAll, we subscribe to the observables as they arrive and emit values as they arrive. I
-  // becomeNanny$( nannyData: CreateNannyDto) {
-  //   return this.authService.accessToken$.pipe(
-  //     switchMap( token => {
-  //       console.log('token: ' + token)
-  //       const accerssToken = token
-  //       return  this.http.post(`${environment.apiURL}/list`, nannyData, {
-  //         headers: {
-  //           'Content-type': 'application/json',
-  //           'X-Authorization': `${accerssToken}`,
-  //         }
-  //       });
-        
-  //     })
-  //   )
-    // .subscribe({
-    //   next: (nanny) => {
-    //     console.log(nanny);
-    //     // this.store.dispatch(switchToNanny())  // TODO
-    //     // //this.router.navigate(['/nannies']);
-    //     // this.router.navigate(['/user/profile']);
-    //     return nanny
-    //   },
-    //   error: (error) => {
-    //     console.error(error);
-    //   }
-    // })
-   
-  
 
-  // this.activatedRoute.params.pipe(
-  //   mergeMap( params => {
-  //       const nannyId = params['nannyId'];
-  //       return this.nanniesService.getNannyById$(nannyId)
-  //   })),
-
-  getNanniesAll$(time: string, dl: string, gender: string) {
+  getNanniesAll$(time: string, dl: string, gender: string): Observable<INanny[]> {
     const params = new HttpParams()
       .set('time', time)
       .set('dl', dl)
       .set('gender', gender);
-    return this.http.get(`${environment.apiURL}/list`, {params});
+    return this.http.get<INanny[]>(`${environment.apiURL}/list`, {params});
     // return this.http.get(`${environment.apiURL}/list?time=${time}&dl=${dl}&gender=${gender}`);
   }
 
-  getNannyById$(id: string) {
+  getNannyById$(id: string): Observable<INanny> {
     return this.http.get<INanny>(`${environment.apiURL}/list/${id}`)
     .pipe(tap(res => this._currentNanny.next(res)));
   }
 
-  editNanny$(nannyId: string, nannyData: CreateNannyDto) {
+  editNanny$(nannyId: string, nannyData: CreateNannyDto): Observable<INanny> {
     return this.http.put<INanny>(`${environment.apiURL}/list/${nannyId}`, nannyData, {
       headers: {
         'Content-type': 'application/json',

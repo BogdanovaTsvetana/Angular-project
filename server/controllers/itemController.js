@@ -19,28 +19,10 @@ router.get('/', async (req, res) => {
 // router.post('/', isUser(), async (req, res) => {    TODO 
 router.post('/', async (req, res) => {     // TODO  isUser(), 
    
-    // const itemData = {
-    //         // owner: req.user._id, 
-    //         //name: req.body.name.trim(),
-    //         workingTime: req.body.workingTime,
-    //         description: req.body.description,
-    //         drivingLicence: req.body.drivingLicence,
-    //         gender: req.body.gender,
-    //         image: req.body.image,
-    //         phone: req.body.phone,
-    //         //years: req.body.years,
-    //         postDate: new Date(),
-    //         user: req.user._id,   // TODO
-    //         //user: 'userID',   // TODO 
-    // };
-
     try {
-        
         const user = await getUserByEmail(req.user.email);
 
         const itemData = {
-            // owner: req.user._id, 
-            //name: req.body.name.trim(),
             firstName: user.firstName,
             lastName: user.lastName,
             workingTime: req.body.workingTime,
@@ -49,42 +31,26 @@ router.post('/', async (req, res) => {     // TODO  isUser(),
             gender: req.body.gender,
             image: req.body.image,
             phone: req.body.phone,
-            //years: req.body.years,
-            postDate: new Date(),
+            created_at: new Date(),
             user: req.user._id,   // TODO
-            //user: 'userID',   // TODO 
         };
 
         const item = await req.storage.createItem(itemData);
         console.log('router.post item')
-        console.log(item)
 
         const userUpdate = {
-            _id: user._id,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            hashedPassword: user.hashedPassword,
-            userType: 'nanny',
+            isNanny: true,
             nanny: item._id,
-            memberSince: user.memberSince,
-            inbox: user.inbox,
-            favourites: user.favourites,
-            conversations: user.conversations,
-            __v: 0,
         }
-        // const user = await editUser(req.user.email, {userType: 'nanny', nanny: item._id});
-        console.log('In item controller')
-        const userNew = await editUser(req.user._id, userUpdate);
-        console.log(userNew)
+       
+        console.log('In item controller');
+        await editUser(req.user._id, userUpdate);
         res.status(201).json(item);
         
     } catch(err) {
         const message = parseError(err);
         res.status(err.status || 400).json({ message });
-
         console.log(err.message);
-
     }
 });
 

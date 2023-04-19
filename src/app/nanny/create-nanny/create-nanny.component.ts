@@ -15,15 +15,16 @@ import { AuthService } from '../../auth.service';
 export class CreateNannyComponent implements OnInit {
 
   token: string | undefined;
-  constructor(private router: Router, 
+
+  constructor(
+    private router: Router, 
     private nanniesService: NanniesService, 
     private authService: AuthService,
     private store: Store<IrootState>,) { }
 
   ngOnInit(): void {
     // this.authService.accessToken$.subscribe(t => this.token = t)
-    this.token = this.authService.accessToken
-    console.log(this.token)
+    this.token = this.authService.accessToken;
   }
 
   submitNannyRegister(nannyRegister: NgForm): void {
@@ -31,12 +32,12 @@ export class CreateNannyComponent implements OnInit {
     this.nanniesService.becomeNanny$(nannyRegister.value).subscribe({
       next: (nanny) => {
         console.log(nanny);
-        this.store.dispatch(isNanny())  // TODO
+        this.store.dispatch(isNanny());
         //this.router.navigate(['/nannies']);
         this.router.navigate(['/user/profile']);
       },
       error: (error) => {
-        console.error(error);
+        console.error(error.error.message);
       }
     })
   }

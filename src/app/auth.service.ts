@@ -15,10 +15,16 @@ export interface CreateUserDto {
   password: string 
 }
 
+export interface EditUserDto { 
+  firstName: string, 
+  lastName: string, 
+  email: string, 
+}
+
 @Injectable()
 export class AuthService {
   
-  newUser: any;
+  // newUser: any;
   // accessToken: string = '';
 
   // Without State Management
@@ -60,13 +66,13 @@ export class AuthService {
     //   return this.newUser?.accessToken;
     //   }  
 
-  get userFirstName() {
-    return this.newUser.firstName;
-    }
+  // get userFirstName() {
+  //   return this.newUser.firstName;
+  //   }
 
-  get userLastName() {
-    return this.newUser.lastName;
-  }  
+  // get userLastName() {
+  //   return this.newUser.lastName;
+  // }  
 
   constructor(private httpClient: HttpClient, private store: Store<IrootState>) {
     console.log('UserService#constructor')
@@ -77,8 +83,8 @@ export class AuthService {
           .pipe(
             tap(response => console.log(response)),
             map(response => response.body),
-            tap(user => this.newUser = user),
-            tap(user => console.log(user)),
+            // tap(user => this.newUser = user),
+            // tap(user => console.log(user)),
           )
     }  
 
@@ -89,7 +95,7 @@ export class AuthService {
       .pipe(
         // tap(response => console.log(response)),
         map(response => response.body),
-        tap(user => this.newUser = user)
+        // tap(user => this.newUser = user)
       )
   }  
  
@@ -142,6 +148,16 @@ export class AuthService {
 
   getProfile$(id: string): Observable<IUser> {  // TODEL
     return this.httpClient.get<IUser>(`${environment.apiURL}/user/${id}`)
+  }
+
+
+  updateProfile$(userId: string, userData: EditUserDto): Observable<IUser> {
+    return this.httpClient.put<IUser>(`${environment.apiURL}/user/${userId}`, userData, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.accessToken}`,
+      }
+    });
   }
 
 }

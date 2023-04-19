@@ -1,6 +1,55 @@
 <section class="nanny">
     <h2 class="nanny__title">MY PROFILE</h2>
 
+        <ng-container *ngIf="!isInEditMode" >
+            <div class="nanny__item">
+                <div class="content">
+                    <p class="nanny__item__email">First name: {{currentUser.firstName}}</p>
+                    <p class="nanny__item__email">Last name: {{currentUser.lastName}}</p>
+                    <p class="nanny__item__email">Email: {{currentUser.email}}</p>
+                   
+                    <button (click)="enterEditMode()" class="button">Edit</button>
+                    <button (click)="deleteNanny()" class="button delete-button">Delete</button>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="isInEditMode">
+            <form class="form" [formGroup]="updateProfileFormGroup" (ngSubmit)="updateProfile()">
+
+                <label for="firstName">First name:</label>
+                <ng-container *ngIf="updateProfileFormGroup.controls['firstName'].touched && updateProfileFormGroup.controls['firstName'].errors">
+                    <p *ngIf="updateProfileFormGroup.controls['firstName'].errors['required']" class="error-message">First name is required!</p>
+                </ng-container>
+                <input formControlName="firstName" [class.input-error]="updateProfileFormGroup.controls['firstName'].touched && updateProfileFormGroup.controls['firstName'].errors" type="text" name="firstName" id="firstName" placeholder="First name" >
+        
+                <label for="lastName">Last name:</label>
+                <ng-container *ngIf="updateProfileFormGroup.controls['lastName'].touched && updateProfileFormGroup.controls['lastName'].errors">
+                    <p *ngIf="updateProfileFormGroup.controls['lastName'].errors['required']" class="error-message">Last name is required!</p>
+                </ng-container>
+                <input formControlName="lastName" [class.input-error]="updateProfileFormGroup.controls['lastName'].touched && updateProfileFormGroup.controls['lastName'].errors" type="text" name="lastName" id="lastName" placeholder="Last name" >
+               
+                <label for="email">Email:</label>
+                <ng-container *ngIf="updateProfileFormGroup.controls['email'].touched && updateProfileFormGroup.controls['email'].errors">
+                    <p *ngIf="updateProfileFormGroup.controls['email'].errors['required']" class="error-message">Email is required!</p>
+                    <p *ngIf="updateProfileFormGroup.controls['email'].errors['email']" class="error-message">Email should be a valid email!</p>
+                </ng-container>
+                <input formControlName="email" [class.input-error]="updateProfileFormGroup.controls['email'].touched && updateProfileFormGroup.controls['email'].errors" type="email" name="email" id="email" placeholder="email" >
+        
+               <button [disabled]="updateProfileFormGroup.invalid" type="submit" class="button">Save</button>
+
+                <button type="button" (click)="isInEditMode = false" class="button">Cancel</button>
+                
+            </form>
+
+        </ng-container>
+           
+</section>
+
+
+<!-- <section class="nanny">
+    <h2 class="nanny__title">MY PROFILE</h2>
+
     <ng-container *ngIf="nanny" >
         <ng-container *ngIf="!isInEditMode" >
 
@@ -16,7 +65,7 @@
                     <p class="nanny__item__driving-licence">Driving Licence: {{nanny.drivingLicence}}</p>
                     <p class="nanny__item__gender">Gender: {{nanny.gender}}</p>
                     <p class="nanny__item__phone">Phone: {{nanny.phone}}</p>
-                    <p class="nanny__item__postDate">Registered: {{nanny.postDate | date: 'longDate' }}</p>
+                    <p class="nanny__item__postDate">Registered: {{nanny.created_at | date: 'longDate' }}</p>
                     <p class="nanny__item__likes">Likes: {{nanny.likes.length}}</p>
 
                     <button (click)="enterEditMode()" class="button">Edit</button>
@@ -122,4 +171,4 @@
        
     </ng-container>
        
-</section>
+</section> -->

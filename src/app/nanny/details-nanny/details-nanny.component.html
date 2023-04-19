@@ -14,7 +14,7 @@
                 <p class="nanny__item__driving-licence">Driving Licence: {{nanny.drivingLicence}}</p>
                 <p class="nanny__item__gender">Gender: {{nanny.gender}}</p>
                 <p class="nanny__item__phone">Phone: {{nanny.phone}}</p>
-                <p class="nanny__item__postDate">Registered: {{nanny.postDate | date: 'longDate' }}</p>
+                <p class="nanny__item__postDate">Registered: {{nanny.created_at | date: 'longDate' }}</p>
                 <p class="nanny__item__likes">Likes: {{nanny.likes.length}} from {{nanny.likes}}</p>
 
                 <h3 class="create-comment__title">Comments</h3>

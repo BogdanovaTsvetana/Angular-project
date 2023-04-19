@@ -1,26 +1,30 @@
 import { IConversation } from "./conversation";
+import { INanny } from "./nanny";
 
 export interface IUser {
     _id: string;
     firstName: string;
     lastName: string;
     email: string,
-    password: string;
-    userType: string;
-    nanny: string | IUser;
+    isNanny: boolean;
+    nanny: string | INanny;
     memberSince: string;
     inbox: string;
     favourites: string[];
     conversations: IConversation[];
-    __v: string;
 }
 
 export interface ICurrentUser {
-    _id: string,
+    _id: string;
     firstName: string;
     lastName: string;
     email: string,
     isNanny: boolean;
+    nanny: string | INanny;
+    memberSince: string;
+    inbox: string;
+    favourites: string[];
+    conversations: IConversation[];
     accessToken: string,
 }
 

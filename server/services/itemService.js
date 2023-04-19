@@ -3,16 +3,15 @@ const User = require('../models/User.js');
 const Comment = require('../models/Comment.js');
 
 async function createItem(itemData) {
-
     const item = new Item(itemData);   
     await item.save(); 
     return item;
 }
 
-async function getItemByUserId(userId){
-    const item = await Item.find({ user: userId });
-    return item;
-}
+// async function getItemByUserId(userId){
+//     const item = await Item.find({ user: userId });
+//     return item;
+// }
 
 async function getAllItems(query) {
     console.log('>> in itemService')
@@ -122,7 +121,7 @@ module.exports = {
     createItem,
     getAllItems,
     getItemById,
-    getItemByUserId,
+    // getItemByUserId,
     editItem,
     // likeItem,
     deleteItem,

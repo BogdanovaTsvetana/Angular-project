@@ -19,7 +19,7 @@ export const currentUserReducer = createReducer<ICurrentUser>(
     on(switchToParent, (state, action) => {
         return {
             ...state,
-            userType: 'parent'
+            isNanny: false
         }
     }),
 )

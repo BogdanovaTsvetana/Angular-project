@@ -78,13 +78,7 @@
         </ng-container>
         <input #image="ngModel" ngModel required  type="text" name="image" placeholder="https://"  id="image">
 
-
         <label for="phone">Phone:</label>
-        <ng-container *ngIf="phone.touched && phone.invalid">
-            <div class="error-message">
-                Phone is required!
-            </div>
-        </ng-container>
         <input #phone="ngModel" ngModel required type="text" name="phone" id="phone" >
         
         <button [disabled]="nannyRegister.invalid" class="button">Save</button>

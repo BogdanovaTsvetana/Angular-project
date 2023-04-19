@@ -4,7 +4,6 @@ const { body, validationResult } = require('express-validator');
 const { isGuest, isUser} = require('../middlewares/guards.js');    
 const { register, login, getUserById } = require('../services/userService.js');
 
-
 router.post('/register',  
     isGuest(),
     body('email')
@@ -36,16 +35,14 @@ router.post('/register',
             email: req.body.email,
             password: req.body.password, 
             memberSince: new Date(),
-            //location: req.body.location,
         }
-        console.log('>>>>> in server authController')
-
+        
         const registerData = await register(userData);
-        console.log(registerData) 
+        console.log('>>>>> in server authController')
+        console.log(registerData)
         res.json(registerData);
     } catch (err) {
         console.log('>> err from auth ', err.message)
-        
         res.status(err.status || 400).json({ message: err.message }) // 409 Conflict
     }  
 });
@@ -75,7 +72,8 @@ router.get('/:id', async (req, res) => {
         const user = await getUserById(req.params.id);
            
         // let itemData = {...item, owner: item.owner}
-       
+    //    console.log('>> user')
+    //    console.log(user)
         res.json(user)
       
     }catch(err) {

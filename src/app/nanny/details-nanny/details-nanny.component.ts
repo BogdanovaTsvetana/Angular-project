@@ -18,14 +18,11 @@ import { isNanny } from 'src/app/+store/actions';
   styleUrls: ['./details-nanny.component.css']
 })
 export class DetailsNannyComponent implements OnInit, OnDestroy {
-
-
   // nannyId: any | undefined;
 
   currentUser: ICurrentUser;
   nanny: any | undefined;
   canLike: boolean = false;
-
   nannySubscription: Subscription;
 
   // get userId() {
