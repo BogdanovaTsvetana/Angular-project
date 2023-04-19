@@ -6,7 +6,7 @@ import { map, tap } from 'rxjs/operators';
 import { IUser, ICurrentUser } from './share/interfaces/user';
 import { IrootState } from './+store/reducers';
 import { Store } from '@ngrx/store';
-import { login, logout } from './+store/actions';
+import { login, logout, updateUser } from './+store/actions';
 
 export interface CreateUserDto { 
   firstName: string, 
@@ -146,6 +146,12 @@ export class AuthService {
     this.store.dispatch(logout());
   }
 
+  handleUpdateUser(user: IUser) {
+    const updatedCurrentUser = {...user, accessToken: this.accessToken}
+    console.log(updatedCurrentUser)
+    this.store.dispatch(updateUser({ currentUser: updatedCurrentUser}));
+  }
+
   getProfile$(id: string): Observable<IUser> {  // TODEL
     return this.httpClient.get<IUser>(`${environment.apiURL}/user/${id}`)
   }
@@ -157,7 +163,19 @@ export class AuthService {
         'Content-type': 'application/json',
         'X-Authorization': `${this.accessToken}`,
       }
-    });
+    })
+    // .pipe(
+      // tap(res => {
+      //   // const updatedUser = Object.assign(res, this.accessToken)
+      //   // this.store.dispatch(updateUser({ currentUser: updatedUser}));
+      //   console.log(res)
+
+      //   // this.handleUpdateUser(res);
+      //   console.log(res)
+      // })
+      // tap(res => this.handleUpdateUser(res))
+    // );
+  
   }
 
 }

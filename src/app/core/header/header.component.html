@@ -34,6 +34,12 @@
           <li class="header__nav__item">
             <a href="javascript:void(0);" >User_id {{( currentUser$ | async)._id}}</a>
           </li>
+          <li class="header__nav__item">
+            <a href="javascript:void(0);" >Name {{( currentUser$ | async).firstName}}</a>
+          </li>
+          <li class="header__nav__item">
+            <a href="javascript:void(0);" >email {{( currentUser$ | async).email}}</a>
+          </li>
           <li routerLinkActive="active" class="header__nav__item">
             <a routerLink="user/inbox">{{( currentUser$ | async).firstName}} INBOX</a>
           </li>

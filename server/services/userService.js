@@ -47,7 +47,6 @@ function generateToken(user) {    // 1
     
     const token = jwt.sign({
         _id: user._id,          
-        email: user.email,
     }, TOKEN_SECRET); 
     
     return token
@@ -95,76 +94,24 @@ async function login(email, password){
 }
 
 async function getUserById(id) {
-    //const item = await Item.findById(id).populate('user').lean();  //  TODO  to put this
     const user = await User.findById(id).populate('nanny').populate('conversations').lean();   // TODO
-
     const { hashedPassword, __v, ...userData } = user;
     console.log('>> in getUserById')
     console.log(userData)
     return userData;
-
-    // return user;
-    return {
-        _id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        isNanny: user.isNanny,
-        memberSince: user.memberSince,
-        inbox: user.inbox,
-        nanny: user.nanny,
-        favourites: user.favourites,
-        conversations: user.conversations,
-    }
 }
 
-// async function editUser(email, newData) {        // OLD
-//     const pattern = new RegExp(`^${email}$`, 'i')
-//     //const user =  await User.findOne({ email: { $regex: pattern} });
-//     const user = await User.findOneAndReplace({ email: { $regex: pattern}}, newData)
-//     console.log('>> in editUser')
-//     //console.log(user)
-    
-//     if(!user) {
-//         throw new Error('No such user in database!')
-//     }
-
-//     // Object.assign(user, newData);
-
-//     // await user.save();
-
-
-//     return user;
-// }
-
 async function editUser(userId, newData) {        // NEW
-    //const pattern = new RegExp(`^${email}$`, 'i')
-    // const user =  await User.findOne({ email: { $regex: pattern} });
     const user = await User.findById(userId);
-    // console.log('2')
-    // const user = await User.findOneAndReplace({ _id: userId}, newData)
-    console.log('>> in editUser')
-    //console.log(user)
-    
     if(!user) {
         throw new Error('No such user in database!')
     }
 
     Object.assign(user, newData);
     await user.save();
-    // return user;
-    return {
-        _id: user._id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        isNanny: user.isNanny,
-        memberSince: user.memberSince,
-        inbox: user.inbox,
-        nanny: user.nanny | '',
-        favourites: user.favourites,
-        conversations: user.conversations,
-    }
+    const updatedUser = await User.findById(userId).lean();   
+    const { hashedPassword, __v, ...userData } = updatedUser;
+    return userData;
 }
 
 // async function getUserByUsername(username) {

@@ -58,8 +58,8 @@ export class ProfileComponent implements OnInit {
       
       next: (user) => {
         console.log(user)
-        //this.router.navigate(['/nannies']);
-        // this.router.navigate(['/user/profile']);
+        this.authService.handleUpdateUser(user)
+        this.isInEditMode = false;
       },
       error: (error) => {
         console.error(error);

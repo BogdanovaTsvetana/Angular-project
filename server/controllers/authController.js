@@ -2,7 +2,7 @@
 const router = require('express').Router();   
 const { body, validationResult } = require('express-validator');     
 const { isGuest, isUser} = require('../middlewares/guards.js');    
-const { register, login, getUserById } = require('../services/userService.js');
+const { register, login, getUserById, editUser } = require('../services/userService.js');
 
 router.post('/register',  
     isGuest(),
@@ -70,18 +70,34 @@ router.get('/logout', isUser(), (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const user = await getUserById(req.params.id);
-           
-        // let itemData = {...item, owner: item.owner}
-    //    console.log('>> user')
-    //    console.log(user)
+    //    console.log('>> authController, get user')
+    //     console.log(user)
         res.json(user)
-      
     }catch(err) {
         console.log(err.message);
         res.status(err.status || 400).json( { message: err.message } );
-     
     }
 });
+
+// Update user
+router.put('/:id', async (req, res) => {
+    const newData = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+    };
+  
+    try {
+        const updatedUser = await editUser(req.params.id, newData);
+        // console.log('>>authControler, edit user')
+        // console.log(updatedUser)
+        res.json(updatedUser)
+        
+    } catch(err) {
+        console.log(err.message);
+        res.status(err.status || 400).json( err.message );
+    }
+})
 
 module.exports = router;
 

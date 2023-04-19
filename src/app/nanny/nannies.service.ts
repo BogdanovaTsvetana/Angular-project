@@ -57,7 +57,7 @@ export class NanniesService {
         'Content-type': 'application/json',
         'X-Authorization': `${this.accessToken}`,
       }
-    }).pipe(tap(res => this._currentNanny.next(res)));;
+    }).pipe(tap(res => this._currentNanny.next(res)));
   }
 
   likeNanny$(nannyId: string) {
