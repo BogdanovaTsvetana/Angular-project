@@ -18,6 +18,7 @@ import { EditNannyComponent } from './edit-nanny/edit-nanny.component';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     NanniesRoutingModule,
     ShareModule
   ],

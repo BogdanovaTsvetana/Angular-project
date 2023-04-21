@@ -16,7 +16,7 @@ import { ConversationsService } from '../conversations.service';
 export class SendMessageComponent implements OnInit, OnDestroy {
   userId: string | undefined;
   receiverId: string | undefined;
-  currentNanny$: Observable<INanny> = this.nanniesService.currentNany$;
+  currentNanny$: Observable<INanny> = this.nanniesService.currentNanny$;
   nannyId: string | undefined;
   routeParamSubs: Subscription;
 

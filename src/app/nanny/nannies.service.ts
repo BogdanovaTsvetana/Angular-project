@@ -20,7 +20,7 @@ export interface CreateNannyDto {
 export class NanniesService {
 
   private _currentNanny = new BehaviorSubject<INanny>(undefined);
-  currentNany$ = this._currentNanny.asObservable();
+  currentNanny$ = this._currentNanny.asObservable();
 
   get accessToken() {
     return this.authService.accessToken;

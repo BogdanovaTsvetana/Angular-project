@@ -29,20 +29,19 @@
           </li> -->
           <li routerLinkActive="active" class="header__nav__item">
            
-            <a routerLink="/user/profile"> PROFILE</a>
+            <a routerLink="/user/profile"> PROFILE {{( currentUser$ | async)._id}} email {{( currentUser$ | async).email}}</a>
           </li>
-          <li class="header__nav__item">
+          <!-- <li class="header__nav__item">
             <a href="javascript:void(0);" >User_id {{( currentUser$ | async)._id}}</a>
-          </li>
-          <li class="header__nav__item">
-            <a href="javascript:void(0);" >Name {{( currentUser$ | async).firstName}}</a>
-          </li>
-          <li class="header__nav__item">
+          </li> -->
+          <!-- <li class="header__nav__item">
             <a href="javascript:void(0);" >email {{( currentUser$ | async).email}}</a>
-          </li>
+          </li> -->
+    
           <li routerLinkActive="active" class="header__nav__item">
             <a routerLink="user/inbox">{{( currentUser$ | async).firstName}} INBOX</a>
           </li>
+              
           <!-- <li *ngIf="(currentUser$ | async).userType === 'parent'" routerLinkActive="active" class="header__nav__item">
             <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
           </li> -->
@@ -54,7 +53,7 @@
           </li>
           <li class="header__nav__item">
             <a href="javascript:void(0);" (click)="logoutHandler()">LOGOUT</a>
-          </li>
+          
           <!-- <li  class="header__nav__item">
             <a href="javascript:void(0);">WELCOME {{( currentUser$ | async).firstName}}</a>
           </li> -->

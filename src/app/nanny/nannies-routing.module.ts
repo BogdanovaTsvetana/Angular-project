@@ -5,6 +5,7 @@ import { GuardService } from '../guard.service';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { CreateNannyComponent } from './create-nanny/create-nanny.component';
 import { DetailsNannyComponent } from './details-nanny/details-nanny.component';
+import { EditNannyComponent } from './edit-nanny/edit-nanny.component';
 import { NanniesComponent } from './nannies/nannies.component';
 
 const routes: Routes = [
@@ -29,6 +30,11 @@ const routes: Routes = [
                 path: ':nannyId',
                 canActivate: [GuardService],
                 component: DetailsNannyComponent,   
+            },
+            {
+                path: 'editnanny/:nannyId',
+                canActivate: [GuardService],
+                component: EditNannyComponent,   
             },
             {
                 path: '**',

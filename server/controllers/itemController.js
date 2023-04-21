@@ -86,30 +86,17 @@ router.put('/:id', isUser(), async (req, res) => {    // isOwner
         const item = await req.storage.getItemById(req.params.id);
 
         if (req.user._id != item.user._id) {         // TODO  PROMENIH !!!!!
-            throw new Error('You haven\'t created it!!');    // TODO
+            throw new Error('You are not allowed to make changes!');    // TODO
         }
         
         const newData = {
-            // title: req.body.title,
-            // year: req.body.year,
-            // price: Number(req.body.price), //  currency
-            // category: req.body.category,
-            
-            // // no PostDate
-            // description: req.body.description,
-            // image: req.body.image,
-
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
+            description: req.body.description,
             gender: req.body.gender,
-            years: req.body.years,
             workingTime: req.body.workingTime,
             drivingLicence: req.body.drivingLicence,
-            description: req.body.description,
             image: req.body.image,
             user: req.user._id,
             phone: req.body.phone,
-            likes: req.body.likes,
         };
         const updatedItem = await req.storage.editItem(req.params.id, newData);
 

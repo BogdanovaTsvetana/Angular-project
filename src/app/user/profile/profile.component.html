@@ -7,9 +7,10 @@
                     <p class="nanny__item__email">First name: {{currentUser.firstName}}</p>
                     <p class="nanny__item__email">Last name: {{currentUser.lastName}}</p>
                     <p class="nanny__item__email">Email: {{currentUser.email}}</p>
+                    <p class="nanny__item__email">nannyId: {{nanny?._id}}</p>
                    
                     <button (click)="enterEditMode()" class="button">Update</button>
-                    <button (click)="enterEditMode()" class="button">Update your nanny data</button>
+                    <button *ngIf="nanny"  [routerLink]="['/nannies/editnanny', nanny._id]" class="button">Update your nanny data</button>
                     <button (click)="deleteNanny()" class="button delete-button">Delete</button>
                 </div>
             </div>

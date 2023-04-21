@@ -17,8 +17,7 @@ export class ProfileComponent implements OnInit {
 
   currentUser: IUser = undefined;
   nanny: any;
-  nannyId: any;
-
+ 
   get userId() {
     return this.authService.userId;
   }
@@ -52,12 +51,13 @@ export class ProfileComponent implements OnInit {
   }
   
   updateProfile() {
-    console.log(this.updateProfileFormGroup.value);
+    // console.log(this.updateProfileFormGroup.value);
 
     this.authService.updateProfile$(this.userId, this.updateProfileFormGroup.value).subscribe({
-      
       next: (user) => {
+        console.log('user')
         console.log(user)
+        this.currentUser = user;
         this.authService.handleUpdateUser(user)
         this.isInEditMode = false;
       },
@@ -82,6 +82,11 @@ export class ProfileComponent implements OnInit {
 
   enterEditMode(): void {
     this.isInEditMode = true;
+    this.updateProfileFormGroup.patchValue({
+      firstName: this.currentUser.firstName,
+      lastName: this.currentUser.lastName,
+      email: this.currentUser.email,
+    });
   }
 
   // updateNanny(editProfileForm: NgForm) {

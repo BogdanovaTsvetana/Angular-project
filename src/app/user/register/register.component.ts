@@ -25,11 +25,8 @@ export class RegisterComponent implements OnInit {
   passwordMatch(passwordFormControl: AbstractControl) {
     const validtorFn: ValidatorFn = (rePasswordFormControl: AbstractControl) => {
         if (passwordFormControl.value !== rePasswordFormControl.value) {
-            return {
-              notMatched: true
-            }
+            return { notMatched: true }
         }
-
         return null;
     }
 

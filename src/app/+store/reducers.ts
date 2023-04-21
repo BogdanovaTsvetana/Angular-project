@@ -10,7 +10,15 @@ export const currentUserReducer = createReducer<ICurrentUser>(
     undefined,
     on(login, (_, action) => action.currentUser),
     on(logout, () => undefined),
-    on(updateUser, (state, action) => action.currentUser),
+    // on(updateUser, (state, action) => action.currentUser),
+    on(updateUser, (state, action) => {
+        return {
+            ...state,
+            firstName: action.currentUser.firstName,
+            lastName: action.currentUser.lastName,
+            email: action.currentUser.email,
+        }
+    }),
     on(isNanny, (state, action) => {
         return {
             ...state,

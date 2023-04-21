@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/auth.service';
 import { IUser } from 'src/app/share/interfaces/user';
 import { MessageBusService } from '../message-bus.service';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { NanniesService } from 'src/app/nanny/nannies.service';
 
 
 @Component({
@@ -16,12 +17,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentUser$: Observable<any> = this.authService.currentUser$;
   isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
+  currentNanny$: Observable<any> = this.nanniesService.currentNanny$;
+  
   // isNanny$: Observable<boolean> = this.authService.isNanny$;
 
   message: any;
   subscription: Subscription;
   
-  constructor(public authService: AuthService, private router: Router, private messageBusService: MessageBusService) { }
+  constructor(
+    public authService: AuthService, 
+    private router: Router, 
+    private messageBusService: MessageBusService,
+    private nanniesService: NanniesService) { }
 
   ngOnInit(): void {
     this.subscription = this.messageBusService.message$.subscribe(m => {
