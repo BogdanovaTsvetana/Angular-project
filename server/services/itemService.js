@@ -37,15 +37,7 @@ async function getAllItems(query) {
 
 async function getItemById(id) {
     console.log('>>5' + id)
-    const nanny = await Item
-        .findById(id)
-        // .populate({
-        //     path: 'comments',
-        //     populate: { path: 'author' }  
-        // }) 
-
-        .populate('comments')
-        .lean();   // TODO
+    const nanny = await Item.findById(id).populate('comments').lean();   // TODO
     console.log('>>5' )
     if(nanny) {
 
@@ -86,6 +78,7 @@ async function editItem(id, newData){
 }
 
 async function deleteItem(id) {
+    console.log('>> in itemService, deleteItem')
     return Item.findByIdAndDelete(id);  
   
 }

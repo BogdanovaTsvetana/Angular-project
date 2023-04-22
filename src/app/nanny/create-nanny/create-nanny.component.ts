@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { IrootState } from 'src/app/+store/reducers';
-import { isNanny } from 'src/app/+store/actions';
+import { becomeNanny } from 'src/app/+store/actions';
 import { NanniesService } from '../nannies.service';
 import { AuthService } from '../../auth.service';
 
@@ -28,13 +28,13 @@ export class CreateNannyComponent implements OnInit {
   }
 
   submitNannyRegister(nannyRegister: NgForm): void {
+    console.log(nannyRegister.value)
 
     this.nanniesService.becomeNanny$(nannyRegister.value).subscribe({
       next: (nanny) => {
         console.log(nanny);
-        this.store.dispatch(isNanny());
-        //this.router.navigate(['/nannies']);
-        this.router.navigate(['/user/profile']);
+        this.store.dispatch(becomeNanny());
+        this.router.navigate(['/nannies/editnanny', nanny._id]);
       },
       error: (error) => {
         console.error(error.error.message);

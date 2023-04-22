@@ -95,23 +95,24 @@ async function login(email, password){
 
 async function getUserById(id) {
     const user = await User.findById(id).populate('nanny').populate('conversations').lean();   // TODO
-    const { hashedPassword, __v, ...userData } = user;
     console.log('>> in getUserById')
-    console.log(userData)
-    return userData;
+    // console.log(userData)
+    return user;
 }
 
 async function editUser(userId, newData) {        // NEW
+    console.log('>> in userService, editUser')
     const user = await User.findById(userId);
     if(!user) {
         throw new Error('No such user in database!')
     }
 
-    Object.assign(user, newData);
-    await user.save();
-    const updatedUser = await User.findById(userId).lean();   
-    const { hashedPassword, __v, ...userData } = updatedUser;
-    return userData;
+    // Object.assign(user, newData);
+    await User.findOneAndReplace({ _id: userId}, newData).lean();
+    const newUser = await User.findById(userId).lean();
+    console.log('>> 1')
+    console.log(newUser)
+    return newUser;
 }
 
 // async function getUserByUsername(username) {
@@ -143,6 +144,11 @@ async function getUserByEmail(email) {               // TODO
     return user;
 }
 
+async function deleteUser(id) {
+    console.log('>> in userService, deleteUser')
+    return User.findByIdAndDelete(id);  
+}
+
 
 module.exports = {
     register,
@@ -151,4 +157,5 @@ module.exports = {
     // getUserByUsername,
     getUserByEmail,          // TODO
     getUserById,
+    deleteUser,
 }

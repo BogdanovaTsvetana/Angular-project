@@ -45,12 +45,12 @@
           <!-- <li *ngIf="(currentUser$ | async).userType === 'parent'" routerLinkActive="active" class="header__nav__item">
             <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
           </li> -->
-          <!-- <li  *ngIf="!(currentUser$ | async).isNanny "routerLinkActive="active" class="header__nav__item">
-            <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
-          </li> -->
-          <li  routerLinkActive="active" class="header__nav__item">
+          <li  *ngIf="!(currentUser$ | async).isNanny "routerLinkActive="active" class="header__nav__item">
             <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
           </li>
+          <!-- <li  routerLinkActive="active" class="header__nav__item">
+            <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
+          </li> -->
           <li class="header__nav__item">
             <a href="javascript:void(0);" (click)="logoutHandler()">LOGOUT</a>
           

@@ -178,4 +178,13 @@ export class AuthService {
   
   }
 
+  deleteUser$(userId: string) {
+    return this.httpClient.delete(`${environment.apiURL}/user/${userId}`, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.accessToken}`,
+      }
+    });
+  }
+
 }

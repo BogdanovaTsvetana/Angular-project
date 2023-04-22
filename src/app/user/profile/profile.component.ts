@@ -7,6 +7,7 @@ import { INanny } from '../../share/interfaces/nanny';
 import { AuthService } from '../../auth.service';
 import { NanniesService } from '../../nanny/nannies.service';
 import { Observable } from 'rxjs';
+import { MessageBusService } from 'src/app/core/message-bus.service';
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +35,8 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService, 
     private formBuilder: FormBuilder,
     private nanniesService: NanniesService, 
-    private router: Router) { }
+    private router: Router,
+    private messageBusService: MessageBusService) { }
 
   ngOnInit(): void {
       this.authService.getProfile$(this.userId).subscribe({
@@ -67,11 +69,12 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  deleteNanny() {
-    this.nanniesService.deleteNanny$(this.nanny._id).subscribe({
+  deleteUser() {
+    this.authService.deleteUser$(this.userId).subscribe({
       next: () => {
-        console.log('Nanny deleted');
-        // this.authService.newUser.userType='parent';  // TODO
+        console.log('User deleted');
+        this.messageBusService.notifyForMessage({text: `Successfully deleted`, type: 'success'});
+        this.authService.handleLogout();
         this.router.navigate(['/nannies']);
       },
       error: (error) => {

@@ -3,6 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
 import { NanniesService } from '../nannies.service';
+import { Store } from '@ngrx/store';
+import { IrootState } from 'src/app/+store/reducers';
+import { deleteNanny } from 'src/app/+store/actions';
+import { MessageBusService } from 'src/app/core/message-bus.service';
 
 @Component({
   selector: 'app-edit-nanny',
@@ -24,10 +28,13 @@ export class EditNannyComponent implements OnInit {
   constructor(
     private authService: AuthService, 
     private nanniesService: NanniesService, 
+    private store: Store<IrootState>,
     private activatedRoute: ActivatedRoute, 
-    private router: Router) { }
+    private router: Router,
+    private messageBusService: MessageBusService) { }
 
   ngOnInit(): void {
+    console.log('here')
 
     this.updateNannyForm = new FormGroup({
       description: new FormControl(null, [Validators.required, Validators.minLength(4)]),
@@ -90,18 +97,19 @@ export class EditNannyComponent implements OnInit {
     })
   }
 
-  // deleteNanny() {
-  //   this.nanniesService.deleteNanny$(this.nanny._id).subscribe({
-  //     next: () => {
-  //       console.log('Nanny deleted');
-  //       // this.authService.newUser.userType='parent';  // TODO
-  //       this.router.navigate(['/nannies']);
-  //     },
-  //     error: (error) => {
-  //       console.error(error);
-  //     }
-  //   })
-  // }
+  deleteNanny() {
+    this.nanniesService.deleteNanny$(this.nanny._id).subscribe({
+      next: () => {
+        console.log('Nanny deleted');
+        this.store.dispatch(deleteNanny());
+        this.messageBusService.notifyForMessage({text: `Successfully deleted`, type: 'success'})
+        this.router.navigate(['/nannies']);
+      },
+      error: (error) => {
+        console.error(error.error);
+      }
+    })
+  }
 
 
   // deleteNanny() {

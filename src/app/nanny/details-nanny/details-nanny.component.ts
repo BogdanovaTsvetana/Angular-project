@@ -9,7 +9,7 @@ import { mergeMap, tap, map, Subscription, combineLatest } from 'rxjs';
 import { ICurrentUser } from 'src/app/share/interfaces/user';
 import { Store } from '@ngrx/store';
 import { IrootState } from 'src/app/+store/reducers';
-import { isNanny } from 'src/app/+store/actions';
+import { becomeNanny } from 'src/app/+store/actions';
 
 
 @Component({
