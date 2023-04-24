@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { INanny } from '../share/interfaces/nanny';
 import { AuthService } from '../auth.service';
 import { BehaviorSubject, map, mergeMap, Observable, Subject, switchMap, tap } from 'rxjs';
+import { IConversation } from '../share/interfaces/conversation';
 
 export interface CreateNannyDto { 
   description: string,
@@ -89,6 +90,15 @@ export class NanniesService {
 
   createComment$(nannyId: string, commentData: any) {
     return this.http.post(`${environment.apiURL}/comments/${nannyId}`, commentData, {
+      headers: {
+        'Content-type': 'application/json',
+        'X-Authorization': `${this.accessToken}`,
+      }
+    });
+  }
+
+  createConversation$( userId: string, receiverId: string, messageData: string): Observable<IConversation> {
+    return this.http.post<IConversation>(`${environment.apiURL}/conversations/${userId}/create/${receiverId}`, messageData, {
       headers: {
         'Content-type': 'application/json',
         'X-Authorization': `${this.accessToken}`,

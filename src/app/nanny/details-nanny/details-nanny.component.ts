@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -10,6 +10,7 @@ import { ICurrentUser } from 'src/app/share/interfaces/user';
 import { Store } from '@ngrx/store';
 import { IrootState } from 'src/app/+store/reducers';
 import { becomeNanny } from 'src/app/+store/actions';
+import { MessageBusService } from 'src/app/core/message-bus.service';
 
 
 @Component({
@@ -24,6 +25,10 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
   nanny: any | undefined;
   canLike: boolean = false;
   nannySubscription: Subscription;
+
+  @ViewChild('sendMessageForm') sendMessageForm: NgForm;
+  @ViewChild('createCommentForm') createCommentForm: NgForm;
+  
 
   // get userId() {
   //   return this.authService.userId;
@@ -41,6 +46,7 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
       private activatedRoute: ActivatedRoute, 
       private nanniesService: NanniesService, 
       private authService: AuthService, 
+      private messageBusService: MessageBusService,
       private store: Store<IrootState>,
       private router: Router) { }
 
@@ -107,12 +113,28 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
   //   })
   // }
 
-  createCommentHandler(createComment: NgForm): void {   // TODO 
+  sendMessageHandler(): void {
+    console.log(this.createCommentForm.value)
+    this.nanniesService.createConversation$(this.currentUser._id, this.nanny.user, this.sendMessageForm.value).subscribe({
+        next: (conversation) => {
+          console.log(conversation)   
+          this.router.navigate(['/nannies', this.nanny._id]);
+          this.sendMessageForm.reset();
+          this.messageBusService.notifyForMessage({text: 'Message sent.', type: 'success'})
+        },
+        error: (error) => {
+          console.error(error.error.message);
+        }
+    });
+  }
+
+  createCommentHandler(): void {   // TODO 
+    console.log(this.createCommentForm.value)
    
     const commentData: { author: string, content: string } = {
       //author: this.userId,
       author: this.currentUser.firstName + ' ' + this.currentUser.lastName,
-      content: createComment.value.comment,
+      content: this.createCommentForm.value.comment,
     }
 
     this.nanniesService.createComment$(this.nanny._id, commentData).subscribe({
@@ -120,8 +142,7 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
         console.log('nannyUpdated from server')
         console.log(nannyUpdated)   //TODO  notification 'Comment sent'
         this.nanny = nannyUpdated;
-     
-
+        this.createCommentForm.reset();
       },
       error: (err) => {
         console.error(err.error.message);
@@ -155,6 +176,8 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
     }
 
   }
+
+
 
   ngOnDestroy() {
     // this.nannySubscription.unsubscribe();

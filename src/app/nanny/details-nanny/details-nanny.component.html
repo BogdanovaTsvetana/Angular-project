@@ -31,18 +31,37 @@
     
                 <div *ngIf="nanny.user != currentUser._id">
                 <!-- <div> -->
-                 
-                    <form #createComment="ngForm" (ngSubmit)="createCommentHandler(createComment)" class="form">
+                    <form #createCommentForm="ngForm" (ngSubmit)="createCommentHandler()" class="form">
           
                         <textarea #comment="ngModel" ngModel required name="comment" rows="7" cols="50" placeholder="Your comment here..." id="comment"></textarea>
               
-                        <button [disabled]="createComment.invalid" class="button">Post Comment</button>
+                        <button [disabled]="createCommentForm.invalid" class="button">Post Comment</button>
                     </form>  
+
+                    <form #sendMessageForm="ngForm" (ngSubmit)="sendMessageHandler()" class="form">
+
+                        <ng-container *ngIf="message.touched && message.invalid">
+                            <div *ngIf="message.errors?.['required']" class="error-message">
+                                Message is required!
+                            </div>
+                
+                            <div *ngIf="message.errors?.['minlength']" class="error-message">
+                                Message should be more than 2 characters long!
+                            </div>
+                        </ng-container>
+                        <textarea #message="ngModel" ngModel required minlength="2" name="message" rows="7" cols="60" placeholder="Your message here..." id="message"></textarea>
+                
+                        <button [disabled]="sendMessageForm.invalid" class="button">Send</button>
+                    </form>  
+                 
+
     <!-- TODO buttons like unlike  icons -->
                     <button (click)="likeHandler()" type="button" class="button">{{ canLike ? 'Like' : 'Unlike' }}</button>
-    
-                    <button [routerLink]="['/conversations', currentUser._id, 'create', nanny.user]" type="button" class="button">Send Message</button>
-    
+
+                    <!-- <button [routerLink]="['/conversations', currentUser._id, 'create', nanny.user]" type="button" class="button">Send Message</button> -->
+
+                    <!-- <button (click)="sendMessageHandler()" type="button" class="button">Send Message</button> -->
+                  
                 </div>
                
             </div>

@@ -14,6 +14,7 @@ import { EditNannyComponent } from './edit-nanny/edit-nanny.component';
     DetailsNannyComponent,
     CreateNannyComponent,
     EditNannyComponent,
+ 
   ],
   imports: [
     CommonModule,
