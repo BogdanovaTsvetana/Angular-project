@@ -33,6 +33,9 @@ export class RegisterComponent implements OnInit {
     return validtorFn;
   }
 
+  registerAsParent: boolean = false;
+  registerAsNanny: boolean = false;
+
   constructor(
       private formBuilder: FormBuilder,
       private authService: AuthService,
@@ -54,7 +57,11 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register$(userData).subscribe({
       next: () => {
-        this.router.navigate(['nannies']);
+        if(this.registerAsNanny){
+          this.router.navigate(['/nannies/nannyregister']);
+        } else {
+          this.router.navigate(['nannies']);
+        }
       },
       complete: () => {
         console.log('register completed')

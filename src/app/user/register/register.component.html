@@ -50,7 +50,8 @@
 
         </div>
         
-       <button [disabled]="registerFormGroup.invalid" type="submit" class="button">REGISTER</button>
+       <button [disabled]="registerFormGroup.invalid" type="submit" class="button" >Register as parent</button>
+       <button (click)="registerAsNanny = true" [disabled]="registerFormGroup.invalid" type="submit" class="button">Continue to register as nanny</button>
     </form>
     
 </section>
