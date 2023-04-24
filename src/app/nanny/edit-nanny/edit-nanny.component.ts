@@ -18,9 +18,9 @@ export class EditNannyComponent implements OnInit {
   nannyId: any;
   nanny: any;
 
-  get userId() {
-    return this.authService.userId;
-  }
+  // get userId() {
+  //   return this.authService.userId;
+  // }
 
   isInEditMode: boolean = false;
   updateNannyForm: FormGroup;
@@ -34,7 +34,6 @@ export class EditNannyComponent implements OnInit {
     private messageBusService: MessageBusService) { }
 
   ngOnInit(): void {
-    console.log('here')
 
     this.updateNannyForm = new FormGroup({
       description: new FormControl(null, [Validators.required, Validators.minLength(4)]),
@@ -110,19 +109,5 @@ export class EditNannyComponent implements OnInit {
       }
     })
   }
-
-
-  // deleteNanny() {
-  //   this.nanniesService.deleteNanny$(this.nanny._id).subscribe({
-  //     next: () => {
-  //       console.log('Nanny deleted');
-  //       // this.authService.newUser.userType='parent';  // TODO
-  //       this.router.navigate(['/nannies']);
-  //     },
-  //     error: (error) => {
-  //       console.error(error);
-  //     }
-  //   })
-  // }
 
 }

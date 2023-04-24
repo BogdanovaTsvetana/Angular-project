@@ -7,20 +7,20 @@
         <ng-container *ngIf="registerFormGroup.controls['firstName'].touched && registerFormGroup.controls['firstName'].errors">
             <p *ngIf="registerFormGroup.controls['firstName'].errors['required']" class="error-message">First name is required!</p>
         </ng-container>
-        <input formControlName="firstName" [class.input-error]="registerFormGroup.controls['firstName'].touched && registerFormGroup.controls['firstName'].errors" type="text" name="firstName" id="firstName" placeholder="First name" >
+        <input formControlName="firstName" [class.input-error]="registerFormGroup.controls['firstName'].touched && registerFormGroup.controls['firstName'].errors" type="text" id="firstName" placeholder="First name" >
 
         <label for="lastName">Last name:</label>
         <ng-container *ngIf="registerFormGroup.controls['lastName'].touched && registerFormGroup.controls['lastName'].errors">
             <p *ngIf="registerFormGroup.controls['lastName'].errors['required']" class="error-message">Last name is required!</p>
         </ng-container>
-        <input formControlName="lastName" [class.input-error]="registerFormGroup.controls['lastName'].touched && registerFormGroup.controls['lastName'].errors" type="text" name="lastName" id="lastName" placeholder="Last name" >
+        <input formControlName="lastName" [class.input-error]="registerFormGroup.controls['lastName'].touched && registerFormGroup.controls['lastName'].errors" type="text" id="lastName" placeholder="Last name" >
        
         <label for="email">Email:</label>
         <ng-container *ngIf="registerFormGroup.controls['email'].touched && registerFormGroup.controls['email'].errors">
             <p *ngIf="registerFormGroup.controls['email'].errors['required']" class="error-message">Email is required!</p>
             <p *ngIf="registerFormGroup.controls['email'].errors['email']" class="error-message">Email should be a valid email!</p>
         </ng-container>
-        <input formControlName="email" [class.input-error]="registerFormGroup.controls['email'].touched && registerFormGroup.controls['email'].errors" type="email" name="email" id="email" placeholder="email" >
+        <input formControlName="email" [class.input-error]="registerFormGroup.controls['email'].touched && registerFormGroup.controls['email'].errors" type="email" id="email" placeholder="email" >
 
        
         <div formGroupName="passwords">
@@ -33,7 +33,7 @@
                     Password should be at least 4 characters long!
                 </p>
             </ng-container>
-            <input formControlName="password" [class.input-error]="registerFormGroup.get('passwords.password')?.touched && registerFormGroup.get('passwords.password')?.errors" type="password" name="password" id="password" placeholder="Password" >
+            <input formControlName="password" [class.input-error]="registerFormGroup.get('passwords.password')?.touched && registerFormGroup.get('passwords.password')?.errors" type="password"  id="password" placeholder="Password" >
 
 
 
@@ -46,7 +46,7 @@
                 Repeat Password does not match password!
             </p>
         </ng-container>
-        <input formControlName="rePassword" [class.input-error]="registerFormGroup.get('passwords.rePassword')?.touched && registerFormGroup.get('passwords.rePassword')?.errors"  type="password" name="rePassword" id="rePassword" placeholder="Repeat password" >
+        <input formControlName="rePassword" [class.input-error]="registerFormGroup.get('passwords.rePassword')?.touched && registerFormGroup.get('passwords.rePassword')?.errors"  type="password"  id="rePassword" placeholder="Repeat password" >
 
         </div>
         

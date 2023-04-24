@@ -1,87 +1,72 @@
 <section class="create-nanny">
     <h2 class="create-nanny__title">BECOME A CHILDMINDER</h2>
 
-    <form #nannyRegister="ngForm" (ngSubmit)="submitNannyRegister(nannyRegister)" class="create-form">
-
-        <!-- <label for="name">Name:</label>
-        <ng-container *ngIf="name.touched && name.invalid">
-            <div *ngIf="name.errors?.['required']" class="error-message">
-                Name is required!
-            </div>
-
-            <div *ngIf="name.errors?.['minlength']" class="error-message">
-                Name should be more than 4 characters long!
-            </div>
-        </ng-container>
-        <input #name="ngModel" ngModel required minlength="4" type="text" name="name" id="name" > -->
-
-
-        <label for="workingTime">Working Time:</label>
-        <ng-container *ngIf="workingTime.touched &&workingTime.invalid">
-            <div class="error-message">
-                Working Time is required!
-            </div>
-        </ng-container>
-        <select #workingTime="ngModel" ngModel required name="workingTime" id="workingTime">
-            <option value="all">All</option>
-            <option value="full">Full time</option>
-            <option value="part">Part time</option>
-        </select>
-
-        
+    <form [formGroup]="createNannyForm" (ngSubmit)="createNanny()">
+                
         <label for="description">Description:</label>
-        <ng-container *ngIf="description.touched && description.invalid">
-            <div *ngIf="description.errors?.['required']" class="error-message">
+        <ng-container *ngIf="createNannyForm.controls['description'].touched && createNannyForm.controls['description'].errors" >
+            <div *ngIf="createNannyForm.controls['description'].errors['required']" class="error-message">
                 Description is required!
             </div>
 
-            <div *ngIf="description.errors?.['minlength']" class="error-message">
-                Description should be more than 6 characters long!
+            <div *ngIf="createNannyForm.controls['description'].errors['minlength']" class="error-message">
+                Description should be more than 4 characters long!
             </div>
+        </ng-container  >
+        <textarea formControlName="description" rows="5" cols="50" id="description" [class.input-error]="createNannyForm.controls['description'].touched && createNannyForm.controls['description'].errors" ></textarea>
+       
+
+        <label for="workingTime">Working Time:</label>
+        <ng-container *ngIf="createNannyForm.controls['workingTime'].touched && createNannyForm.controls['workingTime'].errors">
+            <p *ngIf="createNannyForm.controls['workingTime'].errors['required']" class="error-message">Working Time is required!</p>
         </ng-container>
-        <textarea #description="ngModel" ngModel required minlength="6" name="description" rows="5" cols="50" id="description"></textarea>
+        <select formControlName="workingTime" id="workingTime" [class.input-error]="createNannyForm.controls['workingTime'].touched && createNannyForm.controls['workingTime'].errors">
+            <option value="All">All</option>
+            <option value="Full time">Full time</option>
+            <option value="Part time">Part time</option>
+        </select>
 
 
         <label for="driving-licence">Driving Licence:</label>
-        <ng-container *ngIf="drivingLicence.touched &&drivingLicence.invalid">
-            <div class="error-message">
-                Driving Licence is required!
-            </div>
+        <ng-container *ngIf="createNannyForm.controls['drivingLicence'].touched && createNannyForm.controls['drivingLicence'].errors">
+            <p *ngIf="createNannyForm.controls['drivingLicence'].errors['required']" class="error-message">Driving Licence is required!</p>
         </ng-container>
-        <select #drivingLicence="ngModel" ngModel required name="drivingLicence" id="driving-licence">
+        <select formControlName="drivingLicence" id="driving-licence" [class.input-error]="createNannyForm.controls['drivingLicence'].touched && createNannyForm.controls['drivingLicence'].errors">
             <option value="no">No</option>
             <option value="yes">Yes</option>
         </select>
 
 
         <label for="gender">Gender:</label>
-        <ng-container *ngIf="gender.touched && gender.invalid">
-            <div class="error-message">
-                Gender is required!
-            </div>
+        <ng-container *ngIf="createNannyForm.controls['gender'].touched && createNannyForm.controls['gender'].errors">
+            <p *ngIf="createNannyForm.controls['gender'].errors['required']" class="error-message">Gender is required!</p>
         </ng-container>
-        <select #gender="ngModel" ngModel required name="gender" id="gender">
+        <select formControlName="gender" id="gender" [class.input-error]="createNannyForm.controls['gender'].touched && createNannyForm.controls['gender'].errors">
             <option value="female">Female</option>
             <option value="male">Male</option>
         </select>
 
         
         <label for="image">Image:</label>
-        <ng-container *ngIf="image.touched && image.invalid">
-            <div *ngIf="image.errors?.['required']" class="error-message">
+        <ng-container *ngIf="createNannyForm.controls['image'].touched && createNannyForm.controls['image'].errors" >
+            <div *ngIf="createNannyForm.controls['image'].errors['required']"  class="error-message">
                 Image is required!
             </div>
 
-            <div *ngIf="image.errors?.['pattern']" class="error-message">
+            <div *ngIf="createNannyForm.controls['image'].errors['notValidURL']"  class="error-message">
                 Image should be a valid URL!
             </div>
         </ng-container>
-        <input #image="ngModel" ngModel required  type="text" name="image" placeholder="https://"  id="image">
+        <input  type="text" formControlName="image" placeholder="https://"  id="image" [class.input-error]="createNannyForm.controls['image'].touched && createNannyForm.controls['image'].errors">
+
 
         <label for="phone">Phone:</label>
-        <input #phone="ngModel" ngModel type="text" name="phone" id="phone" >
-        
-        <button [disabled]="nannyRegister.invalid" class="button">Save</button>
-    </form>   
+        <input type="text" formControlName="phone" id="phone" >
+
+
+        <button [disabled]="createNannyForm.invalid" class="button">Save</button>
+
+    </form>
+
 </section>
 

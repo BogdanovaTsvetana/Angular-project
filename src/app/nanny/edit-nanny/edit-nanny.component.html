@@ -1,7 +1,7 @@
 <section class="nanny">
     <h2 class="nanny__title">MY NANNY DETAILS</h2>
 
-    <ng-container *ngIf="nanny" >
+    <div *ngIf="nanny" class="nanny__item">
         <ng-container *ngIf="!isInEditMode" >
 
             <div *ngIf="nanny" class="nanny__item">
@@ -87,5 +87,5 @@
             </form>
           
         </ng-container>
-    </ng-container>      
+    </div>      
 </section>

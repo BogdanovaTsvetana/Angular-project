@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ICurrentUser, IUser } from '../../share/interfaces/user';
-import { INanny } from '../../share/interfaces/nanny';
 import { AuthService } from '../../auth.service';
 import { NanniesService } from '../../nanny/nannies.service';
 import { Observable } from 'rxjs';
@@ -16,7 +15,7 @@ import { MessageBusService } from 'src/app/core/message-bus.service';
 })
 export class ProfileComponent implements OnInit {
 
-  currentUser: IUser = undefined;
+  user: IUser = undefined;
   nanny: any;
  
   get userId() {
@@ -34,17 +33,15 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService, 
     private formBuilder: FormBuilder,
-    private nanniesService: NanniesService, 
     private router: Router,
     private messageBusService: MessageBusService) { }
 
   ngOnInit(): void {
       this.authService.getProfile$(this.userId).subscribe({
       next: (user) => {
-        this.currentUser = user;
+        this.user = user;
         this.nanny = user.nanny;
         console.log(this.nanny)
-        // this.nannyId = user.nanny._id;
       },
       error: () => {
         this.router.navigate(['/user/login'])
@@ -59,7 +56,7 @@ export class ProfileComponent implements OnInit {
       next: (user) => {
         console.log('user')
         console.log(user)
-        this.currentUser = user;
+        this.user = user;
         this.authService.handleUpdateUser(user)
         this.isInEditMode = false;
       },
@@ -86,38 +83,10 @@ export class ProfileComponent implements OnInit {
   enterEditMode(): void {
     this.isInEditMode = true;
     this.updateProfileFormGroup.patchValue({
-      firstName: this.currentUser.firstName,
-      lastName: this.currentUser.lastName,
-      email: this.currentUser.email,
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      email: this.user.email,
     });
   }
-
-  // updateNanny(editProfileForm: NgForm) {
-  //   console.log(editProfileForm.value);
-
-  //   this.nanniesService.editNanny$(this.nanny._id, editProfileForm.value).subscribe({
-  //     next: (nanny) => {
-  //       console.log(nanny)
-  //       //this.router.navigate(['/nannies']);
-  //       this.router.navigate(['/user/profile']);
-  //     },
-  //     error: (error) => {
-  //       console.error(error);
-  //     }
-  //   })
-  // }
-
-  // deleteNanny() {
-  //   this.nanniesService.deleteNanny$(this.nanny._id).subscribe({
-  //     next: () => {
-  //       console.log('Nanny deleted');
-  //       // this.authService.newUser.userType='parent';  // TODO
-  //       this.router.navigate(['/nannies']);
-  //     },
-  //     error: (error) => {
-  //       console.error(error);
-  //     }
-  //   })
-  // }
 
 }
