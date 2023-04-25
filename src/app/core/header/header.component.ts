@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentUser$: Observable<any> = this.authService.currentUser$;
   isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
-  currentNanny$: Observable<any> = this.nanniesService.currentNanny$;
+  // currentNanny$: Observable<any> = this.nanniesService.currentNanny$;
   
   // isNanny$: Observable<boolean> = this.authService.isNanny$;
 

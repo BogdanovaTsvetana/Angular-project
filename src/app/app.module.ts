@@ -11,8 +11,6 @@ import { GuardService } from './guard.service';
 import { CanDeactivateGuardService } from './can-deactivate-guard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SendMessageComponent } from './conversations/send-message/send-message.component';
-import { InboxComponent } from './conversations/inbox/inbox.component';
 import { ConversationsModule } from './conversations/conversations.module';
 import { ShareModule } from './share/share.module';
 import { StoreModule } from '@ngrx/store';

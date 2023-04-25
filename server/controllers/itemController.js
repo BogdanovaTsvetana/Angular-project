@@ -123,6 +123,15 @@ router.delete('/:id', isUser(), async (req, res) => {
     try {
         const item = await req.storage.getItemById(req.params.id);
         const user = await getUserById(req.user._id);
+        const itemComments = item.comments;
+        console.log('>> old itemComments')
+        console.log(itemComments)
+
+        if ( item.user._id != req.user._id) {         
+            throw new Error('You haven\'t created this nanny!');   
+        }
+
+        await req.storage.deleteItem(req.params.id);
 
         const userUpdate = {
             _id: user._id,
@@ -141,13 +150,12 @@ router.delete('/:id', isUser(), async (req, res) => {
 
         await editUser(user._id, userUpdate);
 
-        console.log('itemController, deleteNanny')
-        console.log(item.user)
-        if ( item.user._id != req.user._id) {         
-            throw new Error('You haven\'t created this nanny!');   
+        for( let comment of itemComments){
+            console.log('in ItemController, delete item')
+            let commentId = (comment._id).toString();
+            await req.storage.deleteComment(commentId);
         }
 
-        await req.storage.deleteItem(req.params.id);
         console.log('deleted')
         res.status(204).json();
     } catch(err) {
@@ -183,7 +191,7 @@ router.put('/like/:id', isUser(), async (req, res) => {
     try {
         const itemId = req.params.id;
         const item = await req.storage.getItemById(itemId);
-        const user = await getUserByEmail(req.user.email);
+        const user = await getUserById(req.user._id);
         if (user._id == item.user._id.toString()) {       
             throw new Error(`You can't like yourself`);    
         }
@@ -203,7 +211,7 @@ router.put('/unlike/:id', isUser(), async (req, res) => {
     try {
         const itemId = req.params.id;
         const item = await req.storage.getItemById(itemId);
-        const user = await getUserByEmail(req.user.email);
+        const user = await getUserById(req.user._id);
         if (user._id == item.user._id.toString()) {       
             throw new Error(`You can't unlike yourself`);    
         }

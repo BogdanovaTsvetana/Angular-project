@@ -36,7 +36,8 @@ async function getAllItems(query) {
 }
 
 async function getItemById(id) {
-    console.log('>>5' + id)
+    console.log('>> getItemById')
+    console.log(id)
     const nanny = await Item.findById(id).populate('comments').lean();   // TODO
     console.log('>>5' )
     if(nanny) {
@@ -80,7 +81,6 @@ async function editItem(id, newData){
 async function deleteItem(id) {
     console.log('>> in itemService, deleteItem')
     return Item.findByIdAndDelete(id);  
-  
 }
 
 async function createComment(itemId, comment) {
@@ -95,6 +95,10 @@ async function createComment(itemId, comment) {
 
     item.comments.push(newComment);
     return item.save();
+}
+
+async function deleteComment(commentId) {
+    return Comment.findByIdAndDelete(commentId);
 }
 
 // async function likeItem(itemId, userId){
@@ -119,6 +123,6 @@ module.exports = {
     // likeItem,
     deleteItem,
     createComment,
-
+    deleteComment,
 }
 

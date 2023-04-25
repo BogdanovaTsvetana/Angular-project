@@ -18,18 +18,16 @@ import { MessageBusService } from 'src/app/core/message-bus.service';
   templateUrl: './details-nanny.component.html',
   styleUrls: ['./details-nanny.component.css']
 })
-export class DetailsNannyComponent implements OnInit, OnDestroy {
+export class DetailsNannyComponent implements OnInit {
   // nannyId: any | undefined;
 
   currentUser: ICurrentUser;
   nanny: any | undefined;
   canLike: boolean = false;
-  nannySubscription: Subscription;
+  // nannySubscription: Subscription;
 
   @ViewChild('sendMessageForm') sendMessageForm: NgForm;
   @ViewChild('createCommentForm') createCommentForm: NgForm;
-  
-
   // get userId() {
   //   return this.authService.userId;
   // }
@@ -47,7 +45,7 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
       private nanniesService: NanniesService, 
       private authService: AuthService, 
       private messageBusService: MessageBusService,
-      private store: Store<IrootState>,
+      // private store: Store<IrootState>,
       private router: Router) { }
 
   ngOnInit(): void {
@@ -92,9 +90,9 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
           this.nanny = nanny;
           this.currentUser = currentUser;
           this.canLike = currentUser && !this.nanny?.likes.includes(currentUser._id);
-          console.log(this.nanny)
-          console.log('nanny ID ' + this.nanny?._id)
-          console.log('user ID ' + this.currentUser?._id)
+          // console.log(this.nanny)
+          // console.log('nanny ID ' + this.nanny?._id)
+          // console.log('user ID ' + this.currentUser?._id)
         },
         error: (err) => {
           console.error(err.error.message);
@@ -139,8 +137,6 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
 
     this.nanniesService.createComment$(this.nanny._id, commentData).subscribe({
       next: (nannyUpdated) => {
-        console.log('nannyUpdated from server')
-        console.log(nannyUpdated)   //TODO  notification 'Comment sent'
         this.nanny = nannyUpdated;
         this.createCommentForm.reset();
       },
@@ -179,8 +175,8 @@ export class DetailsNannyComponent implements OnInit, OnDestroy {
 
 
 
-  ngOnDestroy() {
-    // this.nannySubscription.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   // this.nannySubscription.unsubscribe();
+  // }
 
 }

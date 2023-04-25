@@ -20,8 +20,8 @@ export interface CreateNannyDto {
 })
 export class NanniesService {
 
-  private _currentNanny = new BehaviorSubject<INanny>(undefined);
-  currentNanny$ = this._currentNanny.asObservable();
+  // private _currentNanny = new BehaviorSubject<INanny>(undefined);
+  // currentNanny$ = this._currentNanny.asObservable();
 
   get accessToken() {
     return this.authService.accessToken;
@@ -35,7 +35,8 @@ export class NanniesService {
         'Content-type': 'application/json',
         'X-Authorization': `${this.accessToken}`,
       }
-    }).pipe(tap(res => this._currentNanny.next(res)));
+    })
+    // .pipe(tap(res => this._currentNanny.next(res)));
   }
 
   getNanniesAll$(time: string, dl: string, gender: string): Observable<INanny[]> {
@@ -49,7 +50,7 @@ export class NanniesService {
 
   getNannyById$(id: string): Observable<INanny> {
     return this.http.get<INanny>(`${environment.apiURL}/list/${id}`)
-    .pipe(tap(res => this._currentNanny.next(res)));
+    // .pipe(tap(res => this._currentNanny.next(res)));
   }
 
   editNanny$(nannyId: string, nannyData: CreateNannyDto): Observable<INanny> {
@@ -58,16 +59,19 @@ export class NanniesService {
         'Content-type': 'application/json',
         'X-Authorization': `${this.accessToken}`,
       }
-    }).pipe(tap(res => this._currentNanny.next(res)));
+    })
+    // .pipe(tap(res => this._currentNanny.next(res)));
   }
 
   likeNanny$(nannyId: string) {
+    console.log(nannyId)
     return this.http.put<INanny>(`${environment.apiURL}/list/like/${nannyId}`, {}, {
       headers: {
         'Content-type': 'application/json',
         'X-Authorization': `${this.accessToken}`,
       }
-    }).pipe(tap(res => this._currentNanny.next(res)));;
+    })
+    // .pipe(tap(res => this._currentNanny.next(res)));;
   }
 
   unlikeNanny$(nannyId: string) {
@@ -76,7 +80,8 @@ export class NanniesService {
         'Content-type': 'application/json',
         'X-Authorization': `${this.accessToken}`,
       }
-    }).pipe(tap(res => this._currentNanny.next(res)));;
+    })
+    // .pipe(tap(res => this._currentNanny.next(res)));
   }
 
   deleteNanny$(nannyId: string) {
