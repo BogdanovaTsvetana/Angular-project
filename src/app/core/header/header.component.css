@@ -38,14 +38,20 @@
   }
   
   .header__nav__item a {
+    font-size: 20px;
     text-decoration: none;
     color: var(--color-font-main);
   }
 
   .error, .success {
     color: white;
-    position: relative;
-    animation: scale-up-hor-right 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+    position:absolute;
+    right: 100px;
+    top: 10%;
+    color: white;
+    padding: 30px; 
+    border-radius: 4px;
+    animation: scale-up-hor-right 1.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 
 .success {
@@ -58,4 +64,12 @@
 .error p, .success p {
     padding: 20px;
     margin-left: 60px;
+}
+
+.hero-desc {
+  position:absolute;
+  left: 100px;
+  top: 15%;
+  color: white;
+  padding: 10px;  
 }

@@ -1,7 +1,9 @@
-<section class="create-nanny">
-    <h2 class="create-nanny__title">BECOME A CHILDMINDER</h2>
+<section class="common__section">
+    <h2 class="common__title">Become Nanny</h2>
+    <!-- <section class="create-nanny">
+        <h2 class="create-nanny__title">BECOME A CHILDMINDER</h2> -->
 
-    <form [formGroup]="createNannyForm" (ngSubmit)="createNanny()">
+    <form [formGroup]="createNannyForm" (ngSubmit)="createNanny()" class="form">
                 
         <label for="description">Description:</label>
         <ng-container *ngIf="createNannyForm.controls['description'].touched && createNannyForm.controls['description'].errors" >
@@ -13,7 +15,7 @@
                 Description should be more than 4 characters long!
             </div>
         </ng-container  >
-        <textarea formControlName="description" rows="5" cols="50" id="description" [class.input-error]="createNannyForm.controls['description'].touched && createNannyForm.controls['description'].errors" ></textarea>
+        <textarea formControlName="description" rows="5" cols="120" id="description" [class.input-error]="createNannyForm.controls['description'].touched && createNannyForm.controls['description'].errors" ></textarea>
        
 
         <label for="workingTime">Working Time:</label>

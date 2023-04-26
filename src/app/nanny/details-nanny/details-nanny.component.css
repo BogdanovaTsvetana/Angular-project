@@ -1,4 +1,4 @@
-.nanny {
+/* .nanny {
     background-color: var(--color-background-main);
     padding: var(--padding-section);
   }
@@ -11,21 +11,36 @@
     text-align: center;
     font-size: 30px;
     margin-bottom: 20px;
-  }
+  } */
    
-  .nanny__item {
+  .nanny__box {
+    max-width: 1000px; 
+    /* align-items: center; */
+  }
+
+  .main-info{
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: row;
+  }
+
+  .additional-info{
+    padding: 0px 20px;
+  }
+
+ /* .nanny__item {
+     display: flex;
+
     align-items: center;
     -webkit-box-shadow: var(--box-shadow-card);
     box-shadow: var(--box-shadow-card);
-  }
+  } */
   
   .nanny__img-wrapper {
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    max-width: 200px;
-    margin: 20px;
+    max-width: 300px;
+    margin: 50px 20px;
+    /* align-self: start; */
   }
 
   .nanny__img-wrapper img {
@@ -41,14 +56,14 @@
     margin: 20px;
   }
   
-  .nanny__item__title {
+  .nanny__title {
     font-size: 20px;
     text-align: center;
     padding: 15px;
 
   }
   
-  .button {
+  /* .button {
     background-color: var(--color-blue-main);
     color: white;
     border: none;
@@ -56,5 +71,34 @@
     border-radius: 4px;
     display: block;
     margin: 10px auto 25px;
+  }
+
+
+  .buttons-list{
+    display: flex;
+  } */
+
+  .nanny-like-button{
+    background-color: var(--color-blue-main);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline;
+    margin: 0px 20px;
+  }
+
+  .comments__title{
+    text-align: center;
+    font-size: 22px;
+    margin: 10px;
+  }
+
+  .comment{
+    border: 1px solid gray;
+  }
+
+  .comment__item{
+    font-size: 16px;
   }
 

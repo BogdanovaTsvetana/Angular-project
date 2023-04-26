@@ -1,10 +1,10 @@
-<section class="nanny">
-    <h2 class="nanny__title">MY NANNY DETAILS</h2>
+<section class="common__section">
+    <h2 class="common__title">My Nanny Details</h2>
 
     <div *ngIf="nanny" class="nanny__item">
         <ng-container *ngIf="!isInEditMode" >
 
-            <div *ngIf="nanny" class="nanny__item">
+            <!-- <div *ngIf="nanny" class="nanny__item">
                 <div class="nanny__img-wrapper">
                     <img src={{nanny.image}} alt="">
                 </div>
@@ -21,12 +21,48 @@
                     <button (click)="enterEditMode()" class="button">Edit</button>
                     <button (click)="deleteNanny()" class="button delete-button">Delete nanny</button>
                 </div>
-            </div>
+            </div> -->
+
+            <div *ngIf="nanny" class="common__box nanny__box">
+
+                <article class="main-info">
+                <div class="nanny__img-wrapper">
+                    <img src={{nanny.image}} alt="">
+                </div>
+                <div class="content">
+                    <h3 class="nanny__item__title">{{nanny.firstName | uppercase}} {{nanny.lastName | uppercase}}</h3>
+                    <p class="common__box__item">Description: {{nanny.description}}</p>
+                    <p class="common__box__item">Gender: {{nanny.gender}}</p>
+                    <p class="common__box__item">Working Time: {{nanny.workingTime}}</p>
+                    <p class="common__box__item">Driving Licence: {{nanny.drivingLicence}}</p>
+                    <p class="common__box__item">Phone: {{nanny.phone}}</p>
+                    <p class="common__box__item">Registered: {{nanny.created_at | date: 'longDate' }}</p>
+                    <p class="common__box__item">Likes: {{nanny.likes.length}}</p>
+                   
+                    <button (click)="enterEditMode()" class="button">Edit</button>
+                    <button (click)="deleteNanny()" class="button delete-button">Delete nanny</button>
+                </div>
+                </article>
+
+                <article class="additional-info">
+                    <h3 class="comments__title">Comments</h3>
+
+                    <ul  *ngIf="nanny.comments" class="nannies__items">
+                    <li *ngFor="let comment of nanny.comments" class="comment">
+                        <div class="content">
+                            <p class="comment__item">{{comment.author}} comented {{comment.postDate | timeAgo}}:</p>
+                            <p class="comment__item">{{comment.content}}</p>
+                            <!-- <p class="comment__item">Comment made: {{comment.postDate | timeAgo}}</p> -->
+                        </div>
+                    </li>
+                    </ul>
+                </article>    
+            </div>            
 
         </ng-container>
 
-        <ng-container *ngIf="isInEditMode"  class="edit-form">
-            <form [formGroup]="updateNannyForm" (ngSubmit)="updateNanny()">
+        <ng-container *ngIf="isInEditMode">
+            <form [formGroup]="updateNannyForm" (ngSubmit)="updateNanny()" class="form">
                 
                 <label for="description">Description:</label>
                 <ng-container >
@@ -38,7 +74,7 @@
                         Description should be more than 4 characters long!
                     </div>
                 </ng-container>
-                <textarea formControlName="description" rows="5" cols="50" id="description"></textarea>
+                <textarea formControlName="description" rows="5" cols="200" id="description"></textarea>
                
 
                 <label for="workingTime">Working Time:</label>

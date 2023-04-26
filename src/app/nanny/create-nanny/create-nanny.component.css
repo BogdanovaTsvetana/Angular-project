@@ -1,4 +1,8 @@
-.create-nanny {
+.form{
+    max-width: 800px;
+}
+
+/* .create-nanny {
     background-color: var(--color-background-main);
     padding: var(--padding-section);
   }
@@ -16,9 +20,9 @@
     padding: 30px;
     max-width: 600px;
     margin: 0 auto;
-} 
+}  */
 
-form label {
+/* form label {
     padding: 12px;
 }
 
@@ -33,9 +37,9 @@ textarea {
     padding: 12px 20px 12px 12px;
     border-radius: 0 4px 4px 4px;
     margin: 8px 0 2em;
-}
+} */
 
-input.ng-valid, textarea.ng-valid, select.ng-valid  {
+/* input.ng-valid, textarea.ng-valid, select.ng-valid  {
     background-color: rgb(229, 246, 228);
 }
 
@@ -48,7 +52,10 @@ select.ng-invalid.ng-touched {
 .error-message {
     color: brown;
     padding: 12px;
-}
+} */
+
+
+
 
 
 

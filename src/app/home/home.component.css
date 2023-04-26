@@ -1,32 +1,125 @@
-.home {
-    background-color: var(--color-background-main);
-    padding: var(--padding-section);
-  }
+.hero {
+  width: 100%;
+  position: relative;
+}
 
-  /* .home__item {
-    background-color: white;
-  } */
+.hero-img {
+  width: 100%;
+  overflow: hidden;
+}
 
-  .home__title {
+.hero-img img {
+  width: 100%;
+  height: 100%;
+  /* max-height: 600px; */
+  object-fit: cover;
+}
+
+.hero-desc {
+  position:absolute;
+  left: 100px;
+  top: 15%;
+  color: white;
+  padding: 10px;  
+}
+
+.hero-desc__title {
+  text-align: center;
+  line-height: 1.5;
+  font-size: 40px;
+  /* max-width: 80%;
+  margin: 0 auto; */
+}
+
+.hero-desc__links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items:flex-start;
+  margin: 70px 100px;
+}
+
+.hero-desc__link {
+  padding: 8px 0;
+  cursor: pointer;
+  border-bottom: 2.5px solid transparent;
+}
+
+.hero-desc__link:hover {
+  border-bottom: 1.5px solid var(--color-blue-main);
+}
+
+.active {
+  border-bottom: 2px solid var(--color-blue-main);
+}
+
+.hero-desc__link a {
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+}
+
+
+  /* how */
+.how-find-nanny,
+.how-become-nanny {
+  background-color: var(--color-background-main);
+  padding: var(--padding-section);
+}
+
+.how-become-nanny {
+  background-color: #E1DDD4;
+  background-color: rgb(255, 248, 242);
+}
+
+.circle{
+    border-radius: 50%;
+    background-color: var(--color-blue-main);
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
     text-align: center;
-    font-size: 24px;
-    margin: 40px auto;
-  }
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    margin: 0 auto;
+    margin-top: 15px;
+}
 
-  .home__text {
-    text-align: center;
-    font-size: 18px;
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-   
-  .home__item {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    /* -webkit-box-shadow: var(--box-shadow-card);
-    box-shadow: var(--box-shadow-card); */
-    height: 200px;
-    max-width: 400px;
-    margin: 10px auto;
-  } 
+
+.how__title {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.how__items {
+  display: flex;
+  gap:20px;
+}
+
+.how__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+
+.how__item__title {
+  font-size: 18px;
+  text-align: center;
+  padding: 15px;
+}
+
+.how__item__desc {
+  padding: 15px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* .content {
+  background-color: white;
+} */
+
+

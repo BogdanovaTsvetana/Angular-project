@@ -93,7 +93,7 @@ async function createComment(itemId, comment) {
     const newComment = new Comment(comment);
     await newComment.save();
 
-    item.comments.push(newComment);
+    item.comments.unshift(newComment);
     return item.save();
 }
 

@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { IrootState } from 'src/app/+store/reducers';
 import { becomeNanny } from 'src/app/+store/actions';
 import { MessageBusService } from 'src/app/core/message-bus.service';
+import { IComment } from 'src/app/share/interfaces/comment';
 
 
 @Component({

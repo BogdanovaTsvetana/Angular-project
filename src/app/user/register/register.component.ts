@@ -33,7 +33,6 @@ export class RegisterComponent implements OnInit {
     return validtorFn;
   }
 
-  registerAsParent: boolean = false;
   registerAsNanny: boolean = false;
 
   constructor(

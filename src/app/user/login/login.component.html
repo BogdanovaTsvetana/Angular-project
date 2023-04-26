@@ -1,5 +1,8 @@
-<section class="login">
-    <h2 class="login__title">LOGIN</h2>
+<!-- <section class="login">
+    <h2 class="login__title">LOGIN</h2> -->
+
+<section class="common__section">
+    <h2 class="common__title">Login</h2>
 
     <form class="form" [formGroup]="loginFormGroup" (ngSubmit)="submitHandler()">
 
@@ -18,7 +21,7 @@
         </ng-container>
         <input formControlName="password" [class.input-error]="loginFormGroup.controls['password'].touched && loginFormGroup.controls['password'].errors" type="password" id="password" placeholder="Password" >
 
-       <button [disabled]="loginFormGroup.invalid" type="submit" class="button">LOGIN</button>
+       <button [disabled]="loginFormGroup.invalid" type="submit" class="button">Login</button>
     </form>
     
 </section>

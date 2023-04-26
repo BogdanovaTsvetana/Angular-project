@@ -1,17 +1,21 @@
-.nanny {
+.buttons-list{
+  display: flex;
+}
+
+/* .nanny {
     background-color: var(--color-background-main);
     padding: var(--padding-section);
-  }
+  } */
 
-  .nanny__item {
+  /* .profile {
     background-color: white;
-  }
+  } */
 
-  .nanny__title {
+  /* .nanny__title {
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
-  }
+  } */
    
   .nanny__item {
     display: flex;
@@ -21,7 +25,7 @@
     box-shadow: var(--box-shadow-card);
   }
   
-  .nanny__img-wrapper {
+  /* .nanny__img-wrapper {
     aspect-ratio: 1 / 1;
     overflow: hidden;
     max-width: 200px;
@@ -39,9 +43,9 @@
     flex-direction: column;
     gap: 15px;
     margin: 20px;
-  }
+  } */
   
-  .nanny__item__title {
+  /* .nanny__item__title {
     font-size: 20px;
     text-align: center;
     padding: 15px;
@@ -60,20 +64,20 @@
 
   .button.delete-button {
     background-color: rgb(208, 163, 163);
-  }
+  } */
 
 
 
-  .edit-form {
+  /* .edit-form {
     background-color: white;
     -webkit-box-shadow: var(--box-shadow-card);
     box-shadow: var(--box-shadow-card);
     padding: 30px;
     max-width: 600px;
     margin: 0 auto;
-} 
+}  */
 
-form label {
+/* form label {
     padding: 12px;
 }
 
@@ -88,9 +92,9 @@ textarea {
     padding: 12px 20px 12px 12px;
     border-radius: 0 4px 4px 4px;
     margin: 8px 0 2em;
-}
+} */
 
-input.ng-valid, textarea.ng-valid, select.ng-valid  {
+/* input.ng-valid, textarea.ng-valid, select.ng-valid  {
     background-color: rgb(229, 246, 228);
 }
 
@@ -98,12 +102,12 @@ input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched,
 select.ng-invalid.ng-touched {
     background-color: rgb(248, 220, 220);
-}
+} */
 
-.error-message {
+/* .error-message {
     color: brown;
     padding: 12px;
-}
+} */
 
 
 

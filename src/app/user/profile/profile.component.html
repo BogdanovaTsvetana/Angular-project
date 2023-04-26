@@ -1,18 +1,20 @@
-<section class="nanny">
-    <h2 class="nanny__title">MY PROFILE</h2>
+<section class="common__section">
+    <h2 class="common__title">My Profile</h2>
 
-        <div *ngIf="user" class="nanny__item">
+        <div *ngIf="user" class="profile">
 
             <ng-container *ngIf="!isInEditMode" >
-                <div class="content">
-                    <p class="nanny__item__email">First name: {{user.firstName}}</p>
-                    <p class="nanny__item__email">Last name: {{user.lastName}}</p>
-                    <p class="nanny__item__email">Email: {{user.email}}</p>
-                    <p class="nanny__item__email">nannyId: {{nanny?._id}}</p>
+                <div class="common__box">
+                    <p class="common__box__item">First name: {{user.firstName}}</p>
+                    <p class="common__box__item">Last name: {{user.lastName}}</p>
+                    <p class="common__box__item">Email: {{user.email}}</p>
+                    <p class="common__box__item">nannyId: {{nanny?._id}}</p>
                    
+                    <div class="buttons-list">
                     <button (click)="enterEditMode()" class="button">Update</button>
                     <button *ngIf="nanny"  [routerLink]="['/nannies/editnanny', nanny._id]" class="button">Update your nanny data</button>
                     <button (click)="deleteUser()" class="button delete-button">Delete</button>
+                    </div>
                 </div> 
             </ng-container>
 
@@ -38,9 +40,12 @@
                     </ng-container>
                     <input formControlName="email" [class.input-error]="updateProfileFormGroup.controls['email'].touched && updateProfileFormGroup.controls['email'].errors" type="email"  id="email" placeholder="email" >
             
-                   <button [disabled]="updateProfileFormGroup.invalid" type="submit" class="button">Save</button>
+                    <div class="buttons-list">
+                        <button [disabled]="updateProfileFormGroup.invalid" type="submit" class="button">Save</button>
     
-                    <button type="button" (click)="isInEditMode = false" class="button">Cancel</button>
+                        <button type="button" (click)="isInEditMode = false" class="button">Cancel</button>
+                    </div>
+                   
                     
                 </form>
     

@@ -8,18 +8,18 @@
       <ul class="header__nav__items">
      
         <li routerLinkActive="active" class="header__nav__item">
-          <a routerLink="/home">HOME</a>
+          <a routerLink="/home">Home</a>
         </li>
         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="header__nav__item">
-          <a routerLink="/nannies">LIST</a>
+          <a routerLink="/nannies">List</a>
         </li>
         <ng-container *ngIf="!(isLoggedIn$ | async)">
           <li routerLinkActive="active" class="header__nav__item">
-            <a routerLink="/user/register">REGISTER</a>
+            <a routerLink="/user/register">Register</a>
           </li>
          
           <li routerLinkActive="active" class="header__nav__item">
-            <a routerLink="/user/login">LOGIN</a>
+            <a routerLink="/user/login">Login</a>
           </li>
         </ng-container>
 
@@ -29,7 +29,7 @@
           </li> -->
           <li routerLinkActive="active" class="header__nav__item">
            
-            <a routerLink="/user/profile"> PROFILE {{( currentUser$ | async)._id}} email {{( currentUser$ | async).email}}</a>
+            <a routerLink="/user/profile"> Profile {{( currentUser$ | async)._id}} email {{( currentUser$ | async).email}}</a>
           </li>
           <!-- <li class="header__nav__item">
             <a href="javascript:void(0);" >User_id {{( currentUser$ | async)._id}}</a>
@@ -39,20 +39,20 @@
           </li> -->
     
           <li routerLinkActive="active" class="header__nav__item">
-            <a routerLink="user/inbox">{{( currentUser$ | async).firstName}} INBOX</a>
+            <a routerLink="user/inbox">Inbox {{( currentUser$ | async).firstName}}</a>
           </li>
               
           <!-- <li *ngIf="(currentUser$ | async).userType === 'parent'" routerLinkActive="active" class="header__nav__item">
             <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
           </li> -->
           <li  *ngIf="!(currentUser$ | async).isNanny "routerLinkActive="active" class="header__nav__item">
-            <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
+            <a routerLink="/nannies/nannyregister">Become Nanny</a>
           </li>
           <!-- <li  routerLinkActive="active" class="header__nav__item">
             <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
           </li> -->
           <li class="header__nav__item">
-            <a href="javascript:void(0);" (click)="logoutHandler()">LOGOUT</a>
+            <a href="javascript:void(0);" (click)="logoutHandler()">Logout</a>
           
           <!-- <li  class="header__nav__item">
             <a href="javascript:void(0);">WELCOME {{( currentUser$ | async).firstName}}</a>
