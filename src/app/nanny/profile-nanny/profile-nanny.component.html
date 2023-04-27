@@ -1,0 +1,114 @@
+<section class="common__section">
+    <h2 class="common__title">My Nanny Details</h2>
+
+    <div *ngIf="nanny" class="common__box nanny__box">
+        <ng-container *ngIf="!isInEditMode" >
+            <!-- <div *ngIf="nanny" class="common__box nanny__box"> -->
+
+                <article class="main-info">
+                <div class="nanny__img-wrapper">
+                    <img src={{nanny.image}} alt="">
+                </div>
+                <div class="content">
+                    <h3 class="nanny__item__title">{{nanny.firstName | uppercase}} {{nanny.lastName | uppercase}}</h3>
+                    <p class="common__box__item">Description: {{nanny.description}}</p>
+                    <p class="common__box__item">Gender: {{nanny.gender}}</p>
+                    <p class="common__box__item">Working Time: {{nanny.workingTime}}</p>
+                    <p class="common__box__item">Driving Licence: {{nanny.drivingLicence}}</p>
+                    <p class="common__box__item">Phone: {{nanny.phone}}</p>
+                    <p class="common__box__item">Registered: {{nanny.created_at | date: 'longDate' }}</p>
+                    <p class="common__box__item">Likes: {{nanny.likes.length}}</p>
+                   
+                    <div class="buttons-list">
+                        <button (click)="enterEditMode()" class="button">Edit</button>
+                        <button (click)="deleteNanny()" class="button delete-button">Delete my nanny profile</button>
+                    </div>
+                   
+                </div>
+                </article>
+
+                <article class="additional-info">
+                    <h3 class="comments__title">Comments</h3>
+
+                    <ul  *ngIf="nanny.comments" class="comments__items">
+                        <li *ngFor="let comment of nanny.comments" class="comments__item">
+                            <p class="comments__item__content">{{comment.author}}, {{comment.postDate | timeAgo}}:</p>
+                            <p class="comments__item__content">{{comment.content}}</p>
+                        </li>
+                    </ul>
+                    <div *ngIf="!nanny.comments">
+                        <p>No comments yet</p>
+                    </div>
+                </article>    
+            <!-- </div>             -->
+
+        </ng-container>
+
+        <ng-container *ngIf="isInEditMode">
+            <form [formGroup]="updateNannyForm" (ngSubmit)="updateNanny()" class="form">
+                
+                <label for="description">Description:</label>
+                <ng-container >
+                    <div *ngIf="updateNannyForm.controls['description'].errors?.['required']" class="error-message">
+                        Description is required!
+                    </div>
+        
+                    <div *ngIf="updateNannyForm.controls['description'].errors?.['minlength']" class="error-message">
+                        Description should be more than 4 characters long!
+                    </div>
+                </ng-container>
+                <textarea formControlName="description" rows="5" cols="200" id="description"></textarea>
+               
+
+                <label for="workingTime">Working Time:</label>
+                <select formControlName="workingTime" id="workingTime">
+                    <option value="All">All</option>
+                    <option value="Full time">Full time</option>
+                    <option value="Part time">Part time</option>
+                </select>
+
+
+                <label for="driving-licence">Driving Licence:</label>
+                <select formControlName="drivingLicence" id="driving-licence">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+        
+        
+                <label for="gender">Gender:</label>
+                <select formControlName="gender" id="gender">
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                </select>
+        
+                
+                <label for="image">Image:</label>
+                <ng-container >
+                    <div *ngIf="updateNannyForm.controls['image'].errors?.['required']"  class="error-message">
+                        Image is required!
+                    </div>
+        
+                    <div *ngIf="updateNannyForm.controls['image'].errors?.['notValidURL']"  class="error-message">
+                        Image should be a valid URL!
+                    </div>
+                </ng-container>
+                <input  type="text" formControlName="image" placeholder="https://"  id="image">
+        
+        
+                <label for="phone">Phone:</label>
+                <input type="text" formControlName="phone" id="phone" >
+
+
+                <button type="button" (click)="isInEditMode = false" class="button">Cancel</button>
+
+                <button [disabled]="updateNannyForm.invalid" class="button">Save</button>
+
+            </form>
+          
+        </ng-container>
+    </div>      
+</section>
+
+
+
+

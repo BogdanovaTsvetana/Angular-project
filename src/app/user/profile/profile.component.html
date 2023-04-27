@@ -12,7 +12,7 @@
                    
                     <div class="buttons-list">
                     <button (click)="enterEditMode()" class="button">Update</button>
-                    <button *ngIf="nanny"  [routerLink]="['/nannies/editnanny', nanny._id]" class="button">Update your nanny data</button>
+                    <button *ngIf="nanny"  [routerLink]="['/nannies/profilenanny', nanny._id]" class="button">Update your nanny data</button>
                     <button (click)="deleteUser()" class="button delete-button">Delete</button>
                     </div>
                 </div> 

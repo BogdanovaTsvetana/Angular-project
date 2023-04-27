@@ -1,26 +1,19 @@
-<section class="details-conversation">
-    <h2 class="details-conversation__title">Conversation  with {{otherUserFirstName}} {{otherUserLastName}}</h2>
+<section class="common__section">
+    <h2 class="common__title">Conversation  with {{otherUserFirstName}} {{otherUserLastName}}</h2>
     
     <ul  *ngIf="messages" class="details-conversation__items">
         <li *ngFor="let message of messages" class="details-conversation__item">
-            <div class="content">
-                
-                <p class="details-conversation__item__title">{{message.authorFirstName}} {{message.authorLastName}} says: </p>
-                <p class="details-conversation__item__title">{{message.message}}</p>
-                <p class="details-conversation__item__title">{{message.postDate | timeAgo}} -  {{message.postDate | date: 'longDate'}}</p>
-
-            </div>
+  
+            <p class="details-conversation__item__content">{{message.authorFirstName}} {{message.authorLastName}} said {{message.postDate | timeAgo}} on  {{message.postDate | date: 'longDate'}} </p>
+            <p class="details-conversation__item__content">{{message.message}}</p>
+  
         </li>
         <li class="details-conversation__item">
-            <form #sendMessageForm="ngForm" (ngSubmit)="sendMessageHandler(sendMessageForm)" class="form">
+            <form #sendMessageForm="ngForm" (ngSubmit)="sendMessageHandler(sendMessageForm)">
         
-                <textarea #message="ngModel" ngModel required minlength="2" name="message" rows="7" cols="80" placeholder="Your message here..." id="message"></textarea>
+                <textarea #message="ngModel" ngModel minlength="2" name="message" rows="3" cols="60" placeholder="Your message here..." id="message"></textarea>
         
                 <ng-container *ngIf="message.touched && message.invalid">
-                    <div *ngIf="message.errors?.['required']" class="error-message">
-                        Message is required!
-                    </div>
-        
                     <div *ngIf="message.errors?.['minlength']" class="error-message">
                         Message should be more than 2 characters long!
                     </div>

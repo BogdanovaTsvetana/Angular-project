@@ -1,17 +1,17 @@
-.nannies {
+/* .nannies {
     background-color: var(--color-background-main);
     padding: 40px 60px;
-  }
+  } */
 
   .nannies__item {
     background-color: white;
   }
 
-  .nannies__title {
+  /* .nannies__title {
     text-align: center;
     font-size: 30px;
     margin-bottom: 20px;
-  }
+  } */
 
   .filters {
     display: flex;
@@ -26,13 +26,14 @@
 
   .button.search {
       margin: 0px;
+      flex-shrink: 0;
   }
   
   .nannies__items {
     display: flex;
     flex-wrap: wrap;
-    
     gap: 15px;
+    justify-content: center;
   }
   
   .nannies__item {
@@ -47,6 +48,7 @@
   .nannies__img-wrapper img {
     aspect-ratio: 1 / 1;
     overflow: hidden;
+    padding: 10px;
   }
 
   .nannies__img-wrapper img {
@@ -73,7 +75,7 @@
     text-align: center;
   }
     
-  .button {
+  /* .button {
     background-color: var(--color-blue-main);
     color: white;
     border: none;
@@ -81,4 +83,4 @@
     border-radius: 4px;
     display: block;
     margin: 10px auto 25px;
-  }
+  } */

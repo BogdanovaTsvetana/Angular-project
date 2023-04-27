@@ -1,96 +1,60 @@
 <section class="common__section">
     <h2 class="common__title">Nanny's Details</h2>
 
-<!-- <section class="nanny">
-    <h2 class="nanny__title">CHILDMINDER</h2>     -->
-
-        <!-- <div *ngIf="nanny" class="nanny__item"> -->
         <div *ngIf="nanny" class="common__box nanny__box">
             <article class="main-info">
 
-            <div class="nanny__img-wrapper">
-                <img src={{nanny.image}} alt="Nanny img">
-            </div>
-            <div class="content">
-                <!-- <h3 class="nanny__item__title">{{nanny.firstName | uppercase}} {{nanny.lastName | uppercase}}</h3>
-                <p class="nanny__item__workingTime">nanny_id: {{nanny._id}}</p>
-                <p class="nanny__item__workingTime">nanny.user: {{nanny.user}}</p>
-                <p class="nanny__item__workingTime">Working Time: {{nanny.workingTime}}</p>
-                <p class="nanny__item__desc">Description: {{nanny.description}}</p>
-                <p class="nanny__item__driving-licence">Driving Licence: {{nanny.drivingLicence}}</p>
-                <p class="nanny__item__gender">Gender: {{nanny.gender}}</p>
-                <p class="nanny__item__phone">Phone: {{nanny.phone}}</p>
-                <p class="nanny__item__postDate">Registered: {{nanny.created_at | date: 'longDate' }}</p>
-                <p class="nanny__item__likes">Likes: {{nanny.likes.length}} from {{nanny.likes}}</p> -->
+                <div class="nanny__img-wrapper">
+                    <img src={{nanny.image}} alt="Nanny img">
+                </div>
+                <div class="content">
 
-                <h3 class="nanny__title">{{nanny.firstName | uppercase}} {{nanny.lastName | uppercase}}</h3>
-                <p class="common__box__item">nanny_id: {{nanny._id}}</p>
-                <p class="common__box__item">nanny.user: {{nanny.user}}</p>
-                <p class="common__box__item">Working Time: {{nanny.workingTime}}</p>
-                <p class="common__box__item">Description: {{nanny.description}}</p>
-                <p class="common__box__item">Driving Licence: {{nanny.drivingLicence}}</p>
-                <p class="common__box__item">Gender: {{nanny.gender}}</p>
-                <p class="common__box__item">Phone: {{nanny.phone}}</p>
-                <p class="common__box__item">Registered: {{nanny.created_at | date: 'longDate' }}</p>
-                <p class="common__box__item">Likes: {{nanny.likes.length}} from {{nanny.likes}}<span *ngIf="nanny.user != currentUser._id">
-                    <button (click)="likeHandler()" type="button" class="button nanny-like-button">{{ canLike ? 'Like' : 'Unlike' }}</button>
-                </span></p>
-            </div>
+                    <h3 class="nanny__title">{{nanny.firstName | uppercase}} {{nanny.lastName | uppercase}}</h3>
+                    <!-- <p class="common__box__item">nanny_id: {{nanny._id}}</p>
+                    <p class="common__box__item">nanny.user: {{nanny.user}}</p> -->
+                    <p class="common__box__item">Description: {{nanny.description}}</p>
+                    <p class="common__box__item">Working Time: {{nanny.workingTime}}</p>
+                    <p class="common__box__item">Driving Licence: {{nanny.drivingLicence}}</p>
+                    <p class="common__box__item">Gender: {{nanny.gender}}</p>
+                    <p class="common__box__item">Phone: {{nanny.phone}}</p>
+                    <p class="common__box__item">Registered: {{nanny.created_at | date: 'longDate' }}</p>
+                    <p class="common__box__item">Likes: {{nanny.likes.length}} <span *ngIf="nanny.user != currentUser._id">
+                        <button (click)="likeHandler()" type="button" class="button nanny-like-button">{{ canLike ? 'Like' : 'Unlike' }}</button>
+                    </span></p>
+                </div>
             </article>
             
             <article class="additional-info">
 
-                <form *ngIf="nanny.user != currentUser._id" #sendMessageForm="ngForm" (ngSubmit)="sendMessageHandler()" >
+                <form *ngIf="nanny.user != currentUser._id" #sendMessageForm="ngForm" (ngSubmit)="sendMessageHandler()"  class="details-nanny-form">
 
                     <ng-container *ngIf="message.touched && message.invalid">
-                        <!-- <div *ngIf="message.errors?.['required']" class="error-message">
-                            Message is required!
-                        </div> -->
-            
                         <div *ngIf="message.errors?.['minlength']" class="error-message">
                             Message should be more than 5 characters long!
                         </div>
                     </ng-container>
-                    <textarea #message="ngModel" ngModel required minlength="5" name="message" rows="3" cols="80" placeholder="You can send message here..." id="message"></textarea>
+                    <textarea #message="ngModel" ngModel required minlength="5" name="message" rows="2" cols="40" placeholder="You can send message here..." id="message"></textarea>
             
                     <button [disabled]="sendMessageForm.invalid" class="button">Send message</button>
                 </form> 
                 
-                <!-- <div > -->
-                    <!-- <div> -->
-                    <form *ngIf="nanny.user != currentUser._id" #createCommentForm="ngForm" (ngSubmit)="createCommentHandler()">
+         
+                <form *ngIf="nanny.user != currentUser._id" #createCommentForm="ngForm" (ngSubmit)="createCommentHandler()" class="details-nanny-form">
               
-                        <textarea #comment="ngModel" ngModel required name="comment" rows="3" cols="80" placeholder="Your comment here..." id="comment"></textarea>
+                    <textarea #comment="ngModel" ngModel required name="comment" rows="2" cols="30" placeholder="Your comment here..." id="comment"></textarea>
                   
-                        <button [disabled]="createCommentForm.invalid" class="button">Post Comment</button>
-                    </form>  
+                    <button [disabled]="createCommentForm.invalid" class="button">Post Comment</button>
+                </form>  
 
-                    <h3 class="comments__title">Comments</h3>
+                <h3 class="comments__title">Comments</h3>
 
-                    <ul  *ngIf="nanny.comments" class="nannies__items">
-                    <li *ngFor="let comment of nanny.comments" class="comment">
-                        <div class="content">
-                            <p class="comment__item">{{comment.author}} comented {{comment.postDate | timeAgo}}:</p>
-                            <p class="comment__item">{{comment.content}}</p>
-                            <!-- <p class="comment__item">Comment made: {{comment.postDate | timeAgo}}</p> -->
-                        </div>
-                    </li>
+                    <ul  *ngIf="nanny.comments" class="comments__items">
+                        <li *ngFor="let comment of nanny.comments" class="comments__item">
+                            <p class="comments__item__content">{{comment.author}}, {{comment.postDate | timeAgo}}:</p>
+                            <p class="comments__item__content">{{comment.content}}</p>
+                        </li>
                     </ul>
-    
-
-
-                   
-                 
-
-    <!-- TODO buttons like unlike  icons -->
-                    <!-- <button (click)="likeHandler()" type="button" class="button">{{ canLike ? 'Like' : 'Unlike' }}</button> -->
-
-                    <!-- <button [routerLink]="['/conversations', currentUser._id, 'create', nanny.user]" type="button" class="button">Send Message</button> -->
-
-                    <!-- <button (click)="sendMessageHandler()" type="button" class="button">Send Message</button> -->
-                  
-                <!-- </div> -->
-               
+        
             </article>
         </div>
 

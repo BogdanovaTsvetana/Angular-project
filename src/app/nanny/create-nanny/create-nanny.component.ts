@@ -48,7 +48,7 @@ export class CreateNannyComponent implements OnInit {
       next: (nanny) => {
         // console.log(nanny);
         this.store.dispatch(becomeNanny());
-        this.router.navigate(['/nannies/editnanny', nanny._id]);
+        this.router.navigate(['/nannies/profilenanny', nanny._id]);
       },
       error: (error) => {
         console.error(error.error.message);

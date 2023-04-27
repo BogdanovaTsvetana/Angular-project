@@ -46,11 +46,11 @@
 }
 
 .hero-desc__link:hover {
-  border-bottom: 1.5px solid var(--color-blue-main);
+  border-bottom: 1.5px solid var(--color-button-main);
 }
 
 .active {
-  border-bottom: 2px solid var(--color-blue-main);
+  border-bottom: 2px solid var(--color-button-main);
 }
 
 .hero-desc__link a {
@@ -69,12 +69,14 @@
 
 .how-become-nanny {
   background-color: #E1DDD4;
-  background-color: rgb(255, 248, 242);
+  background-color: #DFE0DF;
+  background-color: #D4B5B0;
+  background-color: var(--color-background-additional);
 }
 
 .circle{
     border-radius: 50%;
-    background-color: var(--color-blue-main);
+    background-color: var(--color-button-main);
     width: 50px;
     height: 50px;
     line-height: 50px;
@@ -84,6 +86,10 @@
     color: #fff;
     margin: 0 auto;
     margin-top: 15px;
+}
+
+.how-find-nanny .circle {
+  background-color: var(--color-font-main);
 }
 
 
@@ -101,6 +107,7 @@
 .how__item {
   display: flex;
   flex-direction: column;
+  flex: 1;
   align-items: center;
   background-color: white;
 }

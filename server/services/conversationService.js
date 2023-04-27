@@ -29,8 +29,8 @@ async function createConversation(userId, receiverId, conversationData) {       
     const conversation = new Conversation(conversationData);
     await conversation.save();
 
-    user.conversations.push(conversation);
-    receiver.conversations.push(conversation);
+    user.conversations.unshift(conversation);
+    receiver.conversations.unshift(conversation);
     receiver.inbox++;
     await user.save();
     await receiver.save();
