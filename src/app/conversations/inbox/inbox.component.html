@@ -3,7 +3,7 @@
 
     <ul  *ngIf="conversations" class="inbox__items">
         <li *ngFor="let conversation of conversations" class="inbox__item">
-                <p class="inbox__item__content">{{conversation.otherUserFirstName}} {{conversation.otherUserLastName}}<p>
+                <p class="inbox__item__content">{{conversation.otherUserName}} <p>
                 <p class="inbox__item__content">New messages: {{conversation.newMessages}}</p>
                 <button [routerLink]="['/conversations', conversation.userId, conversation.conversationId]" type="button" class="button">View conversation</button>
         </li>

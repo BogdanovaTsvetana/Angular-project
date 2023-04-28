@@ -1,5 +1,4 @@
 const Item = require('../models/Item.js');    //  TODO
-const User = require('../models/User.js');
 const Comment = require('../models/Comment.js');
 
 async function createItem(itemData) {

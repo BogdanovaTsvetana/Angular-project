@@ -8,8 +8,7 @@ import { ConversationsService } from '../conversations.service';
 export interface conversationView { 
   userId: string,
   conversationId: string,
-  otherUserFirstName: string,
-  otherUserLastName: string,
+  otherUserName: string,
   newMessages: number,
 }
 
@@ -21,6 +20,7 @@ export interface conversationView {
 export class InboxComponent implements OnInit {
 
   user: ICurrentUser = undefined;
+  userName: string = undefined;
   conversations: conversationView[] = [];
 
   constructor( 
@@ -30,7 +30,10 @@ export class InboxComponent implements OnInit {
       ) { }
 
   ngOnInit() {
-    this.authService.currentUser$.subscribe(u => this.user = u)
+    this.authService.currentUser$.subscribe(u => {
+      this.user = u;
+      this.userName = u.firstName + ' ' + u.lastName;
+    })
     this.conversationService.getAllConversations$(this.user._id).subscribe({
         next: (conversationsRaw: IConversation[]) => {
         console.log(conversationsRaw)  
@@ -50,18 +53,15 @@ export class InboxComponent implements OnInit {
             let conversationView: conversationView = {
                 userId: this.user._id,
                 conversationId: currentConversation._id,
-                otherUserFirstName: '',
-                otherUserLastName: '',
+                otherUserName: '',
                 newMessages,
             };
                     
            // check who is the other user
-            if ( currentConversation.user1._id == this.user?._id ) {
-              conversationView.otherUserFirstName = currentConversation.user2.firstName;
-              conversationView.otherUserLastName = currentConversation.user2.lastName;
-            } else if ( currentConversation.user2._id == this.user._id ) {
-              conversationView.otherUserFirstName = currentConversation.user1.firstName;
-              conversationView.otherUserLastName = currentConversation.user1.lastName;
+            if ( currentConversation.userName1 == this.userName ) {
+              conversationView.otherUserName = currentConversation.userName2;
+            } else {
+              conversationView.otherUserName = currentConversation.userName1;
             }
     
             // this.conversations.push(conversationView);

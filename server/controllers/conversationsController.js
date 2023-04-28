@@ -11,6 +11,9 @@ router.post('/:userId/create/:receiverId', isUser(), async (req, res) => {
     try {
         const user = await userService.getUserById(userId);
         const receiver = await userService.getUserById(receiverId);
+        // const userName1 = `${user.firstName} ${user.LastName}`;
+        // const userName2 = `${user.firstName} ${user.LastName}`;
+
 
         const messageData = {
             authorFirstName: user.firstName,
@@ -19,9 +22,14 @@ router.post('/:userId/create/:receiverId', isUser(), async (req, res) => {
             postDate: new Date(),
         }
 
+        // let conversationData = {   // 28
+        //     user1: user._id,
+        //     user2: receiver._id,
+        // }
+
         let conversationData = {
-            user1: user._id,
-            user2: receiver._id,
+            userName1: `${user.firstName} ${user.lastName}`,
+            userName2: `${receiver.firstName} ${receiver.lastName}`
         }
 
         // TODO  to think - existing conversation
@@ -79,12 +87,12 @@ router.get('/:userId', isUser(), async (req, res) => {
         res.json(conversations)
     }catch(err) {
         console.log(err.message);
-        res.redirect('/404');
+        res.status(err.status || 400).json( { message: err.message } );
     }   
 });
 
 // Conversation Details 
-router.get('/:userId/:conversationId', isUser(), async(req, res) => {
+router.get('/:userId/:conversationId', isUser(), async(req, res) => { 
     const userId = req.params.userId;
     const conversationId = req.params.conversationId;
     try{
@@ -98,11 +106,11 @@ router.get('/:userId/:conversationId', isUser(), async(req, res) => {
                 && (m.read == false)) {
                 m.read = true;
 
-            let newM = await req.conversations.editMessage(m._id, m);
+            await req.conversations.editMessage(m._id, m);
 
-            user.inbox--;  
-            req.user.inbox--; 
-            await userService.editUser(userId, user)
+            // user.inbox--;  
+            // req.user.inbox--; 
+            // await userService.editUser(userId, user)
             } 
         }
 
@@ -118,8 +126,8 @@ router.get('/:userId/:conversationId', isUser(), async(req, res) => {
 });
 
 // Conversation Details  
-router.post('/:userId/:conversationId', isUser(), async(req, res) => {
-    const userId = req.params.userId;
+router.post('/:userId/:conversationId', isUser(), async(req, res) => { // to del user
+    // const userId = req.params.userId;
     const conversationId = req.params.conversationId;
     const messageData = {
         authorFirstName: req.body.authorFirstName,
@@ -131,34 +139,37 @@ router.post('/:userId/:conversationId', isUser(), async(req, res) => {
     try{
         const conversation = await req.conversations.getConversationById(conversationId);
         //const user = await userService.getUserById(userId);
-        let user1_id = conversation.user1._id;
-        let user2_id = conversation.user2._id;
+        // let user1_id = conversation.user1._id;
+        // let user2_id = conversation.user2._id;
+
+        // let userName1 = conversation.userName1;
+        // let userName2 = conversation.userName2;
         
         // Check who is 
-        let receiverId;
-        if ( userId == user1_id) {
-            receiverId = user2_id;
-        } else if ( userId == user2_id ) {
-            receiverId = user1_id;
-        }
+        // let receiverId;
+        // if ( userId == user1_id) {
+        //     receiverId = user2_id;
+        // } else if ( userId == user2_id ) {
+        //     receiverId = user1_id;
+        // }
 
-        const receiver = await userService.getUserById(receiverId);
+        // const receiver = await userService.getUserById(receiverId);
 
          // In case the receiver has deleted the conversation
-        let conversationsReceiver = receiver.conversations;
-        console.log('>>> conversationsReceiver')
-        console.log(conversationsReceiver)
-        let hasConversation = conversationsReceiver.some(c => c._id.equals(conversationId));
-        console.log('>> hasConversation   ', hasConversation)
+        // let conversationsReceiver = receiver.conversations;
+        // console.log('>>> conversationsReceiver')
+        // console.log(conversationsReceiver)
+        // let hasConversation = conversationsReceiver.some(c => c._id.equals(conversationId));
+        // console.log('>> hasConversation   ', hasConversation)
 
-        if ( !hasConversation ) {
-            receiver.conversations.push(conversation);
-        }
+        // if ( !hasConversation ) {
+        //     receiver.conversations.push(conversation);
+        // }
         // In case the receiver has deleted the conversation    - end
-
+        console.log('>> convController, post')
         const message = await req.conversations.sendMessage(conversationId, messageData);
-        receiver.inbox++;
-        await userService.editUser(receiverId, receiver);       
+        // receiver.inbox++;
+        // await userService.editUser(receiverId, receiver);       
         res.json(message)
     }catch(err){
         console.log(err.message);
@@ -166,57 +177,59 @@ router.post('/:userId/:conversationId', isUser(), async(req, res) => {
     }
 });
 
-// Conversation Details Delete  
-router.delete('/:userId/:conversationId', isUser(), async(req, res) => {  
-    const userId = req.params.userId;
-    const conversationId = req.params.conversationId;
-    let otherUserId;
+// Conversation Details Delete  // to del
+// router.delete('/:userId/:conversationId', isUser(), async(req, res) => {  
+//     const userId = req.params.userId;
+//     const conversationId = req.params.conversationId;
+//     let otherUserId;
 
-    try{
-        const conversation = await req.conversations.getConversationById(conversationId);
+//     try{
+//         const conversation = await req.conversations.getConversationById(conversationId);
 
-        // Check who is the user and who is the other user
-        if ( userId == conversation.user1._id ) {
-            otherUserId = conversation.user2._id;
-        } else if ( userId == conversation.user2._id ) {
-            otherUserId = conversation.user1._id;
-        }
+//         // Check who is the user and who is the other user
+//         if ( userId == conversation.user1._id ) {
+//             otherUserId = conversation.user2._id;
+//         } else if ( userId == conversation.user2._id ) {
+//             otherUserId = conversation.user1._id;
+//         }
 
-        const user = await userService.getUserById(userId);
-        const otherUser = await userService.getUserById(otherUserId);
+//         const user = await userService.getUserById(userId);
+//         const otherUser = await userService.getUserById(otherUserId);
 
-        // delete the conversation in user's data ( in conversations[] )
-        const userConversations = user.conversations;
-        user.conversations = userConversations.filter(c => !(c._id.equals(conversationId)));
-        await userService.editUser(userId, user);
+//         // delete the conversation in user's data ( in conversations[] )
+//         const userConversations = user.conversations;
+//         user.conversations = userConversations.filter(c => !(c._id.equals(conversationId)));
+//         await userService.editUser(userId, user);
 
-        // check if the other user has deleted the conversation
-        let otherUserConversations = otherUser.conversations;
-        let otherUserHasConversation = otherUserConversations.some(c => c._id.equals(conversationId));
+//         // check if the other user has deleted the conversation
+//         let otherUserConversations = otherUser.conversations;
+//         let otherUserHasConversation = otherUserConversations.some(c => c._id.equals(conversationId));
         
-        // If the other user has deleted the conversation, delete the conversation and all its messages from the database.
-        if ( !otherUserHasConversation ) {
-            try{
-                console.log('the other user has already deleted the conversation');
-                let messages = conversation.messages;
-                for (m of messages) {
-                    console.log('delete one message')
-                    await req.conversations.deleteMessage(m);
-                }
-                await req.conversations.deleteConversation(conversationId);
+//         // If the other user has deleted the conversation, delete the conversation and all its messages from the database.
+//         if ( !otherUserHasConversation ) {
+//             try{
+//                 console.log('the other user has already deleted the conversation');
+//                 let messages = conversation.messages;
+//                 for (m of messages) {
+//                     console.log('delete one message')
+//                     await req.conversations.deleteMessage(m);
+//                 }
+//                 await req.conversations.deleteConversation(conversationId);
 
-            } catch(err){
-                console.log(err)
-            }
-        } 
+//             } catch(err){
+//                 console.log(err)
+//             }
+//         } 
 
-        console.log('deleted')
-        res.status(204).json();
-    }catch(err){
-        console.log(err.message);
-        res.status(err.status || 400).json( { message: err.message } );
-    }
-});
+//         console.log('deleted')
+//         res.status(204).json();
+//     }catch(err){
+//         console.log(err.message);
+//         res.status(err.status || 400).json( { message: err.message } );
+//     }
+// });
+
+
 
 module.exports = router;
 

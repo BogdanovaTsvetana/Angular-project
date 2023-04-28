@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
       next: (user) => {
         this.user = user;
         this.nanny = user.nanny;
+        console.log(this.user)
       },
       error: () => {
         this.router.navigate(['/user/login'])

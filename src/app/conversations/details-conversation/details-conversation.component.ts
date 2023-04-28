@@ -18,10 +18,11 @@ import { IMessage } from 'src/app/share/interfaces/message';
 export class DetailsConversationComponent implements OnInit {
 
   user: ICurrentUser | undefined;
+  userName: string = undefined;
   routeParamObs: Subscription;    // TODO
   conversationId: string | undefined;
-  otherUserFirstName: string | undefined;
-  otherUserLastName: string | undefined;
+  otherUserName: string | undefined;
+  // otherUserLastName: string | undefined;
   messages: IMessage[] = [];
 
   constructor( 
@@ -44,13 +45,17 @@ export class DetailsConversationComponent implements OnInit {
           this.messages = conversation.messages;
   
            // check who is the other user
-           if ( conversation.user1._id == this.user._id ) {
-              this.otherUserFirstName = conversation.user2.firstName;
-              this.otherUserLastName = conversation.user2.lastName;
-          } else if ( conversation.user2._id == this.user._id ) {
-              this.otherUserFirstName = conversation.user1.firstName;
-              this.otherUserLastName = conversation.user1.lastName;
-          }          
+           if ( conversation.userName1 == `${this.user.firstName} ${this.user.lastName}` ) {
+              this.otherUserName = conversation.userName2;
+            } else {
+              this.otherUserName = conversation.userName1;
+            }      
+          
+          // if ( currentConversation.userName1 == this.userName ) {
+          //   conversationView.otherUserName = currentConversation.userName2;
+          // } else if ( currentConversation.userName2 == this.userName ) {
+          //   conversationView.otherUserName = currentConversation.userName2;
+          // }
       },
       error: (error) => {
         console.log(error.error.message);
@@ -82,7 +87,7 @@ export class DetailsConversationComponent implements OnInit {
       this.conversationService.deleteConversation$(this.user._id, this.conversationId).subscribe({
         next: () => {
           console.log('deleted');
-          this.router.navigate(['/conversations/inbox']);
+          // this.router.navigate(['/conversations/inbox']);
         },
         error: (error) => {
           console.error(error.error.message);

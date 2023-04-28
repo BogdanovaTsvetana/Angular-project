@@ -3,8 +3,8 @@ import { IUser } from "./user";
 
 export interface IConversation {
     _id: string;
-    user1: IUser;
-    user2: IUser;
+    userName1: string;
+    userName2: string;
     messages: IMessage[];
     __v: string;
 }
