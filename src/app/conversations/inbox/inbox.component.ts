@@ -31,8 +31,9 @@ export class InboxComponent implements OnInit {
 
   ngOnInit() {
     this.authService.currentUser$.subscribe(u => this.user = u)
-      this.conversationService.getAllConversations$(this.user._id).subscribe({
+    this.conversationService.getAllConversations$(this.user._id).subscribe({
         next: (conversationsRaw: IConversation[]) => {
+        console.log(conversationsRaw)  
         for ( let currentConversation of conversationsRaw ) {
             let newMessages = 0;
 
@@ -55,7 +56,7 @@ export class InboxComponent implements OnInit {
             };
                     
            // check who is the other user
-            if ( currentConversation.user1._id == this.user._id ) {
+            if ( currentConversation.user1._id == this.user?._id ) {
               conversationView.otherUserFirstName = currentConversation.user2.firstName;
               conversationView.otherUserLastName = currentConversation.user2.lastName;
             } else if ( currentConversation.user2._id == this.user._id ) {

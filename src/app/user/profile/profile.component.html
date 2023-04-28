@@ -8,7 +8,6 @@
                     <p class="common__box__item">First name: {{user.firstName}}</p>
                     <p class="common__box__item">Last name: {{user.lastName}}</p>
                     <p class="common__box__item">Email: {{user.email}}</p>
-                    <p class="common__box__item">nannyId: {{nanny?._id}}</p>
                    
                     <div class="buttons-list">
                     <button (click)="enterEditMode()" class="button">Update</button>
@@ -44,140 +43,8 @@
                         <button [disabled]="updateProfileFormGroup.invalid" type="submit" class="button">Save</button>
     
                         <button type="button" (click)="isInEditMode = false" class="button">Cancel</button>
-                    </div>
-                   
-                    
-                </form>
-    
+                    </div>                   
+                </form>   
             </ng-container>
-
         </div>
-
 </section>
-
-
-<!-- <section class="nanny">
-    <h2 class="nanny__title">MY PROFILE</h2>
-
-    <ng-container *ngIf="nanny" >
-        <ng-container *ngIf="!isInEditMode" >
-
-            <div *ngIf="nanny" class="nanny__item">
-                <div class="nanny__img-wrapper">
-                    <img src={{nanny.image}} alt="">
-                </div>
-                <div class="content">
-                    <h3 class="nanny__item__title">{{nanny.firstName | uppercase}} {{nanny.lastName | uppercase}}</h3>
-                    <p class="nanny__item__email">Email: {{currentUser.email}}</p>
-                    <p class="nanny__item__workingTime">Working Time: {{nanny.workingTime}}</p>
-                    <p class="nanny__item__desc">Description: {{nanny.description}}</p>
-                    <p class="nanny__item__driving-licence">Driving Licence: {{nanny.drivingLicence}}</p>
-                    <p class="nanny__item__gender">Gender: {{nanny.gender}}</p>
-                    <p class="nanny__item__phone">Phone: {{nanny.phone}}</p>
-                    <p class="nanny__item__postDate">Registered: {{nanny.created_at | date: 'longDate' }}</p>
-                    <p class="nanny__item__likes">Likes: {{nanny.likes.length}}</p>
-
-                    <button (click)="enterEditMode()" class="button">Edit</button>
-                    <button (click)="deleteNanny()" class="button delete-button">Delete</button>
-                </div>
-            </div>
-
-        </ng-container>
-
-        <ng-container *ngIf="isInEditMode">
-            <form #editProfileForm="ngForm" (ngSubmit)="updateNanny(editProfileForm)" class="edit-form">
-
-                <label for="name">Name:</label>
-                <ng-container *ngIf="name.touched && name.invalid">
-                    <div *ngIf="name.errors?.['required']" class="error-message">
-                        Name is required!
-                    </div>
-        
-                    <div *ngIf="name.errors?.['minlength']" class="error-message">
-                        Name should be more than 4 characters long!
-                    </div>
-                </ng-container>
-                <input #name="ngModel" ngModel required minlength="4" type="text" name="name" id="name" >
-        
-        
-                <label for="workingTime">Working Time:</label>
-                <ng-container *ngIf="workingTime.touched &&workingTime.invalid">
-                    <div class="error-message">
-                        Working Time is required!
-                    </div>
-                </ng-container>
-                <select #workingTime="ngModel" ngModel required name="workingTime" id="workingTime">
-                    <option value="All">All</option>
-                    <option value="Full time">Full time</option>
-                    <option value="Part time">Part time</option>
-                </select>
-        
-                
-                <label for="description">Description:</label>
-                <ng-container *ngIf="description.touched && description.invalid">
-                    <div *ngIf="description.errors?.['required']" class="error-message">
-                        Description is required!
-                    </div>
-        
-                    <div *ngIf="description.errors?.['minlength']" class="error-message">
-                        Description should be more than 6 characters long!
-                    </div>
-                </ng-container>
-                <textarea #description="ngModel" ngModel required minlength="6" name="description" rows="5" cols="50" id="description"></textarea>
-        
-        
-                <label for="driving-licence">Driving Licence:</label>
-                <ng-container *ngIf="drivingLicence.touched &&drivingLicence.invalid">
-                    <div class="error-message">
-                        Driving Licence is required!
-                    </div>
-                </ng-container>
-                <select #drivingLicence="ngModel" ngModel required name="drivingLicence" id="driving-licence">
-                    <option value="no">No</option>
-                    <option value="yes">Yes</option>
-                </select>
-        
-        
-                <label for="gender">Gender:</label>
-                <ng-container *ngIf="gender.touched && gender.invalid">
-                    <div class="error-message">
-                        Gender is required!
-                    </div>
-                </ng-container>
-                <select #gender="ngModel" ngModel required name="gender" id="gender">
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
-                </select>
-        
-                
-                <label for="image">Image:</label>
-                <ng-container *ngIf="image.touched && image.invalid">
-                    <div *ngIf="image.errors?.['required']" class="error-message">
-                        Image is required!
-                    </div>
-        
-                    <div *ngIf="image.errors?.['pattern']" class="error-message">
-                        Image should be a valid URL!
-                    </div>
-                </ng-container>
-                <input #image="ngModel" ngModel required  type="text" name="image" placeholder="https://"  id="image">
-        
-        
-                <label for="phone">Phone:</label>
-                <ng-container *ngIf="phone.touched && phone.invalid">
-                    <div class="error-message">
-                        Phone is required!
-                    </div>
-                </ng-container>
-                <input #phone="ngModel" ngModel required type="text" name="phone" id="phone" >
-
-               
-                <button type="button" (click)="isInEditMode = false" class="button">Cancel</button>
-
-                <button  [disabled]="editProfileForm.invalid" class="button">Save</button>
-            </form>
-        </ng-container>
-       
-    </ng-container>
-       
-</section> -->

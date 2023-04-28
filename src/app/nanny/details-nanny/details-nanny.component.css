@@ -2,38 +2,29 @@
   max-width: 1000px;    
 }
 
+.nanny__title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  padding: 15px;
+}
+
 .main-info{
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
   gap: 10px;
 }
 
 .nanny__img-wrapper {
   width: 30%;
-
+  margin: 0px 0px 50px 0px;
 }
 
 .nanny__img-wrapper img {
   aspect-ratio: 1 / 1;
-  overflow: hidden;
-  padding: 10px;
-  
-  margin: 50px 20px;
+  overflow: hidden; 
   object-fit: cover;
   height: 80%;
-  width: 100%;
-}
-
-.nannies__img-wrapper img {
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  padding: 10px;
-}
-
-.nannies__img-wrapper img {
-  object-fit: cover;
-  height: 100%;
   width: 100%;
 }
 
@@ -41,15 +32,8 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin: 20px;
+  margin: 0px 20px;
   width: 65%;
-}
-
-.nanny__title {
-  font-size: 20px;
-  text-align: center;
-  padding: 15px;
-
 }
 
 .nanny-like-button{
@@ -89,9 +73,6 @@
 .comments__item {
   padding: 8px;
   background-color: white;
-  /* -webkit-box-shadow: 1px 1px 7px 5px rgba(0,0,0,0.06); 
-  box-shadow: 1px 1px 7px 5px rgba(0,0,0,0.06); */
-
   -webkit-box-shadow: inset 1px 1px 4px 0px rgba(0,0,0,0.15); 
   box-shadow: inset 1px 1px 4px 0px rgba(0,0,0,0.15);
   max-width: 800px;
@@ -103,34 +84,13 @@
   padding: 6px;
 } 
 
+.no-comments{
+  text-align: center;
+}
 
-
- /* .nanny__item {
-     display: flex;
-
-    align-items: center;
-    -webkit-box-shadow: var(--box-shadow-card);
-    box-shadow: var(--box-shadow-card);
-  } */
   
 
 
-
-
-
-
-
-
-
-
-
-  /* .comment{
-    border: 1px solid gray;
-  }
-
-  .comment__item{
-    font-size: 16px;
-  } */
   
 
 

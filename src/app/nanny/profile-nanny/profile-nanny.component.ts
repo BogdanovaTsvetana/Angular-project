@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/auth.service';
 import { NanniesService } from '../nannies.service';
 import { Store } from '@ngrx/store';
 import { IrootState } from 'src/app/+store/reducers';
@@ -17,16 +16,10 @@ export class ProfileNannyComponent implements OnInit {
 
   nannyId: any;
   nanny: any;
-
-  // get userId() {
-  //   return this.authService.userId;
-  // }
-
   isInEditMode: boolean = false;
   updateNannyForm: FormGroup;
 
   constructor(
-    private authService: AuthService, 
     private nanniesService: NanniesService, 
     private store: Store<IrootState>,
     private activatedRoute: ActivatedRoute, 
@@ -83,8 +76,6 @@ export class ProfileNannyComponent implements OnInit {
   }
 
   updateNanny() {
-    console.log(this.updateNannyForm);
- 
     this.nanniesService.editNanny$(this.nanny._id, this.updateNannyForm.value).subscribe({
       next: (nanny) => {
         this.nanny = nanny;
@@ -99,7 +90,6 @@ export class ProfileNannyComponent implements OnInit {
   deleteNanny() {
     this.nanniesService.deleteNanny$(this.nanny._id).subscribe({
       next: () => {
-        console.log('Nanny deleted');
         this.store.dispatch(deleteNanny());
         this.messageBusService.notifyForMessage({text: `Successfully deleted`, type: 'success'})
         this.router.navigate(['/nannies']);
@@ -109,5 +99,4 @@ export class ProfileNannyComponent implements OnInit {
       }
     })
   }
-
 }

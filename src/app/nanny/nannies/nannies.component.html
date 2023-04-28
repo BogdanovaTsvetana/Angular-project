@@ -1,9 +1,8 @@
-
 <section class="common__section">
     <h2 class="common__title">Nannies List</h2>
 
     <div class="filters">
-        <h3 class="filters__title">Filters:</h3>
+        <!-- <h3 class="filters__title">Filters:</h3> -->
 
         <label for="workingTime">Working Time:</label>
         <select (change)="selectWorkingTimeChangeHandler($event)" name="workingTime" id="workingTime" [(ngModel)]="selectedWorkingTime"> 
@@ -28,24 +27,23 @@
     
         <button (click)="filterHandler()" class="button search">Filter</button>
         <button (click)="clearFilterHandler()" class="button search">Clear filter</button>
+        <p class="results-found">{{resultsFound}} nannies found</p>
     </div>
 
-    <div>
-        <h2 class="results-found">Results Found: {{resultsFound}} childminders</h2>
-    </div>
 
-    <ul  *ngIf="nannies" class="nannies__items">
-        <li *ngFor="let nanny of nannies" class="nannies__item">
-            <div class="nannies__img-wrapper">
+    <ul  *ngIf="nannies" class="nannies">
+        <li *ngFor="let nanny of nannies" class="nanny">
+            <div class="nanny__img-wrapper">
                 <img src={{nanny.image}} alt="nanny image">
             </div>
             <div class="content">
-                <h3 class="nannies__item__title">{{nanny.firstName}} {{nanny.lastName}}</h3>
-                <p class="nanny__item__workingTime">Working Time: {{nanny.workingTime}}</p>
-                <p *ngIf="nanny.description.length < 5"  class="nanny__item__desc">Description: {{nanny.description}}</p>
-                <p class="nanny__item__driving-licence">Driving Licence: {{nanny.drivingLicence}}</p>
-                <p class="nanny__item__likes">Likes: {{nanny.likes.length}}</p>
-                <p *ngIf="nanny.description.length >= 5" class="nanny__item__desc">Description: {{(nanny.description | slice:0:5)}}...</p>
+                <h3 class="nanny__item__title">{{nanny.firstName}} {{nanny.lastName}}</h3>
+                <p class="nanny__info">Working Time: {{nanny.workingTime}}</p>
+                <p *ngIf="nanny.description.length < 5"  class="nanny__info">Description: {{nanny.description}}</p>
+                <p class="nanny__info">Driving Licence: {{nanny.drivingLicence}}</p>
+                <p class="nanny__info">Gender: {{nanny.gender}}</p>
+                <p class="nanny__info">Likes: {{nanny.likes.length}}</p>
+                <p *ngIf="nanny.description.length >= 5" class="nanny__info">Description: {{(nanny.description | slice:0:10)}}...</p>
            
                 <button [routerLink]="['/nannies', nanny?._id]" type="button" class="button">Read More</button>
 
@@ -53,9 +51,6 @@
         </li>
     </ul>
 
-    <div *ngIf="!nannies">
-        <p>Loading...</p>
-    </div>
 </section>
 
 

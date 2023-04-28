@@ -11,14 +11,13 @@ import { NanniesService } from '../nannies.service';
 })
 export class NanniesComponent implements OnInit, OnDestroy {
 
-  // nannies: INanny[] | undefined;
-  nannies: any;   // TODO
+  nannies: INanny[] | undefined;
+  nannySubscription: Subscription | undefined;
 
   selectedWorkingTime: string = ''
   selectedDrivingLicence: string = '';
   selectedGender: string = '';
   resultsFound: number = 0;
-  nannySubscription: Subscription | undefined;
 
   constructor(private nanniesService: NanniesService, private router: Router) { }
 

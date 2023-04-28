@@ -2,16 +2,13 @@
     <h2 class="common__title">Nanny's Details</h2>
 
         <div *ngIf="nanny" class="common__box nanny__box">
+            <h3 class="nanny__title">{{nanny.firstName | uppercase}} {{nanny.lastName | uppercase}}</h3>
             <article class="main-info">
 
                 <div class="nanny__img-wrapper">
                     <img src={{nanny.image}} alt="Nanny img">
                 </div>
                 <div class="content">
-
-                    <h3 class="nanny__title">{{nanny.firstName | uppercase}} {{nanny.lastName | uppercase}}</h3>
-                    <!-- <p class="common__box__item">nanny_id: {{nanny._id}}</p>
-                    <p class="common__box__item">nanny.user: {{nanny.user}}</p> -->
                     <p class="common__box__item">Description: {{nanny.description}}</p>
                     <p class="common__box__item">Working Time: {{nanny.workingTime}}</p>
                     <p class="common__box__item">Driving Licence: {{nanny.drivingLicence}}</p>
@@ -27,33 +24,32 @@
             <article class="additional-info">
 
                 <form *ngIf="nanny.user != currentUser._id" #sendMessageForm="ngForm" (ngSubmit)="sendMessageHandler()"  class="details-nanny-form">
-
-                    <ng-container *ngIf="message.touched && message.invalid">
-                        <div *ngIf="message.errors?.['minlength']" class="error-message">
-                            Message should be more than 5 characters long!
-                        </div>
-                    </ng-container>
-                    <textarea #message="ngModel" ngModel required minlength="5" name="message" rows="2" cols="40" placeholder="You can send message here..." id="message"></textarea>
+                    
+                    <textarea #message="ngModel" ngModel name="message" rows="2" cols="40" placeholder="You can send message here..." id="message"></textarea>
             
-                    <button [disabled]="sendMessageForm.invalid" class="button">Send message</button>
+                    <button class="button">Send message</button>
                 </form> 
                 
          
                 <form *ngIf="nanny.user != currentUser._id" #createCommentForm="ngForm" (ngSubmit)="createCommentHandler()" class="details-nanny-form">
               
-                    <textarea #comment="ngModel" ngModel required name="comment" rows="2" cols="30" placeholder="Your comment here..." id="comment"></textarea>
+                    <textarea #comment="ngModel" ngModel name="comment" rows="2" cols="30" placeholder="Your comment here..." id="comment"></textarea>
                   
-                    <button [disabled]="createCommentForm.invalid" class="button">Post Comment</button>
+                    <button class="button">Post Comment</button>
                 </form>  
 
                 <h3 class="comments__title">Comments</h3>
 
-                    <ul  *ngIf="nanny.comments" class="comments__items">
-                        <li *ngFor="let comment of nanny.comments" class="comments__item">
-                            <p class="comments__item__content">{{comment.author}}, {{comment.postDate | timeAgo}}:</p>
-                            <p class="comments__item__content">{{comment.content}}</p>
-                        </li>
-                    </ul>
+                <ul  *ngIf="nanny.comments" class="comments__items">
+                    <li *ngFor="let comment of nanny.comments" class="comments__item">
+                        <p class="comments__item__content">{{comment.author}}, {{comment.postDate | timeAgo}}:</p>
+                        <p class="comments__item__content">{{comment.content}}</p>
+                    </li>
+                </ul>
+
+                <div *ngIf="nanny.comments.length == 0" class="no-comments">
+                    <p class="no-comments">No comments yet</p>
+                </div>
         
             </article>
         </div>

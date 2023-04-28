@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ICurrentUser, IUser } from '../../share/interfaces/user';
 import { AuthService } from '../../auth.service';
-import { NanniesService } from '../../nanny/nannies.service';
-import { Observable } from 'rxjs';
 import { MessageBusService } from 'src/app/core/message-bus.service';
+import { INanny } from 'src/app/share/interfaces/nanny';
 
 @Component({
   selector: 'app-profile',
@@ -41,7 +39,6 @@ export class ProfileComponent implements OnInit {
       next: (user) => {
         this.user = user;
         this.nanny = user.nanny;
-        console.log(this.nanny)
       },
       error: () => {
         this.router.navigate(['/user/login'])
@@ -54,8 +51,6 @@ export class ProfileComponent implements OnInit {
 
     this.authService.updateProfile$(this.userId, this.updateProfileFormGroup.value).subscribe({
       next: (user) => {
-        console.log('user')
-        console.log(user)
         this.user = user;
         this.authService.handleUpdateUser(user)
         this.isInEditMode = false;
@@ -88,5 +83,4 @@ export class ProfileComponent implements OnInit {
       email: this.user.email,
     });
   }
-
 }

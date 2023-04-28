@@ -12,11 +12,6 @@ const routes: Routes = [
     {
         path: 'conversations',
         children: [
-            // {
-            //     path: ':userId/create/:receiverId',
-            //     canActivate: [GuardService],    // TODO guard
-            //     component: SendMessageComponent,
-            // },
             {
                 path: 'inbox',
                 //canActivate: [GuardService],    // TODO guard

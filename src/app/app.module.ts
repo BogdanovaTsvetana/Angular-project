@@ -8,11 +8,9 @@ import { UserModule } from './user/user.module';
 import { NannyModule } from './nanny/nannies.module';
 import { AuthService } from './auth.service';
 import { GuardService } from './guard.service';
-import { CanDeactivateGuardService } from './can-deactivate-guard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ConversationsModule } from './conversations/conversations.module';
-import { ShareModule } from './share/share.module';
 import { StoreModule } from '@ngrx/store';
 import { currentUserReducer, IrootState } from './+store/reducers';
 
@@ -36,7 +34,7 @@ import { currentUserReducer, IrootState } from './+store/reducers';
       currentUser: currentUserReducer,
     }, {}),
   ],
-  providers: [AuthService, GuardService, CanDeactivateGuardService],
+  providers: [AuthService, GuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

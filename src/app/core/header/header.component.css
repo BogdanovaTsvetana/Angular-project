@@ -3,10 +3,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 100px;
-
-    /* -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.16);   
-    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.16); */
-
     -webkit-box-shadow: 0px 1px 8px 4px rgba(0,0,0,0.05); 
     box-shadow: 0px 1px 8px 4px rgba(0,0,0,0.05); 
   }
@@ -20,7 +16,7 @@
   /* header nav */
   .header__nav__items {
     display: flex;
-    gap: 30px;
+    gap: 40px;
     align-items: center;
   }
   

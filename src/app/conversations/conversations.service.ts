@@ -1,17 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../auth.service';
 import { IConversation } from '../share/interfaces/conversation';
 import { IMessage } from '../share/interfaces/message';
-import { Observable } from 'rxjs';
-
-// export interface CreateConversationDto { 
-//   user1: string | object;
-//   user2: string | object;
-//   messages: object[];
-// }
 
 export interface MessageDto { 
   authorFirstName: string;
@@ -76,7 +69,5 @@ export class ConversationsService {
       }
     });
   }
-
-  
 
 }

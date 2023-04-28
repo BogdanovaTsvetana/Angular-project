@@ -1,18 +1,16 @@
 <section class="common__section">
-    <h2 class="common__title">INBOX</h2>
+    <h2 class="common__title">Inbox {{user?.firstName}} {{user?.lastName}}</h2>
 
     <ul  *ngIf="conversations" class="inbox__items">
         <li *ngFor="let conversation of conversations" class="inbox__item">
-            <!-- <div class="content"> -->
                 <p class="inbox__item__content">{{conversation.otherUserFirstName}} {{conversation.otherUserLastName}}<p>
                 <p class="inbox__item__content">New messages: {{conversation.newMessages}}</p>
                 <button [routerLink]="['/conversations', conversation.userId, conversation.conversationId]" type="button" class="button">View conversation</button>
-            <!-- </div> -->
         </li>
     </ul>
 
-    <div *ngIf="!conversations">
-        <p>No messages</p>
+    <div *ngIf="conversations.length == 0">
+        <p class="no-messages">No messages</p>
     </div>
 </section>
 

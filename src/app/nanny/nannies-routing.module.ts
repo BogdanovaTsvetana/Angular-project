@@ -19,13 +19,9 @@ const routes: Routes = [
             },
             {
                 path: 'nannyregister',
-                //canActivate: [GuardService],    // TODO guard
-                component: CreateNannyComponent,   // TODO guard
+                canActivate: [GuardService],   
+                component: CreateNannyComponent,   
             },
-            // {
-            //     path: 'profile/:nannyId',
-            //     component: DetailsNannyComponent,
-            // },
             {
                 path: ':nannyId',
                 canActivate: [GuardService],

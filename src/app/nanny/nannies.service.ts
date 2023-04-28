@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { INanny } from '../share/interfaces/nanny';
 import { AuthService } from '../auth.service';
-import { BehaviorSubject, map, mergeMap, Observable, Subject, switchMap, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IConversation } from '../share/interfaces/conversation';
 
 export interface CreateNannyDto { 
@@ -20,9 +20,6 @@ export interface CreateNannyDto {
 })
 export class NanniesService {
 
-  // private _currentNanny = new BehaviorSubject<INanny>(undefined);
-  // currentNanny$ = this._currentNanny.asObservable();
-
   get accessToken() {
     return this.authService.accessToken;
   }  
@@ -36,7 +33,6 @@ export class NanniesService {
         'X-Authorization': `${this.accessToken}`,
       }
     })
-    // .pipe(tap(res => this._currentNanny.next(res)));
   }
 
   getNanniesAll$(time: string, dl: string, gender: string): Observable<INanny[]> {
@@ -45,12 +41,10 @@ export class NanniesService {
       .set('dl', dl)
       .set('gender', gender);
     return this.http.get<INanny[]>(`${environment.apiURL}/list`, {params});
-    // return this.http.get(`${environment.apiURL}/list?time=${time}&dl=${dl}&gender=${gender}`);
   }
 
   getNannyById$(id: string): Observable<INanny> {
     return this.http.get<INanny>(`${environment.apiURL}/list/${id}`)
-    // .pipe(tap(res => this._currentNanny.next(res)));
   }
 
   editNanny$(nannyId: string, nannyData: CreateNannyDto): Observable<INanny> {
@@ -60,7 +54,6 @@ export class NanniesService {
         'X-Authorization': `${this.accessToken}`,
       }
     })
-    // .pipe(tap(res => this._currentNanny.next(res)));
   }
 
   likeNanny$(nannyId: string) {
@@ -71,7 +64,6 @@ export class NanniesService {
         'X-Authorization': `${this.accessToken}`,
       }
     })
-    // .pipe(tap(res => this._currentNanny.next(res)));;
   }
 
   unlikeNanny$(nannyId: string) {
@@ -81,7 +73,6 @@ export class NanniesService {
         'X-Authorization': `${this.accessToken}`,
       }
     })
-    // .pipe(tap(res => this._currentNanny.next(res)));
   }
 
   deleteNanny$(nannyId: string) {
@@ -110,76 +101,4 @@ export class NanniesService {
       }
     });
   }
-
-
-////////////
-
-  // becomeNanny$( nannyData: CreateNannyDto, token: string) {
-  //   console.log('token: ' + token)
-  //   return this.http.post(`${environment.apiURL}/list`, nannyData);
-  // }
- // With mergeAll, we subscribe to the observables as they arrive and emit values as they arrive. I
-  // becomeNanny$( nannyData: CreateNannyDto) {
-  //   return this.authService.accessToken$.pipe(
-  //     switchMap( token => {
-  //       console.log('token: ' + token)
-  //       const accerssToken = token
-  //       return  this.http.post(`${environment.apiURL}/list`, nannyData, {
-  //         headers: {
-  //           'Content-type': 'application/json',
-  //           'X-Authorization': `${accerssToken}`,
-  //         }
-  //       });
-        
-  //     })
-  //   )
-    // .subscribe({
-    //   next: (nanny) => {
-    //     console.log(nanny);
-    //     // this.store.dispatch(switchToNanny())  // TODO
-    //     // //this.router.navigate(['/nannies']);
-    //     // this.router.navigate(['/user/profile']);
-    //     return nanny
-    //   },
-    //   error: (error) => {
-    //     console.error(error);
-    //   }
-    // })
-   
-  
-
-  // this.activatedRoute.params.pipe(
-  //   mergeMap( params => {
-  //       const nannyId = params['nannyId'];
-  //       return this.nanniesService.getNannyById$(nannyId)
-  //   })),
-
-
-  // with token Interceptor
-  // getNanniesAll$() {
-  //   return this.http.get(`${environment.apiURL}/list`);
-  // }
-
-  // getNannyById$(id: string) {
-  //   return this.http.get(`${environment.apiURL}/list/${id}`);
-  // }
-
-  // editNanny$(nannyId: string, nannyData: CreateNannyDto) {
-  //   return this.http.put(`${environment.apiURL}/list/${nannyId}`, nannyData);
-  // }
-
-  // likeNanny$(nannyId: string, nannyData: CreateNannyDto) {
-  //   return this.http.put(`${environment.apiURL}/list/like/${nannyId}`, nannyData);
-  // }
-
-  // deleteNanny$(nannyId: string) {
-  //   return this.http.delete(`${environment.apiURL}/list/${nannyId}`);
-  // }
-
-  // createComment$(nannyId: string, commentData: any) {
-  //   return this.http.post(`${environment.apiURL}/comments/${nannyId}`, commentData);
-  // }
-
-
-
 }

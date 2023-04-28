@@ -24,39 +24,22 @@
         </ng-container>
 
         <ng-container *ngIf="(isLoggedIn$ | async)">
-          <!-- <li *ngIf="(currentUser$ | async).isNanny" routerLinkActive="active" class="header__nav__item">
-            <a routerLink="/user/profile"> PROFILE</a>
-          </li> -->
+          
           <li routerLinkActive="active" class="header__nav__item">
-           
-            <a routerLink="/user/profile"> Profile {{( currentUser$ | async)._id}} email {{( currentUser$ | async).email}}</a>
+            <a routerLink="/user/profile"> Profile {{( currentUser$ | async).firstName}}</a>
           </li>
-          <!-- <li class="header__nav__item">
-            <a href="javascript:void(0);" >User_id {{( currentUser$ | async)._id}}</a>
-          </li> -->
-          <!-- <li class="header__nav__item">
-            <a href="javascript:void(0);" >email {{( currentUser$ | async).email}}</a>
-          </li> -->
-    
+        
           <li routerLinkActive="active" class="header__nav__item">
-            <a routerLink="user/inbox">Inbox {{( currentUser$ | async).firstName}}</a>
+            <a routerLink="user/inbox">Inbox</a>
           </li>
               
-          <!-- <li *ngIf="(currentUser$ | async).userType === 'parent'" routerLinkActive="active" class="header__nav__item">
-            <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
-          </li> -->
           <li  *ngIf="!(currentUser$ | async).isNanny "routerLinkActive="active" class="header__nav__item">
             <a routerLink="/nannies/nannyregister">Become Nanny</a>
           </li>
-          <!-- <li  routerLinkActive="active" class="header__nav__item">
-            <a routerLink="/nannies/nannyregister">REGISTER AS NANNY</a>
-          </li> -->
+          
           <li class="header__nav__item">
             <a href="javascript:void(0);" (click)="logoutHandler()">Logout</a>
           
-          <!-- <li  class="header__nav__item">
-            <a href="javascript:void(0);">WELCOME {{( currentUser$ | async).firstName}}</a>
-          </li> -->
 
         </ng-container>
 
