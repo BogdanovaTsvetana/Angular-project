@@ -28,7 +28,6 @@ export class ConversationsService {
   getAllConversations$( userId: string ): Observable<IConversation[]> {
     return this.httpClitent.get<Array<IConversation>>(`${environment.apiURL}/conversations/${userId}`, {
       headers: {
-        //'Content-type': 'application/json',
         'X-Authorization': `${this.token}`,
       }
     })
@@ -60,14 +59,4 @@ export class ConversationsService {
       }
     });
   }
-
-  deleteConversation$( userId: string, conversationId: string ) {
-    return this.httpClitent.delete(`${environment.apiURL}/conversations/${userId}/${conversationId}`, {
-      headers: {
-        'Content-type': 'application/json',
-        'X-Authorization': `${this.token}`,
-      }
-    });
-  }
-
 }

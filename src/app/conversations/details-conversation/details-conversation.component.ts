@@ -83,15 +83,4 @@ export class DetailsConversationComponent implements OnInit {
     });
   }
 
-  deleteConversationHandler(): void {
-      this.conversationService.deleteConversation$(this.user._id, this.conversationId).subscribe({
-        next: () => {
-          console.log('deleted');
-          // this.router.navigate(['/conversations/inbox']);
-        },
-        error: (error) => {
-          console.error(error.error.message);
-        }
-      });
-  }
 }

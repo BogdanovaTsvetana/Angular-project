@@ -1,7 +1,6 @@
 const User = require('../models/User.js');
 const Conversation = require('../models/Conversation.js');
 const Message = require('../models/Message.js');
-// const getUserById = require('./userService.js');
 
 async function createConversation(userId, receiverId, conversationData) {        // TODO
     const user = await User.findById(userId);
@@ -16,7 +15,6 @@ async function createConversation(userId, receiverId, conversationData) {       
 
     user.conversations.unshift(conversation);
     receiver.conversations.unshift(conversation);
-    // receiver.inbox++;
     await user.save();
     await receiver.save();
 
@@ -37,8 +35,6 @@ async function sendMessage(conversationId, messageData){
 
     return message;
 }  
-
-
 
 
 // async function getUserConversations(userId) {
@@ -118,7 +114,6 @@ async function getUserConversations(userId) {
         throw new ReferenceError('No such user in database');
         }
 
-      // if there are conversations
     if ( user.conversations.length > 0 ) {
         
         for(let i = 0; i < conversations.length; i++) {
@@ -128,50 +123,10 @@ async function getUserConversations(userId) {
                 throw new ReferenceError('No such conversation in database');
             }
 
-            // let user1 = currentConversation.user1;
-            // let vewUser1 = {
-            //     _id: (user1._id).toString(),
-            //     firstName: user1.firstName,
-            //     lastName: user1.lastName
-            // }
-
-            // let user2 = currentConversation.user1;
-            // let vewUser2 = {
-            //     _id: (user2._id).toString(),
-            //     firstName: user2.firstName,
-            //     lastName: user2.lastName
-            // }
-
-            // let vewConversation = {
-            //     _id: (currentConversation._id).toString(),
-            //     user1: vewUser1,
-            //     user2: vewUser2,
-            //     messages: currentConversation.messages
-            // }
-
-            // console.log('user1')
-            // console.log(vewConversation)
-         
-
-            // let user1 = await getUserById(user1Id);
-            // let user1View = {
-            //     _id: user1._id,
-            //     firstName: user1.firstName
-            // }
-
-            // console.log(user1View)
-
-
             console.log('in ConversationService, getUserConversations, currentConversation')
-            // console.log(currentConversation)
             convPopulated.push(currentConversation)
         }
-        
-        //user.conversations = convPopulated;
-    }
-           
-    console.log('Conversation Service / getUserConversations')
-    // console.log(convPopulated)
+    }       
 
     return convPopulated;
 }
@@ -180,12 +135,8 @@ async function getUserConversations(userId) {
 async function getConversationById(id) {
     console.log('>> convServ getCByID')
     const conversation = await Conversation.findById(id)
-        // .populate('user1')
-        // .populate('user2')
         .populate('messages')
         .lean(); 
-
-   
     return conversation;
 }
 
@@ -223,6 +174,6 @@ module.exports = {
     getConversationById,
     getMessageById,
     editMessage,
-    deleteConversation,
-    deleteMessage,
+    // deleteConversation,
+    // deleteMessage,
 }

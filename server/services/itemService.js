@@ -79,7 +79,21 @@ async function editItem(id, newData){
 
 async function deleteItem(id) {
     console.log('>> in itemService, deleteItem')
-    return Item.findByIdAndDelete(id);  
+    const item = await Item.findById(id);   
+
+    if(!item) {
+        throw new Error('No such ID in database')     
+    }
+
+    const itemComments = item.comments;
+    
+    for( let comment of itemComments){
+        console.log('in ItemService, delete item')
+        let commentId = (comment._id).toString();
+        await deleteComment(commentId);
+    }
+
+    return Item.findByIdAndDelete(id); 
 }
 
 async function createComment(itemId, comment) {

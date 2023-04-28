@@ -123,9 +123,9 @@ router.delete('/:id', isUser(), async (req, res) => {
     try {
         const item = await req.storage.getItemById(req.params.id);
         const user = await getUserById(req.user._id);
-        const itemComments = item.comments;
-        console.log('>> old itemComments')
-        console.log(itemComments)
+        // const itemComments = item.comments;
+        // console.log('>> old itemComments')
+        // console.log(itemComments)
 
         if ( item.user._id != req.user._id) {         
             throw new Error('You haven\'t created this nanny!');   
@@ -150,11 +150,11 @@ router.delete('/:id', isUser(), async (req, res) => {
 
         await editUser(user._id, userUpdate);
 
-        for( let comment of itemComments){
-            console.log('in ItemController, delete item')
-            let commentId = (comment._id).toString();
-            await req.storage.deleteComment(commentId);
-        }
+        // for( let comment of itemComments){
+        //     console.log('in ItemController, delete item')
+        //     let commentId = (comment._id).toString();
+        //     await req.storage.deleteComment(commentId);
+        // }
 
         console.log('deleted')
         res.status(204).json();

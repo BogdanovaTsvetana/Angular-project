@@ -120,11 +120,11 @@ router.delete('/:id', isUser(), async (req, res) => {
             await deleteUser(req.user._id);
         }
 
-        for( let conversation of conversations){
-            console.log('in AuthController, delete user')
-            let conversationId = (conversation._id).toString();
-            await req.storage.deleteComment(conversationId);
-        }
+        // for( let conversation of conversations){
+        //     console.log('in AuthController, delete user')
+        //     let conversationId = (conversation._id).toString();
+        //     await req.storage.deleteConversation(conversationId);
+        // }
 
         console.log('deleted')
         res.status(204).json();

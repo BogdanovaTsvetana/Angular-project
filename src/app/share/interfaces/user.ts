@@ -9,7 +9,6 @@ export interface IUser {
     isNanny: boolean;
     nanny: string | INanny;
     memberSince: string;
-    inbox: string;
     favourites: string[];
     conversations: IConversation[];
 }
@@ -22,7 +21,6 @@ export interface ICurrentUser {
     isNanny: boolean;
     nanny: string | INanny;
     memberSince: string;
-    inbox: string;
     favourites: string[];
     conversations: IConversation[];
     accessToken: string,
