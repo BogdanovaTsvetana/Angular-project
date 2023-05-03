@@ -1,4 +1,4 @@
-# Angular project for Softuni React course
+# Angular project for Softuni Angular course
 
 ## Technologies used
 - MongoDB + Mongoose
