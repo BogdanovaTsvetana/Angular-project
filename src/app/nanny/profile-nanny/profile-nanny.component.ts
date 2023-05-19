@@ -45,7 +45,6 @@ export class ProfileNannyComponent implements OnInit {
     this.nanniesService.getNannyById$(this.nannyId).subscribe({
       next: (nanny) => {
         this.nanny = nanny;
-        console.log(this.nanny)
       },
       error: () => {
         this.router.navigate(['/user/login'])

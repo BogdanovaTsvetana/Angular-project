@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { GuardService } from '../guard.service';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { CreateNannyComponent } from './create-nanny/create-nanny.component';

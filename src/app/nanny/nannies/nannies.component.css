@@ -19,7 +19,6 @@
   flex-shrink: 0;
 }
 
-
 .nannies {
   display: flex;
   flex-wrap: wrap;
@@ -39,7 +38,6 @@
 .nanny__img-wrapper img {
   aspect-ratio: 1 / 1;
   overflow: hidden;
-    /* padding: 10px; */
 }
 
 .nanny__img-wrapper img {

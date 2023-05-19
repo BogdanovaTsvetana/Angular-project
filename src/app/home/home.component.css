@@ -27,8 +27,6 @@
   line-height: 1.5;
   font-size: 43px;
   font-style: italic;
-  /* max-width: 80%;
-  margin: 0 auto; */
 }
 
 .hero-desc__links {
@@ -111,7 +109,6 @@
   align-items: center;
   background-color: white;
 }
-
 
 .how__item__title {
   font-size: 18px;

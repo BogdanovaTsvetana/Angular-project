@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
-
 export interface Message{
   text: string,
   type: string,
@@ -18,7 +17,6 @@ export class MessageBusService {
   constructor() { }
 
   notifyForMessage(message: Message){
-    // console.log(message)
     this._message$.next(message);
   }
 

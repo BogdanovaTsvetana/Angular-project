@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ICurrentUser, IUser } from '../../share/interfaces/user';
+import { IUser } from '../../share/interfaces/user';
 import { AuthService } from '../../auth.service';
 import { MessageBusService } from 'src/app/core/message-bus.service';
-import { INanny } from 'src/app/share/interfaces/nanny';
 
 @Component({
   selector: 'app-profile',
@@ -15,12 +14,11 @@ export class ProfileComponent implements OnInit {
 
   user: IUser = undefined;
   nanny: any;
+  isInEditMode: boolean = false;
  
   get userId() {
     return this.authService.userId;
   }
-
-  isInEditMode: boolean = false;
 
   updateProfileFormGroup: FormGroup = this.formBuilder.group({
     firstName: new FormControl('', [Validators.required]),
@@ -39,16 +37,14 @@ export class ProfileComponent implements OnInit {
       next: (user) => {
         this.user = user;
         this.nanny = user.nanny;
-        console.log(this.user)
       },
       error: () => {
-        this.router.navigate(['/user/login'])
+        this.router.navigate(['/user/login']);
       }
     })
   }
   
   updateProfile() {
-    // console.log(this.updateProfileFormGroup.value);
 
     this.authService.updateProfile$(this.userId, this.updateProfileFormGroup.value).subscribe({
       next: (user) => {

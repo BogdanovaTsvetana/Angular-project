@@ -2,18 +2,18 @@ Project "Sofia Nannies"
 
 * To run server cd server folder and node index.js
 
-The Application allows visitors to browse through the list of childminders.
-After registration they can also register as childminder(nanny).
+The Application allows visitors to browse through the list of nannies.
+After registration they can also register as nanny.
 
 Navigation 
 Guests can see the links to Home, List, Login and Register.
-Logged-in users that are not registered as nanny can see Home, List, Welcome "user", Register as Nanny, Logout.
-Logged-in nannies can see Home, List, Welcome "user", Profile, Logout.
+Logged users that are not registered as nanny can see Home, List, Welcome "user", Register as Nanny, Profile, Inbox, Logout.
+Logged nannies can see Home, List, Welcome "user", Profile, Inbox, Logout.
 
 Home
 Information about the site. Visible without authentication.
 
-List All Childminders
+List All Nannies
 List of all nannies. Visible without authentication.
 Clicking on [read more] button should redirect to login if not registered user.
 
@@ -40,15 +40,27 @@ After successful creation the user should be redirected to List page.
 
 Nanny Details
 Visible with authentication.
+If the logged user is not the displayed nanny, [ Send message ] button and text area are visible (can be used) in Details Page. By clicking on it, the user can send message.
+By clicking on Send button, POST request will be made and the message will be saved.
+Same as Comments and Like button.
 
 Profile
-Profile is visible only for registered nannies.
+Profile is visible only for registered users. By clicking on "Edit" button in Profile Page the user is allowed to fill in a form. Validation is the same as the validation in user-register. PUT request will be send.
+By clicking on "Delete" button in DELETE request will be sent to the back-end and deletes the user. 
 
-Edit Nanny
-By clicking on "Edit" button in Profile Page the nanny is allowed to fill in a form. Validation is the same as the validation in nanny-register. PUT request will be send.
+Nanny Profile
+Nanny Profile is visible only for registered users. By clicking on "Edit" button in Nanny Profile Page the nanny is allowed to fill in a form. Validation is the same as the validation in nanny-register. PUT request will be send.
+By clicking on "Delete" button in DELETE request will be sent to the back-end and deletes the nanny. 
 
-Delete Nanny
-By clicking on "Delete" button in Profile Page DELETE request will be sent to the back-end and deletes the nanny. Then the app redirects to the List.
+Inbox
+By clicking on Inbox button in the menu, all conversations of the registered user will be loaded with information about the other user and if there are new messages.
+By clicking on [All messages] button on specific conversation, a page with all messages from that conversation will be loaded. When the user come back to Inbox, the new messages for that conversation will be zero.
+
+Detaild Conversation Page
+All messages from that conversation will be loaded. 
+By clicking on Send button, POST request will be made and the message will be saved.
+The new message will be seen.
+
 
 Error Page
 

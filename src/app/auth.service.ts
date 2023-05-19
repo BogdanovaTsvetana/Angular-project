@@ -28,7 +28,7 @@ export class AuthService {
   isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
 
   get currentUser() {
-    return this.currentUser$.subscribe()
+    return this.currentUser$.subscribe();
   }
 
   get accessToken() {

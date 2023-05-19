@@ -46,7 +46,6 @@ export class CreateNannyComponent implements OnInit {
 
     this.nanniesService.becomeNanny$(this.createNannyForm.value).subscribe({
       next: (nanny) => {
-        // console.log(nanny);
         this.store.dispatch(becomeNanny());
         this.router.navigate(['/nannies/profilenanny', nanny._id]);
       },
@@ -55,5 +54,4 @@ export class CreateNannyComponent implements OnInit {
       }
     })
   }
-
 }

@@ -38,10 +38,7 @@ export class TimeAgoPipe implements PipeTransform {
       let months = Math.floor(millisecondsDiff / month);
       return months >= 2 ? `${months} months ago` : `${months} month ago`;
     }
-    // if (millisecondsDiff >= year) {
-    //   let years = Math.floor(millisecondsDiff / year);
-    //   return years >= 2 ? `${years} years ago` : `${years} year ago`;
-    // }
+
     let years = Math.floor(millisecondsDiff / year);
     return years >= 2 ? `${years} years ago` : `${years} year ago`;
  

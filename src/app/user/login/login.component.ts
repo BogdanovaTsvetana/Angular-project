@@ -34,14 +34,11 @@ export class LoginComponent implements OnInit{
         this.messageBusService.notifyForMessage({text: `Successfully logged in.`, type: 'success'})
       },
       complete: () => {
-        console.log('login completed')
-        
+        console.log('login completed');
       },
       error: (err) => {
         console.error(err);
       }
     });
-    
   }
-
 }

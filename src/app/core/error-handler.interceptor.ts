@@ -18,15 +18,8 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       this.messageBusService.notifyForMessage({
         text: err?.error?.message || 'Something went wrong!', 
         type: 'error'
-      })
+      });
       return throwError(err)
-    }))
-
-    // intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    //   return next.handle(request).pipe(catchError(err => {
-    //     console.log(err.error.message)
-    //     return throwError(err)
-    //   }))
-
+    }));
   }
 }

@@ -37,7 +37,6 @@ import { FooterComponent } from './footer/footer.component';
       useClass: ErrorHandlerInterceptor,
       multi: true
     }
-   
   ]
 })
 export class CoreModule { }

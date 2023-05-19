@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
@@ -8,7 +7,6 @@ import { ConversationsService } from '../conversations.service';
 import { ICurrentUser } from 'src/app/share/interfaces/user';
 import { IConversation } from 'src/app/share/interfaces/conversation';
 import { IMessage } from 'src/app/share/interfaces/message';
-
 
 @Component({
   selector: 'app-details-conversation',
@@ -19,15 +17,14 @@ export class DetailsConversationComponent implements OnInit {
 
   user: ICurrentUser | undefined;
   userName: string = undefined;
-  routeParamObs: Subscription;    // TODO
+  routeParamObs: Subscription;    
   conversationId: string | undefined;
   otherUserName: string | undefined;
-  // otherUserLastName: string | undefined;
+
   messages: IMessage[] = [];
 
   constructor( 
     private activatedRoute: ActivatedRoute, 
-    private router: Router,
     private conversationService: ConversationsService,
     private authService: AuthService,
     ) { }
@@ -49,13 +46,7 @@ export class DetailsConversationComponent implements OnInit {
               this.otherUserName = conversation.userName2;
             } else {
               this.otherUserName = conversation.userName1;
-            }      
-          
-          // if ( currentConversation.userName1 == this.userName ) {
-          //   conversationView.otherUserName = currentConversation.userName2;
-          // } else if ( currentConversation.userName2 == this.userName ) {
-          //   conversationView.otherUserName = currentConversation.userName2;
-          // }
+            }       
       },
       error: (error) => {
         console.log(error.error.message);
@@ -75,12 +66,10 @@ export class DetailsConversationComponent implements OnInit {
         next: (message) => {
           this.messages = this.messages.concat(message);
           sendMessageForm.reset();
-
         },
         error: (error) => {
           console.error(error.error.message);
         }
     });
   }
-
 }

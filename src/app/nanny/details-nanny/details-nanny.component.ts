@@ -35,7 +35,7 @@ export class DetailsNannyComponent implements OnInit {
       this.activatedRoute.params.pipe(
         mergeMap( params => {
             const nannyId = params['nannyId'];
-            return this.nanniesService.getNannyById$(nannyId)
+            return this.nanniesService.getNannyById$(nannyId);
         })),
       this.authService.currentUser$  
     ]) 
