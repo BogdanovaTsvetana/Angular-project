@@ -1,13 +1,10 @@
-// all is written at first step
+const bcrypt = require('bcrypt');    
+const jwt = require('jsonwebtoken');  
+const { TOKEN_SECRET } = require('../config/index.js');   
 const User = require('../models/User.js');
-const Conversation = require('../models/Conversation.js');
-const Message = require('../models/Message.js');
-const { getConversationById } = require('../services/conversationService.js')
-const bcrypt = require('bcrypt');    // 1
-const jwt = require('jsonwebtoken');                  // 1
-const { TOKEN_SECRET } = require('../config/index.js');  // 1
 
-async function register({firstName, lastName, email, password, memberSince}) {        // 12-06
+               
+async function register({firstName, lastName, email, password, memberSince}) {      
     const existEmail = await User.findOne({ email });
           
         if (existEmail) {
@@ -21,7 +18,7 @@ async function register({firstName, lastName, email, password, memberSince}) {  
     const user = new User({
         firstName,
         lastName,
-        email,                   // TODO
+        email,                   
         hashedPassword,
         memberSince,
     });
@@ -43,24 +40,22 @@ async function register({firstName, lastName, email, password, memberSince}) {  
     } 
 }
 
-function generateToken(user) {    // 1
+function generateToken(user) {    
     
     const token = jwt.sign({
         _id: user._id,          
     }, TOKEN_SECRET); 
     
-    return token
+    return token;
 }
 
 async function login(email, password){
     const pattern = new RegExp(`^${email}$`, 'i')
     const user =  await User.findOne({ email: { $regex: pattern} });
-    console.log(user)
 
     if( !user ) {
-        console.log('no such user')
         const err = new Error('Incorrect username or password!');
-        err.status = 401;  // Unauthorized
+        err.status = 401;  
         throw err;
     }
 
@@ -94,58 +89,30 @@ async function login(email, password){
 }
 
 async function getUserById(id) {
-    const user = await User.findById(id).populate('nanny').populate('conversations').lean();   // TODO
-    console.log('>> in getUserById')
-    // console.log(userData)
+    const user = await User.findById(id).populate('nanny').populate('conversations').lean();   
     return user;
 }
 
-async function editUser(userId, newData) {        // NEW
-    console.log('>> in userService, editUser')
+async function editUser(userId, newData) {       
     const user = await User.findById(userId);
     if(!user) {
         throw new Error('No such user in database!')
     }
 
-    // Object.assign(user, newData);
     await User.findOneAndReplace({ _id: userId}, newData).lean();
     const newUser = await User.findById(userId).lean();
-    console.log('>> 1')
-    console.log(newUser)
     return newUser;
 }
 
-// async function getUserByUsername(username) {
-//     const pattern = new RegExp(`^${username}$`, 'i')
-//     const user =  await User.findOne({ username: { $regex: pattern} }).lean();
-    
-//     if (user && (user.conversations.length > 0) ) {
-//         let conversations = user.conversations;
 
-//         let convPopulated = [];
-//         for(let i = 0; i < conversations.length; i++) {
-//             let conv = await getConversationById(conversations[i]);
-//             convPopulated.push(conv)
-//         }
-
-//     user.conversations = convPopulated;
-//     }
-   
-//     //console.log('in userservice getUserByUsername:')
-//     //console.log(user)
-//     return user;
-   
-// }
-
-
-async function getUserByEmail(email) {               // TODO
+async function getUserByEmail(email) {              
     const pattern = new RegExp(`^${email}$`, 'i')
-    const user =  await User.findOne({ email: { $regex: pattern} });  // find returns array
+    const user =  await User.findOne({ email: { $regex: pattern} });  
     return user;
 }
 
+
 async function deleteUser(id) {
-    console.log('>> in userService, deleteUser')
     return User.findByIdAndDelete(id);  
 }
 
@@ -154,8 +121,7 @@ module.exports = {
     register,
     login,
     editUser,
-    // getUserByUsername,
-    getUserByEmail,          // TODO
+    getUserByEmail,         
     getUserById,
     deleteUser,
 }

@@ -1,10 +1,6 @@
-
-
-function isUser() {             // 2
+function isUser() {             
     return (req, res, next) => {
         if (req.user) {
-            console.log('>> in guards, isUser')
-           console.log(req.user)
             next();
         } else {
             res.redirect('/user/login');
@@ -12,20 +8,17 @@ function isUser() {             // 2
     }
 }
 
-function isGuest() {           // 2
+function isGuest() {         
     return (req, res, next) => {
         if ( !req.user ) {
             next();
         } else {
-            res.redirect('/');          // TODO change route
+            res.redirect('/');          
         }
     }
 }
 
-
-
 module.exports = {
     isUser,
     isGuest,
- 
 }

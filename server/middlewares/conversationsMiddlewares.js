@@ -1,6 +1,6 @@
 const conversationService = require('../services/conversationService.js');
 
-module.exports = () => (req, res, next) => {    //  1
+module.exports = () => (req, res, next) => {    
   
     req.conversations = {
         ...conversationService
