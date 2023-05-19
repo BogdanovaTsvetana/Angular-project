@@ -8,8 +8,8 @@
 - MongoDB + Mongoose
 
 ## Functionality
-Guest users can browse through the list of nannies.
-Logged users extend functionality with options to nanny details, register as nanny, edit and delete nanny's details, profile page, edit and delete profiles, send message, check their messages.
+- Guest users can browse through the list of nannies.
+- Logged users extend functionality with options to nanny details, register as nanny, edit and delete nanny's details, profile page, edit and delete profiles, send message, check their messages.
 
 ## Run
 - To run server cd server folder and node index.js. 
